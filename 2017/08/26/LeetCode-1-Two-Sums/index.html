@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next muse use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="LeetCode,Hash," />
 
 
 
@@ -94,16 +94,18 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="問題給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。 輸入nums = [2, 7, 11, 15] target = 9 輸出[0, 1] 方法 Brute Force Hash Table  第一種方法就是直接使用暴力法，把陣列裡面的元素都加加看，但是時間複雜度會到O(n2)。 123456class Solution(object)">
+<meta name="keywords" content="LeetCode,Hash">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://p61402.github.io/2017/08/25/hello-world/index.html">
+<meta property="og:title" content="LeetCode#1 Two Sums">
+<meta property="og:url" content="https://p61402.github.io/2017/08/26/LeetCode-1-Two-Sums/index.html">
 <meta property="og:site_name" content="QOO&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-08-24T16:57:50.387Z">
+<meta property="og:description" content="問題給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。 輸入nums = [2, 7, 11, 15] target = 9 輸出[0, 1] 方法 Brute Force Hash Table  第一種方法就是直接使用暴力法，把陣列裡面的元素都加加看，但是時間複雜度會到O(n2)。 123456class Solution(object)">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-08-26T12:14:19.444Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="LeetCode#1 Two Sums">
+<meta name="twitter:description" content="問題給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。 輸入nums = [2, 7, 11, 15] target = 9 輸出[0, 1] 方法 Brute Force Hash Table  第一種方法就是直接使用暴力法，把陣列裡面的元素都加加看，但是時間複雜度會到O(n2)。 123456class Solution(object)">
 
 
 
@@ -132,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://p61402.github.io/2017/08/25/hello-world/"/>
+  <link rel="canonical" href="https://p61402.github.io/2017/08/26/LeetCode-1-Two-Sums/"/>
 
 
 
 
 
-  <title>Hello World | QOO's Blog</title>
+  <title>LeetCode#1 Two Sums | QOO's Blog</title>
   
 
 
@@ -156,7 +158,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
   
   
@@ -204,7 +206,17 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
           </a>
         </li>
       
@@ -214,7 +226,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -261,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/08/25/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/08/26/LeetCode-1-Two-Sums/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="QOO">
@@ -278,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode#1 Two Sums</h1>
         
 
         <div class="post-meta">
@@ -288,10 +300,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-25T00:57:50+08:00">
-                2017-08-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T12:10:20+08:00">
+                2017-08-26
               </time>
             
 
@@ -300,6 +312,39 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/code/" itemprop="url" rel="index">
+                    <span itemprop="name">程式解題</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/code/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -328,16 +373,18 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
+        <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>給定一個整數的陣列<code>nums</code>，其中有兩個數的和會等於目標<code>target</code>，回傳他們的位置，且同個位置不能重複選取。</p>
+<h2 id="輸入"><a href="#輸入" class="headerlink" title="輸入"></a>輸入</h2><pre><code>nums = [2, 7, 11, 15]
+target = 9
+</code></pre><h2 id="輸出"><a href="#輸出" class="headerlink" title="輸出"></a>輸出</h2><pre><code>[0, 1]
+</code></pre><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ul>
+<li>Brute Force</li>
+<li>Hash Table</li>
+</ul>
+<p>第一種方法就是直接使用暴力法，把陣列裡面的元素都加加看，但是時間複雜度會到O(n<sup>2</sup>)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</div><div class="line">                <span class="keyword">if</span> nums[i] + nums[j] == target:</div><div class="line">                    <span class="keyword">return</span> [i, j]</div></pre></td></tr></table></figure>
+<p>居然吃了一發TLE，沒想到第一題就玩真的，只好另尋他法了。<br>這時想到<code>python</code>中相當好用的<code>dictionary</code>，第二種方法就是利用雜湊表將讀到的 index 及 value 紀錄下來，即可在讀入一個新的數之後查看這個數的 complement 是否在 table 當中，這樣就可以完美找到一組解啦。<br>因為使用了<code>dictionary</code>，所以查表的時間只要O(1)，最後時間複雜度降到了O(n)，當然也就順利通過了！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></div><div class="line">        dic = &#123;&#125;</div><div class="line">        <span class="keyword">for</span> i, n <span class="keyword">in</span> enumerate(nums):</div><div class="line">            <span class="keyword">if</span> target - n <span class="keyword">in</span> dic:</div><div class="line">                <span class="keyword">return</span> [dic[target - n], i]</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                dic[n] = i</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -351,6 +398,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          
+            <a href="/tags/Hash/" rel="tag"># Hash</a>
+          
+        </div>
       
 
       
@@ -367,8 +422,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/25/My-First-Hexo/" rel="prev" title="My First Hexo">
-                My First Hexo <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/26/LeetCode-2-Hamming-Distance/" rel="prev" title="LeetCode#2 Hamming Distance">
+                LeetCode#2 Hamming Distance <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -423,10 +478,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -446,14 +501,32 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">3</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">posts</span>
               </a>
             </div>
           
 
           
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
           
 
         </nav>
@@ -485,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題"><span class="nav-number">1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸入"><span class="nav-number">2.</span> <span class="nav-text">輸入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸出"><span class="nav-number">3.</span> <span class="nav-text">輸出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">4.</span> <span class="nav-text">方法</span></a></li></ol></div>
             
 
           </div>
@@ -517,7 +590,7 @@
 
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
