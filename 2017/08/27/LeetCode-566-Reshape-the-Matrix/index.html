@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LeetCode,Hash,Python," />
+  <meta name="keywords" content="LeetCode,Python,Matrix," />
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="問題給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。 輸入nums = [2, 7, 11, 15] target = 9 輸出[0, 1] 方法 Brute Force Hash Table  第一種方法就是直接使用暴力法，把陣列裡面的元素都加加看，但是時間複雜度會到O(n2)。 123456class Solution(object)">
-<meta name="keywords" content="LeetCode,Hash,Python">
+<meta name="description" content="問題給定一個二維的矩陣以及正整數 r 與 c ，將此矩陣轉為 r * c 的矩陣。若無法轉換，則輸出原本的矩陣。 輸入nums = [[1,2],         [3,4]] r = 1, c = 4 輸出[[1,2,3,4]] 方法檢查兩個矩陣的行數與列數相乘的結果是否相同，若成立代表這兩個矩陣的元素個數相同，也就是兩個矩陣能夠互相轉換。接著將原本 2D 的矩陣轉成 1D ，這樣在轉換成另一個">
+<meta name="keywords" content="LeetCode,Python,Matrix">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode#1 Two Sums">
-<meta property="og:url" content="https://p61402.github.io/2017/08/26/LeetCode-1-Two-Sums/index.html">
+<meta property="og:title" content="LeetCode#566 Reshape the Matrix">
+<meta property="og:url" content="https://p61402.github.io/2017/08/27/LeetCode-566-Reshape-the-Matrix/index.html">
 <meta property="og:site_name" content="QOO&#39;s Blog">
-<meta property="og:description" content="問題給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。 輸入nums = [2, 7, 11, 15] target = 9 輸出[0, 1] 方法 Brute Force Hash Table  第一種方法就是直接使用暴力法，把陣列裡面的元素都加加看，但是時間複雜度會到O(n2)。 123456class Solution(object)">
+<meta property="og:description" content="問題給定一個二維的矩陣以及正整數 r 與 c ，將此矩陣轉為 r * c 的矩陣。若無法轉換，則輸出原本的矩陣。 輸入nums = [[1,2],         [3,4]] r = 1, c = 4 輸出[[1,2,3,4]] 方法檢查兩個矩陣的行數與列數相乘的結果是否相同，若成立代表這兩個矩陣的元素個數相同，也就是兩個矩陣能夠互相轉換。接著將原本 2D 的矩陣轉成 1D ，這樣在轉換成另一個">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-26T17:04:05.218Z">
+<meta property="og:updated_time" content="2017-08-26T22:06:28.040Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode#1 Two Sums">
-<meta name="twitter:description" content="問題給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。 輸入nums = [2, 7, 11, 15] target = 9 輸出[0, 1] 方法 Brute Force Hash Table  第一種方法就是直接使用暴力法，把陣列裡面的元素都加加看，但是時間複雜度會到O(n2)。 123456class Solution(object)">
+<meta name="twitter:title" content="LeetCode#566 Reshape the Matrix">
+<meta name="twitter:description" content="問題給定一個二維的矩陣以及正整數 r 與 c ，將此矩陣轉為 r * c 的矩陣。若無法轉換，則輸出原本的矩陣。 輸入nums = [[1,2],         [3,4]] r = 1, c = 4 輸出[[1,2,3,4]] 方法檢查兩個矩陣的行數與列數相乘的結果是否相同，若成立代表這兩個矩陣的元素個數相同，也就是兩個矩陣能夠互相轉換。接著將原本 2D 的矩陣轉成 1D ，這樣在轉換成另一個">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://p61402.github.io/2017/08/26/LeetCode-1-Two-Sums/"/>
+  <link rel="canonical" href="https://p61402.github.io/2017/08/27/LeetCode-566-Reshape-the-Matrix/"/>
 
 
 
 
 
-  <title>LeetCode#1 Two Sums | QOO's Blog</title>
+  <title>LeetCode#566 Reshape the Matrix | QOO's Blog</title>
   
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/08/26/LeetCode-1-Two-Sums/">
+    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/08/27/LeetCode-566-Reshape-the-Matrix/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="QOO">
@@ -324,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode#1 Two Sums</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode#566 Reshape the Matrix</h1>
         
 
         <div class="post-meta">
@@ -336,8 +336,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T12:10:20+08:00">
-                2017-08-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-27T05:50:29+08:00">
+                2017-08-27
               </time>
             
 
@@ -407,18 +407,14 @@
       
 
       
-        <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>給定一個整數的陣列<code>nums</code>，其中有兩個數的和會等於目標<code>target</code>，回傳他們的位置，且同個位置不能重複選取。</p>
-<h2 id="輸入"><a href="#輸入" class="headerlink" title="輸入"></a>輸入</h2><pre><code>nums = [2, 7, 11, 15]
-target = 9
-</code></pre><h2 id="輸出"><a href="#輸出" class="headerlink" title="輸出"></a>輸出</h2><pre><code>[0, 1]
-</code></pre><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ul>
-<li>Brute Force</li>
-<li>Hash Table</li>
-</ul>
-<p>第一種方法就是直接使用暴力法，把陣列裡面的元素都加加看，但是時間複雜度會到O(n<sup>2</sup>)。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</div><div class="line">                <span class="keyword">if</span> nums[i] + nums[j] == target:</div><div class="line">                    <span class="keyword">return</span> [i, j]</div></pre></td></tr></table></figure>
-<p>居然吃了一發TLE，沒想到第一題就玩真的，只好另尋他法了。<br>這時想到<code>python</code>中相當好用的<code>dictionary</code>，第二種方法就是利用雜湊表將讀到的 index 及 value 紀錄下來，即可在讀入一個新的數之後查看這個數的 complement 是否在 table 當中，這樣就可以完美找到一組解啦。<br>因為使用了<code>dictionary</code>，所以查表的時間只要O(1)，最後時間複雜度降到了O(n)，當然也就順利通過了！</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></div><div class="line">        dic = &#123;&#125;</div><div class="line">        <span class="keyword">for</span> i, n <span class="keyword">in</span> enumerate(nums):</div><div class="line">            <span class="keyword">if</span> target - n <span class="keyword">in</span> dic:</div><div class="line">                <span class="keyword">return</span> [dic[target - n], i]</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                dic[n] = i</div></pre></td></tr></table></figure>
+        <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>給定一個二維的矩陣以及正整數 r 與 c ，將此矩陣轉為 r * c 的矩陣。<br>若無法轉換，則輸出原本的矩陣。</p>
+<h2 id="輸入"><a href="#輸入" class="headerlink" title="輸入"></a>輸入</h2><pre><code>nums = [[1,2],
+        [3,4]]
+r = 1, c = 4
+</code></pre><h2 id="輸出"><a href="#輸出" class="headerlink" title="輸出"></a>輸出</h2><pre><code>[[1,2,3,4]]
+</code></pre><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>檢查兩個矩陣的行數與列數相乘的結果是否相同，若成立代表這兩個矩陣的元素個數相同，也就是兩個矩陣能夠互相轉換。<br>接著將原本 2D 的矩陣轉成 1D ，這樣在轉換成另一個大小的矩陣時會比較方便，只要依序取出即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">matrixReshape</span><span class="params">(self, nums, r, c)</span>:</span></div><div class="line">        row = len(nums)</div><div class="line">        col = len(nums[<span class="number">0</span>])</div><div class="line">        <span class="keyword">if</span> row * col == r * c:</div><div class="line">            one_d_array = [nums[i][j] <span class="keyword">for</span> i <span class="keyword">in</span> range(row) <span class="keyword">for</span> j <span class="keyword">in</span> range(col)]</div><div class="line">            ans = [[<span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> range(c)] <span class="keyword">for</span> i <span class="keyword">in</span> range(r)]</div><div class="line">            count_element = <span class="number">0</span></div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(r):</div><div class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(c):</div><div class="line">                    ans[i][j] = one_d_array[count_element]</div><div class="line">                    count_element += <span class="number">1</span></div><div class="line">            <span class="keyword">return</span> ans</div><div class="line">        <span class="keyword">return</span> nums</div></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -437,9 +433,9 @@ target = 9
           
             <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
           
-            <a href="/tags/Hash/" rel="tag"># Hash</a>
-          
             <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Matrix/" rel="tag"># Matrix</a>
           
         </div>
       
@@ -452,15 +448,15 @@ target = 9
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/08/26/LeetCode-561-Array-Partition-I/" rel="next" title="LeetCode#561 Array Partition I">
+                <i class="fa fa-chevron-left"></i> LeetCode#561 Array Partition I
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/26/LeetCode-461-Hamming-Distance/" rel="prev" title="LeetCode#461 Hamming Distance">
-                LeetCode#461 Hamming Distance <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

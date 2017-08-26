@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[LeetCode#566 Reshape the Matrix]]></title>
+    <url>%2F2017%2F08%2F27%2FLeetCode-566-Reshape-the-Matrix%2F</url>
+    <content type="text"><![CDATA[問題給定一個二維的矩陣以及正整數 r 與 c ，將此矩陣轉為 r * c 的矩陣。若無法轉換，則輸出原本的矩陣。 輸入nums = [[1,2], [3,4]] r = 1, c = 4 輸出[[1,2,3,4]] 方法檢查兩個矩陣的行數與列數相乘的結果是否相同，若成立代表這兩個矩陣的元素個數相同，也就是兩個矩陣能夠互相轉換。接著將原本 2D 的矩陣轉成 1D ，這樣在轉換成另一個大小的矩陣時會比較方便，只要依序取出即可。 1234567891011121314class Solution(object): def matrixReshape(self, nums, r, c): row = len(nums) col = len(nums[0]) if row * col == r * c: one_d_array = [nums[i][j] for i in range(row) for j in range(col)] ans = [[0 for j in range(c)] for i in range(r)] count_element = 0 for i in range(r): for j in range(c): ans[i][j] = one_d_array[count_element] count_element += 1 return ans return nums]]></content>
+      <categories>
+        <category>程式解題</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Python</tag>
+        <tag>Matrix</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode#561 Array Partition I]]></title>
+    <url>%2F2017%2F08%2F26%2FLeetCode-561-Array-Partition-I%2F</url>
+    <content type="text"><![CDATA[問題給一個長度為 2n 的整數陣列，將陣列的值兩兩配對，使得所有 min(ai, bi) 的和愈大愈好 (0 &lt;= i &lt;= n) 。 輸入[1,4,3,2] 輸出4 方法這題直覺就是先將陣列排序之後再取奇數項相加就好。 sort: [1,2,3,4] min(1, 2) + min(3, 4) = 4 1234567class Solution(object): def arrayPairSum(self, nums): summation = 0 for i, v in enumerate(sorted(nums)): if i % 2 == 0: summation += v return summation 在底下討論版找到了一行解決的 code ，完全體現 python 簡約的風格，太神啦! 123class Solution(object): def arrayPairSum(self, nums): return sum(sorted(nums)[::2])]]></content>
+      <categories>
+        <category>程式解題</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Python</tag>
+        <tag>Sorting</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode#461 Hamming Distance]]></title>
+    <url>%2F2017%2F08%2F26%2FLeetCode-461-Hamming-Distance%2F</url>
+    <content type="text"><![CDATA[問題給兩個整數x與y，計算兩者的 Hamming Distance 。 輸入x = 1, y = 4 輸出2 方法所謂的 Hamming Distance 就是兩個string中有幾個相異的位元個數，舉個例子： 1 = (0 0 0 1) 4 = (0 1 0 0) ↑ ↑ 1 跟 4 有兩個相異的位元個數，因此 1 跟 4 的 Hamming Distance 為 2 。我們可以很直覺的想到可以用 exclusive or 簡單的計算出來，也就是兩個 bit 相同時輸出 0 ，兩個 bit 相異時輸出 1 ，最後再計算總共有幾位數為 1 即可。123class Solution(object): def hammingDistance(self, x, y): return bin(x^y).count("1")]]></content>
+      <categories>
+        <category>程式解題</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Python</tag>
+        <tag>Hamming Distance</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode#1 Two Sums]]></title>
+    <url>%2F2017%2F08%2F26%2FLeetCode-1-Two-Sums%2F</url>
+    <content type="text"><![CDATA[問題給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。 輸入nums = [2, 7, 11, 15] target = 9 輸出[0, 1] 方法 Brute Force Hash Table 第一種方法就是直接使用暴力法，把陣列裡面的元素都加加看，但是時間複雜度會到O(n2)。 123456class Solution(object): def twoSum(self, nums, target): for i in range(len(nums)): for j in range(i + 1, len(nums)): if nums[i] + nums[j] == target: return [i, j] 居然吃了一發TLE，沒想到第一題就玩真的，只好另尋他法了。這時想到python中相當好用的dictionary，第二種方法就是利用雜湊表將讀到的 index 及 value 紀錄下來，即可在讀入一個新的數之後查看這個數的 complement 是否在 table 當中，這樣就可以完美找到一組解啦。因為使用了dictionary，所以查表的時間只要O(1)，最後時間複雜度降到了O(n)，當然也就順利通過了！ 12345678class Solution(object): def twoSum(self, nums, target): dic = &#123;&#125; for i, n in enumerate(nums): if target - n in dic: return [dic[target - n], i] else: dic[n] = i]]></content>
+      <categories>
+        <category>程式解題</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Hash</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+</search>
