@@ -304,6 +304,207 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/08/28/挑戰LeetCode-Weekly-Contest-47/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="QOO">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QOO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/28/挑戰LeetCode-Weekly-Contest-47/" itemprop="url">挑戰LeetCode Weekly Contest 47</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-28T08:13:51+08:00">
+                2017-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/code/" itemprop="url" rel="index">
+                    <span itemprop="name">程式解題</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/code/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>這次心血來潮報名了 LeetCode 每周都會舉辦的比賽，規則是在1.5小時之內要解出4題，這對我來說是一大挑戰啊！因為以往參加的比賽，時間都是3小時左右，這麼短的時間內要解出4題真的不容易，不過既然都報名了就全力以赴吧！</p>
+<hr>
+<h2 id="第1題-665-Non-decreasing-Array"><a href="#第1題-665-Non-decreasing-Array" class="headerlink" title="第1題 665. Non-decreasing Array"></a>第1題 665. Non-decreasing Array</h2><h3 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h3><p>給定一個長度為 n 的整數陣列，問是否能在最多更改 1 個數的情況下，將陣列變成 non-decreasing array，也就是遞增的陣列。</p>
+<h3 id="輸入"><a href="#輸入" class="headerlink" title="輸入"></a>輸入</h3><pre><code>[4, 2, 3]
+</code></pre><h3 id="輸出"><a href="#輸出" class="headerlink" title="輸出"></a>輸出</h3><pre><code>True
+</code></pre><h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>我的策略是分別從頭尾出發走一次，若遇到下一個數 p<sub>j</sub> 小於/大於目前這個數 p<sub>i</sub> 的話，就將下一個數的值改為目前這個數，使得目前為止的元素為遞增的狀態，此時修改的次數就會增加一次。若分別從頭尾走，修改的次數都大於一次的話，代表無法符合題目的條件，回傳<code>False</code>，反之回傳<code>True</code>。<br>那為什麼要分別從頭尾走一次呢？ 以範例的輸入當例子，若只從正方向走， (4, 2) 不符合遞增，將 2 改成 4，陣列變成 <code>[4, 4, 3]</code>，接著遇到 (4, 3) 又不符合遞增，因此只修改一個值並不能使原本的陣列變成遞增數列。<br>但是錯啦！其實只要把第一個數 4 改成 1 或 2 就可以了，想到從反方向走的話好像可以達到這個效果，所以必須要檢查兩個方向才能確保沒有漏網之魚。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">checkPossibility</span><span class="params">(self, nums)</span>:</span></div><div class="line">        n = list(nums)</div><div class="line">        edit_time_1 = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums) - <span class="number">1</span>):</div><div class="line">            <span class="keyword">if</span> nums[i] &gt; nums[i + <span class="number">1</span>]:</div><div class="line">                nums[i + <span class="number">1</span>] = nums[i]</div><div class="line">                edit_time_1 += <span class="number">1</span></div><div class="line"></div><div class="line">        nums = n</div><div class="line">        edit_time_2 = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums) - <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>):</div><div class="line">            <span class="keyword">if</span> nums[i] &lt; nums[i - <span class="number">1</span>]:</div><div class="line">                nums[i - <span class="number">1</span>] = nums[i]</div><div class="line">                edit_time_2 += <span class="number">1</span></div><div class="line">        </div><div class="line">        <span class="keyword">if</span> edit_time_1 &lt;= <span class="number">1</span> <span class="keyword">or</span> edit_time_2 &lt;= <span class="number">1</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div></pre></td></tr></table></figure>
+<hr>
+<h2 id="第2題-666-Path-Sum-IV"><a href="#第2題-666-Path-Sum-IV" class="headerlink" title="第2題 666. Path Sum IV"></a>第2題 666. Path Sum IV</h2><h3 id="問題-1"><a href="#問題-1" class="headerlink" title="問題"></a>問題</h3><p>輸入為一個 Depth &lt; 5 的 tree，每個 node 可用三位數來表示。  </p>
+<ul>
+<li>百位數<code>D</code>代表這個 node 所在的深度，1 &lt;= D &lt;= 4 。</li>
+<li>十位數<code>P</code>代表這個 node 在這個深度的第幾個位置, 1 &lt;= P &lt;= 8 。</li>
+<li>個位數<code>V</code>代表這個 node 的值, 0 &lt;= V &lt;= 9 。</li>
+</ul>
+<p>找出所有從 root 到 leaf 的路徑和，也就是把路徑上的值相加。</p>
+<h3 id="輸入-1"><a href="#輸入-1" class="headerlink" title="輸入"></a>輸入</h3><pre><code>[113, 215, 221]
+</code></pre><h3 id="輸出-1"><a href="#輸出-1" class="headerlink" title="輸出"></a>輸出</h3><pre><code>12
+</code></pre><h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><p>以下是範例輸入的解釋：</p>
+<pre><code>The tree that the list represents is:
+    3
+   / \
+  5   1
+
+The path sum is (3 + 5) + (3 + 1) = 12.
+</code></pre><p>先將輸入的點分別對應 1 ~ 15 的值(也就是用陣列表示 tree, 但這裡直接用<code>dictionary</code>比較方便)，接著找出所有的 leaf ，再將每個 leaf 到 root 的路徑上所經過的點全部加起來即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pathSum</span><span class="params">(self, nums)</span>:</span></div><div class="line">        order = [<span class="string">'00'</span>, <span class="string">'11'</span>, <span class="string">'21'</span>, <span class="string">'22'</span>, <span class="string">'31'</span>, <span class="string">'32'</span>, <span class="string">'33'</span>, <span class="string">'34'</span>, <span class="string">'41'</span>, <span class="string">'42'</span>, <span class="string">'43'</span>, <span class="string">'44'</span>, <span class="string">'45'</span>, <span class="string">'46'</span>, <span class="string">'47'</span>, <span class="string">'48'</span>]</div><div class="line">        tree = dict([(order.index(str(n)[:<span class="number">2</span>]), n % <span class="number">10</span>) <span class="keyword">for</span> n <span class="keyword">in</span> nums])</div><div class="line">        summation = <span class="number">0</span></div><div class="line">        leaves = [n <span class="keyword">for</span> n <span class="keyword">in</span> tree.keys() <span class="keyword">if</span> <span class="keyword">not</span> (<span class="number">2</span> * n <span class="keyword">in</span> tree <span class="keyword">or</span> <span class="number">2</span> * n + <span class="number">1</span> <span class="keyword">in</span> tree)]</div><div class="line">        <span class="keyword">for</span> leaf <span class="keyword">in</span> leaves:</div><div class="line">            <span class="keyword">while</span> leaf &gt;= <span class="number">1</span>:</div><div class="line">                summation += tree[leaf]</div><div class="line">                leaf = int(leaf / <span class="number">2</span>)</div><div class="line">        <span class="keyword">return</span> summation</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="第3題-667-Beautiful-Arrangement-II"><a href="#第3題-667-Beautiful-Arrangement-II" class="headerlink" title="第3題 667. Beautiful Arrangement II"></a>第3題 667. Beautiful Arrangement II</h2><h3 id="問題-2"><a href="#問題-2" class="headerlink" title="問題"></a>問題</h3><p>輸入整數<code>n</code>與<code>k</code>，找到一個由 1 ~ n 組成的陣列[a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>n</sub>]，陣列元素不得重複，<br>使得 [|a<sub>1</sub>-a<sub>2</sub>|, |a<sub>2</sub>-a<sub>3</sub>|, ..., |a<sub>n-1</sub>-a<sub>n</sub>|] 剛好由 k 種不同的數組成。</p>
+<h3 id="輸入-2"><a href="#輸入-2" class="headerlink" title="輸入"></a>輸入</h3><pre><code>n = 3, k = 1
+</code></pre><h3 id="輸出-2"><a href="#輸出-2" class="headerlink" title="輸出"></a>輸出</h3><pre><code>[1, 2, 3]
+</code></pre><h3 id="方法-2"><a href="#方法-2" class="headerlink" title="方法"></a>方法</h3><p>這題推導了很久，想到了一個方法，[1, 2, ..., n] 的差有 k 種值，1 &lt;= k &lt;= n - 1，只要建立一個規則產生所有的差，接著再想辦法湊出這個數列，舉例：</p>
+<pre><code>output: 5 1 4 3 2
+diff:    4 3 1 1
+</code></pre><p>假設要使得<code>[1, 2, 3, 4, 5]</code>鄰近的差只有三種，那就先將兩種差設為 n-1 與 n-2，也就是 4 跟 3，剩下的差都填 1 代表第三種差。至於要產生的陣列，先填入最大的數 5，接著根據每個差依序湊出陣列接下來的值，最後就會得到滿足條件的陣列了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">constructArray</span><span class="params">(self, n, k)</span>:</span></div><div class="line">        diff = []</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(k - <span class="number">1</span>):</div><div class="line">            diff.append(n - i - <span class="number">1</span>)</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n - k):</div><div class="line">            diff.append(<span class="number">1</span>)</div><div class="line">        nums = [n]</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n - <span class="number">1</span>):</div><div class="line">            new_value = abs(nums[i] + diff[i])</div><div class="line">            <span class="keyword">if</span> new_value &gt; n <span class="keyword">or</span> new_value <span class="keyword">in</span> nums:</div><div class="line">                new_value = abs(nums[i] - diff[i])</div><div class="line">            nums.append(new_value)</div><div class="line">        <span class="keyword">return</span> nums</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="第4題-668-Kth-Smallest-Number-in-Multiplication-Table"><a href="#第4題-668-Kth-Smallest-Number-in-Multiplication-Table" class="headerlink" title="第4題 668. Kth Smallest Number in Multiplication Table"></a>第4題 668. Kth Smallest Number in Multiplication Table</h2><h3 id="問題-3"><a href="#問題-3" class="headerlink" title="問題"></a>問題</h3><p>找出在一個 m * n 的乘法表中，第 k 小的數字。</p>
+<h3 id="輸入-3"><a href="#輸入-3" class="headerlink" title="輸入"></a>輸入</h3><pre><code>m = 3, n = 3, k = 5
+</code></pre><h3 id="輸出-3"><a href="#輸出-3" class="headerlink" title="輸出"></a>輸出</h3><pre><code>3
+</code></pre><h3 id="方法-3"><a href="#方法-3" class="headerlink" title="方法"></a>方法</h3><p>以 3 * 3 的乘法表舉例：</p>
+<pre><code>The Multiplication Table:
+1    2    3
+2    4    6
+3    6    9
+
+The 5-th smallest number is 3 (1, 2, 2, 3, 3).
+</code></pre><p>這題我試了很多方法，不管怎麼樣總是不夠周延，最後看了別人的解法，使用 binary search ，實在太厲害了完全想不到。<br>看懂了之後寫了個 python 的版本，方法簡單來說就是利用二分搜尋法，找出中間值 mid ，接著計算每一列小於等於 mid 的個數的和，若總數小於 k ，代表值太小了還要再多一點；若總數大於 k ，代表值太大了要小一點，迴圈重複直到 low &lt; high 的時候代表找到了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findKthNumber</span><span class="params">(self, m, n, k)</span>:</span></div><div class="line">        low, high = <span class="number">1</span>,  m * n + <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> low &lt; high:</div><div class="line">            mid = (low + high) // <span class="number">2</span></div><div class="line">            c = self.count_less_than_middle(mid, m, n)</div><div class="line">            <span class="keyword">if</span> c &gt;= k:</div><div class="line">                high = mid</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                low = mid + <span class="number">1</span></div><div class="line">        <span class="keyword">return</span> high</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">count_less_than_middle</span><span class="params">(self, middle, m, n)</span>:</span></div><div class="line">        num = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, m + <span class="number">1</span>):</div><div class="line">            num  += min(middle // i, n)</div><div class="line">        <span class="keyword">return</span> num</div></pre></td></tr></table></figure>
+<h2 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h2><p>最後在時間內只有解出一題，排名只有 1157 / 2554，剩下的都是比賽結束後才想出來QQ，太慘烈了。看來在下做的題目還不夠多，看到題目沒辦法馬上有 sense 要用什麼方式解，只好先來閉關修煉一下了QQ 。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/08/27/LeetCode-566-Reshape-the-Matrix/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -979,7 +1180,7 @@ target = 9
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1001,7 +1202,7 @@ target = 9
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
