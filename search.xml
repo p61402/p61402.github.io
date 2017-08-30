@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode#78 Subsets]]></title>
+    <url>%2F2017%2F08%2F31%2FLeetCode-78-Subsets%2F</url>
+    <content type="text"><![CDATA[問題給一串元素相異的數列，求由此數列之元素所組成的所有子集合。 輸入[1,2,3] 輸出[ [3], [1], [2], [1,2,3], [1,3], [2,3], [1,2], [] ] 方法每個元素可以出現或是不出現，每一種組合方法都是一個子集合，所以時間複雜度是O(2n) 。利用Backtracking遞迴枚舉所有可能。 1234567891011121314class Solution(object): def subsets(self, nums): self.length = len(nums) self.ans = [] self.backtrack(nums, []) return(self.ans) def backtrack(self, nums, n): if len(n) == self.length: a = [nums[i] for i, v in enumerate(n) if v] self.ans.append(a) else: self.backtrack(nums, n + [True]) self.backtrack(nums, n + [False]) 其他解法以及類似問題請看這裡。]]></content>
+      <categories>
+        <category>程式解題</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Python</tag>
+        <tag>Backtracking</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode#442 Find All Duplicates in an Array]]></title>
+    <url>%2F2017%2F08%2F30%2FLeetCode-442-Find-All-Duplicates-in-an-Array%2F</url>
+    <content type="text"><![CDATA[問題給一個長度為 n 的整數陣列，裡面的元素由 1~n 所組成，每個數字出現 0~2 次，找出所有出現 2 次的數字。(不使用額外空間且時間複雜度必須為O(n)) 輸入[4, 3, 2, 7, 8, 2, 3, 1] 輸出[2, 3] 方法負號標記法將陣列nums的值遍歷一次，將每個出現過的值當作index，將對應到的num[index]的值乘上-1，若對應到的值已經為負數的話，代表已經出現過 1 次，目前是第 2 次，這樣就能找出所有出現過 2 次的元素了。 123456789class Solution(object): def findDuplicates(self, nums): ans = [] for i in nums: if nums[abs(i) - 1] &lt; 0: ans.append(abs(i)) else: nums[abs(i) - 1] *= -1 return ans #448 Find All Numbers Disappeared in an Array，也可以用同樣的方法來解。]]></content>
+      <categories>
+        <category>程式解題</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Python</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[挑戰LeetCode Weekly Contest 47]]></title>
     <url>%2F2017%2F08%2F28%2F%E6%8C%91%E6%88%B0LeetCode-Weekly-Contest-47%2F</url>
     <content type="text"><![CDATA[前言這次心血來潮報名了 LeetCode 每周都會舉辦的比賽，規則是在1.5小時之內要解出4題，這對我來說是一大挑戰啊！因為以往參加的比賽，時間都是3小時左右，這麼短的時間內要解出4題真的不容易，不過既然都報名了就全力以赴吧！ 第1題 665. Non-decreasing Array問題給定一個長度為 n 的整數陣列，問是否能在最多更改 1 個數的情況下，將陣列變成 non-decreasing array，也就是遞增的陣列。 輸入[4, 2, 3] 輸出True 方法我的策略是分別從頭尾出發走一次，若遇到下一個數 pj 小於/大於目前這個數 pi 的話，就將下一個數的值改為目前這個數，使得目前為止的元素為遞增的狀態，此時修改的次數就會增加一次。若分別從頭尾走，修改的次數都大於一次的話，代表無法符合題目的條件，回傳False，反之回傳True。那為什麼要分別從頭尾走一次呢？ 以範例的輸入當例子，若只從正方向走， (4, 2) 不符合遞增，將 2 改成 4，陣列變成 [4, 4, 3]，接著遇到 (4, 3) 又不符合遞增，因此只修改一個值並不能使原本的陣列變成遞增數列。但是錯啦！其實只要把第一個數 4 改成 1 或 2 就可以了，想到從反方向走的話好像可以達到這個效果，所以必須要檢查兩個方向才能確保沒有漏網之魚。 1234567891011121314151617181920class Solution: def checkPossibility(self, nums): n = list(nums) edit_time_1 = 0 for i in range(len(nums) - 1): if nums[i] &gt; nums[i + 1]: nums[i + 1] = nums[i] edit_time_1 += 1 nums = n edit_time_2 = 0 for i in range(len(nums) - 1, 0, -1): if nums[i] &lt; nums[i - 1]: nums[i - 1] = nums[i] edit_time_2 += 1 if edit_time_1 &lt;= 1 or edit_time_2 &lt;= 1: return True else: return False 第2題 666. Path Sum IV問題輸入為一個 Depth &lt; 5 的 tree，每個 node 可用三位數來表示。 百位數D代表這個 node 所在的深度，1 &lt;= D &lt;= 4 。 十位數P代表這個 node 在這個深度的第幾個位置, 1 &lt;= P &lt;= 8 。 個位數V代表這個 node 的值, 0 &lt;= V &lt;= 9 。 找出所有從 root 到 leaf 的路徑和，也就是把路徑上的值相加。 輸入[113, 215, 221] 輸出12 方法以下是範例輸入的解釋： The tree that the list represents is: 3 / \ 5 1 The path sum is (3 + 5) + (3 + 1) = 12. 先將輸入的點分別對應 1 ~ 15 的值(也就是用陣列表示 tree, 但這裡直接用dictionary比較方便)，接著找出所有的 leaf ，再將每個 leaf 到 root 的路徑上所經過的點全部加起來即可。 1234567891011class Solution: def pathSum(self, nums): order = ['00', '11', '21', '22', '31', '32', '33', '34', '41', '42', '43', '44', '45', '46', '47', '48'] tree = dict([(order.index(str(n)[:2]), n % 10) for n in nums]) summation = 0 leaves = [n for n in tree.keys() if not (2 * n in tree or 2 * n + 1 in tree)] for leaf in leaves: while leaf &gt;= 1: summation += tree[leaf] leaf = int(leaf / 2) return summation 第3題 667. Beautiful Arrangement II問題輸入整數n與k，找到一個由 1 ~ n 組成的陣列[a1, a2, ..., an]，陣列元素不得重複，使得 [|a1-a2|, |a2-a3|, ..., |an-1-an|] 剛好由 k 種不同的數組成。 輸入n = 3, k = 1 輸出[1, 2, 3] 方法這題推導了很久，想到了一個方法，[1, 2, ..., n] 的差有 k 種值，1 &lt;= k &lt;= n - 1，只要建立一個規則產生所有的差，接著再想辦法湊出這個數列，舉例： output: 5 1 4 3 2 diff: 4 3 1 1 假設要使得[1, 2, 3, 4, 5]鄰近的差只有三種，那就先將兩種差設為 n-1 與 n-2，也就是 4 跟 3，剩下的差都填 1 代表第三種差。至於要產生的陣列，先填入最大的數 5，接著根據每個差依序湊出陣列接下來的值，最後就會得到滿足條件的陣列了。 1234567891011121314class Solution: def constructArray(self, n, k): diff = [] for i in range(k - 1): diff.append(n - i - 1) for i in range(n - k): diff.append(1) nums = [n] for i in range(n - 1): new_value = abs(nums[i] + diff[i]) if new_value &gt; n or new_value in nums: new_value = abs(nums[i] - diff[i]) nums.append(new_value) return nums 第4題 668. Kth Smallest Number in Multiplication Table問題找出在一個 m * n 的乘法表中，第 k 小的數字。 輸入m = 3, n = 3, k = 5 輸出3 方法以 3 * 3 的乘法表舉例： The Multiplication Table: 1 2 3 2 4 6 3 6 9 The 5-th smallest number is 3 (1, 2, 2, 3, 3). 這題我試了很多方法，不管怎麼樣總是不夠周延，最後看了別人的解法，使用 binary search ，實在太厲害了完全想不到。看懂了之後寫了個 python 的版本，方法簡單來說就是利用二分搜尋法，找出中間值 mid ，接著計算每一列小於等於 mid 的個數的和，若總數小於 k ，代表值太小了還要再多一點；若總數大於 k ，代表值太大了要小一點，迴圈重複直到 low &lt; high 的時候代表找到了。 1234567891011121314151617class Solution: def findKthNumber(self, m, n, k): low, high = 1, m * n + 1 while low &lt; high: mid = (low + high) // 2 c = self.count_less_than_middle(mid, m, n) if c &gt;= k: high = mid else: low = mid + 1 return high def count_less_than_middle(self, middle, m, n): num = 0 for i in range(1, m + 1): num += min(middle // i, n) return num 結果最後在時間內只有解出一題，排名只有 1157 / 2554，剩下的都是比賽結束後才想出來QQ，太慘烈了。看來在下做的題目還不夠多，看到題目沒辦法馬上有 sense 要用什麼方式解，只好先來閉關修煉一下了QQ 。]]></content>
