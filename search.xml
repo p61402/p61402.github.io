@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[連結串列(Linked List)]]></title>
+    <url>%2F2017%2F09%2F02%2F%E9%80%A3%E7%B5%90%E4%B8%B2%E5%88%97-Linked-List%2F</url>
+    <content type="text"><![CDATA[連結串列一般指的是單向連結串列(Single Linked List)，由node所組成，每個node都具有兩種屬性，分別是「資料」以及「指標」。資料是儲存目前這個節點的值，指標是指向下一個節點的連結，至於最後一個結點則會指向null。 連結串列比起一般的陣列，優點是能夠隨著需求動態配置記憶體，插入或移除元素時也相對方便；缺點是取出元素時無法直接指定位置，需要遍歷整個串列。 以下用python來實作Linked List。 首先我們要實作node，宣告一個class名稱ListNode，每個node都需要兩個元素，資料value與指向下一個node的指標next。 1234class ListNode(object): def __init__(self, value=None, next=None): self.val = value self.next = next 我們還要宣告一個名為LinkedList的類別，用來紀錄串列的起始位置。 123class LinkedList(object): def __init__(self, head=None): self.head = head 接著在LinkedList實作下面的方法： print_nodes() at(index) append(value) insert(index, value) removePos(index) remove(value, all=False) indexOf(value) clear() isEmpty() size() 首先是print_nodes方法，走訪所有的節點並印出每個結點的資料。 12345678def print_nodes(self): if not self.head: print(self.head) node = self.head while node: end = " -&gt; " if node.next else "\n" print(node.val, end=end) node = node.next 接著是at方法，回傳index位置的value。 12345678def at(self, index): count = 0 node = self.head while node: if count == index: return node.val count += 1 node = node.next 第三個是append，將值為value的節點接在陣列的最尾端。 12345678def append(self, value): if not self.head: self.head = ListNode(value) return node = self.head while node.next: node = node.next node.next = ListNode(value) 第四個是insert，將value插入index的位置。 123456789101112131415161718def insert(self, index, value): if index &gt;= self.size(): self.append(value) return count = 0 node = self.head previous = None while node: if count == index: if previous: new_node = ListNode(value, previous.next) previous.next = new_node else: self.head = ListNode(value, node) return count += 1 previous = node node = node.next 第五個與第六個是removePos以及remove，分別是移除位置為index的節點，以及移除值為value的節點。 12345678910111213141516def removePos(self, index): count = 0 node = self.head previous = None while node: if count == index: if previous: previous.next = node.next node = node.next else: self.head = node.next node = self.head return else: previous = node node = node.next 12345678910111213141516def remove(self, val, all=False): node = self.head previous = None while node: if node.val == val: if previous: previous.next = node.next node = node.next else: self.head = node.next node = self.head if not all: return else: previous = node node = node.next 第七個是indexOf，回傳第一個出現的value在串列中的的位置。 12345678def indexOf(self, value): node = self.head count = 0 while node: if node.val == value: return count count += 1 node = node.next 最後三個是clear, isEmpty, 以及size。 12def clear(self): self.head = None 12def isEmpty(self): return self.head is None 1234567def size(self): count = 0 node = self.head while node: count += 1 node = node.next return count]]></content>
+      <categories>
+        <category>學校課程</category>
+        <category>資料結構</category>
+      </categories>
+      <tags>
+        <tag>Linked List</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode#78 Subsets]]></title>
     <url>%2F2017%2F08%2F31%2FLeetCode-78-Subsets%2F</url>
     <content type="text"><![CDATA[問題給一串元素相異的數列，求由此數列之元素所組成的所有子集合。 輸入[1,2,3] 輸出[ [3], [1], [2], [1,2,3], [1,3], [2,3], [1,2], [] ] 方法每個元素可以出現或是不出現，每一種組合方法都是一個子集合，所以時間複雜度是O(2n) 。利用Backtracking遞迴枚舉所有可能。 1234567891011121314class Solution(object): def subsets(self, nums): self.length = len(nums) self.ans = [] self.backtrack(nums, []) return(self.ans) def backtrack(self, nums, n): if len(n) == self.length: a = [nums[i] for i, v in enumerate(n) if v] self.ans.append(a) else: self.backtrack(nums, n + [True]) self.backtrack(nums, n + [False]) 其他解法以及類似問題請看這裡。]]></content>
