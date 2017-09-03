@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="問題給一個長度為 n 的整數陣列，裡面的元素由 1~n 所組成，每個數字出現 0~2 次，找出所有出現 2 次的數字。(不使用額外空間且時間複雜度必須為O(n)) 輸入[4, 3, 2, 7, 8, 2, 3, 1] 輸出[2, 3] 方法負號標記法將陣列nums的值遍歷一次，將每個出現過的值當作index，將對應到的num[index]的值乘上-1，若對應到的值已經為負數的話，代表已經出現過 1">
+<meta name="description" content="問題給一個長度為 n 的整數陣列，裡面的元素由 1~n 所組成，每個數字出現 0~2 次，找出所有出現 2 次的數字。(不使用額外空間且時間複雜度必須為O(n))">
 <meta name="keywords" content="LeetCode,Python,Array">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode#442 Find All Duplicates in an Array">
 <meta property="og:url" content="https://p61402.github.io/2017/08/30/LeetCode-442-Find-All-Duplicates-in-an-Array/index.html">
 <meta property="og:site_name" content="QOO&#39;s Blog">
-<meta property="og:description" content="問題給一個長度為 n 的整數陣列，裡面的元素由 1~n 所組成，每個數字出現 0~2 次，找出所有出現 2 次的數字。(不使用額外空間且時間複雜度必須為O(n)) 輸入[4, 3, 2, 7, 8, 2, 3, 1] 輸出[2, 3] 方法負號標記法將陣列nums的值遍歷一次，將每個出現過的值當作index，將對應到的num[index]的值乘上-1，若對應到的值已經為負數的話，代表已經出現過 1">
+<meta property="og:description" content="問題給一個長度為 n 的整數陣列，裡面的元素由 1~n 所組成，每個數字出現 0~2 次，找出所有出現 2 次的數字。(不使用額外空間且時間複雜度必須為O(n))">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-08-30T19:22:02.738Z">
+<meta property="og:updated_time" content="2017-09-03T09:40:31.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode#442 Find All Duplicates in an Array">
-<meta name="twitter:description" content="問題給一個長度為 n 的整數陣列，裡面的元素由 1~n 所組成，每個數字出現 0~2 次，找出所有出現 2 次的數字。(不使用額外空間且時間複雜度必須為O(n)) 輸入[4, 3, 2, 7, 8, 2, 3, 1] 輸出[2, 3] 方法負號標記法將陣列nums的值遍歷一次，將每個出現過的值當作index，將對應到的num[index]的值乘上-1，若對應到的值已經為負數的話，代表已經出現過 1">
+<meta name="twitter:description" content="問題給一個長度為 n 的整數陣列，裡面的元素由 1~n 所組成，每個數字出現 0~2 次，找出所有出現 2 次的數字。(不使用額外空間且時間複雜度必須為O(n))">
 
 
 
@@ -408,6 +408,7 @@
 
       
         <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>給一個長度為 n 的整數陣列，裡面的元素由 1~n 所組成，每個數字出現 0~2 次，找出所有出現 2 次的數字。(不使用額外空間且時間複雜度必須為O(n))</p>
+<a id="more"></a>
 <h2 id="輸入"><a href="#輸入" class="headerlink" title="輸入"></a>輸入</h2><pre><code>[4, 3, 2, 7, 8, 2, 3, 1]
 </code></pre><h2 id="輸出"><a href="#輸出" class="headerlink" title="輸出"></a>輸出</h2><pre><code>[2, 3]
 </code></pre><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>負號標記法<br>將陣列<code>nums</code>的值遍歷一次，將每個出現過的值當作<code>index</code>，將對應到的<code>num[index]</code>的值乘上<code>-1</code>，若對應到的值已經為負數的話，代表已經出現過 1 次，目前是第 2 次，這樣就能找出所有出現過 2 次的元素了。</p>
