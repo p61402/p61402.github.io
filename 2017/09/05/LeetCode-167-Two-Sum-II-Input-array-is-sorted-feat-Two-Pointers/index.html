@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="LeetCode,Python,Two Pointers," />
 
 
 
@@ -94,13 +94,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="QOO&#39;s Blog">
-<meta property="og:url" content="https://p61402.github.io/page/2/index.html">
+<meta name="description" content="問題給定一個遞增的整數陣列nums(已排序)，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。">
+<meta name="keywords" content="LeetCode,Python,Two Pointers">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode#167 Two Sum II - Input array is sorted feat. Two Pointers">
+<meta property="og:url" content="https://p61402.github.io/2017/09/05/LeetCode-167-Two-Sum-II-Input-array-is-sorted-feat-Two-Pointers/index.html">
 <meta property="og:site_name" content="QOO&#39;s Blog">
+<meta property="og:description" content="問題給定一個遞增的整數陣列nums(已排序)，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://p61402.github.io/images/two_pointers.png">
+<meta property="og:updated_time" content="2017-09-05T00:09:52.024Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="QOO&#39;s Blog">
+<meta name="twitter:title" content="LeetCode#167 Two Sum II - Input array is sorted feat. Two Pointers">
+<meta name="twitter:description" content="問題給定一個遞增的整數陣列nums(已排序)，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。">
+<meta name="twitter:image" content="https://p61402.github.io/images/two_pointers.png">
 
 
 
@@ -129,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://p61402.github.io/page/2/"/>
+  <link rel="canonical" href="https://p61402.github.io/2017/09/05/LeetCode-167-Two-Sum-II-Input-array-is-sorted-feat-Two-Pointers/"/>
 
 
 
 
 
-  <title>QOO's Blog</title>
+  <title>LeetCode#167 Two Sum II - Input array is sorted feat. Two Pointers | QOO's Blog</title>
   
 
 
@@ -160,9 +167,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -289,9 +294,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -304,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/08/27/LeetCode-566-Reshape-the-Matrix/">
+    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/09/05/LeetCode-167-Two-Sum-II-Input-array-is-sorted-feat-Two-Pointers/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="QOO">
@@ -321,9 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/27/LeetCode-566-Reshape-the-Matrix/" itemprop="url">LeetCode#566 Reshape the Matrix</a></h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode#167 Two Sum II - Input array is sorted feat. Two Pointers</h1>
         
 
         <div class="post-meta">
@@ -335,8 +338,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-27T05:50:29+08:00">
-                2017-08-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-05T07:19:19+08:00">
+                2017-09-05
               </time>
             
 
@@ -406,16 +409,22 @@
       
 
       
-        
-          <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>給定一個二維的矩陣以及正整數 r 與 c ，將此矩陣轉為 r * c 的矩陣。<br>若無法轉換，則輸出原本的矩陣。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/27/LeetCode-566-Reshape-the-Matrix/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>給定一個遞增的整數陣列<code>nums</code>(已排序)，其中有兩個數的和會等於目標<code>target</code>，回傳他們的位置，且同個位置不能重複選取。
+<a id="more"></a></p>
+<h2 id="輸入"><a href="#輸入" class="headerlink" title="輸入"></a>輸入</h2><pre><code>numbers = [2, 7, 11, 15]
+target = 9
+</code></pre><h2 id="輸出"><a href="#輸出" class="headerlink" title="輸出"></a>輸出</h2><pre><code>[1, 2]
+</code></pre><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>這題是<a href="../../../08/26/LeetCode-1-Two-Sums">LeetCode#1 Two Sums</a>的改版，差別是這題輸入的陣列已經經過排序了，這題還是可以用<code>hash table</code>來解，不過這裡我們要用比較不一樣的方法，叫作<code>two pointers</code> 。  </p>
+<p><code>two pointers</code>在這裡的使用方法，就是兩個箭頭分別指向陣列的頭跟尾，藉由將左邊的箭頭向右調整以及右邊的箭頭向左調整，逼近出所要求的值。  </p>
+<p><img src="/images/two_pointers.png" alt="" title="Two Pointers"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, numbers, target)</span>:</span></div><div class="line">        left, right = <span class="number">0</span>, len(numbers) - <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> left &lt; right:</div><div class="line">            <span class="keyword">if</span> numbers[left] + numbers[right] &lt; target:</div><div class="line">                left += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> numbers[left] + numbers[right] &gt; target:</div><div class="line">                right -= <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">return</span> [left + <span class="number">1</span>, right + <span class="number">1</span>]</div></pre></td></tr></table></figure>
+<p>以下的問題也常常用<code>two pointers</code>來解：</p>
+<ol>
+<li>字串、陣列反轉</li>
+<li>兩個跑者一快一慢在操場上奔馳，問兩人何時相遇</li>
+<li>字串回文(Palindrome)</li>
+</ol>
+
       
     </div>
     
@@ -430,328 +439,40 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/08/26/LeetCode-561-Array-Partition-I/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="QOO">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QOO's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/26/LeetCode-561-Array-Partition-I/" itemprop="url">LeetCode#561 Array Partition I</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T22:45:35+08:00">
-                2017-08-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">程式解題</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/LeetCode/" itemprop="url" rel="index">
-                    <span itemprop="name">LeetCode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
           
-
+            <a href="/tags/Python/" rel="tag"># Python</a>
           
-            
+            <a href="/tags/Two-Pointers/" rel="tag"># Two Pointers</a>
           
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>給一個長度為 2n 的整數陣列，將陣列的值兩兩配對，使得所有 min(a<sub>i</sub>, b<sub>i</sub>) 的和愈大愈好 (0 &lt;= i &lt;= n) 。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/26/LeetCode-561-Array-Partition-I/#more" rel="contents">
-              Read more &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/04/挑戰LeetCode-Weekly-Contest-48/" rel="next" title="挑戰LeetCode Weekly Contest 48">
+                <i class="fa fa-chevron-left"></i> 挑戰LeetCode Weekly Contest 48
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/08/26/LeetCode-461-Hamming-Distance/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="QOO">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QOO's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/26/LeetCode-461-Hamming-Distance/" itemprop="url">LeetCode#461 Hamming Distance</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T20:13:17+08:00">
-                2017-08-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">程式解題</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/LeetCode/" itemprop="url" rel="index">
-                    <span itemprop="name">LeetCode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>給兩個整數<code>x</code>與<code>y</code>，計算兩者的 Hamming Distance 。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/26/LeetCode-461-Hamming-Distance/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -761,171 +482,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/08/26/LeetCode-1-Two-Sums/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="QOO">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QOO's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/26/LeetCode-1-Two-Sums/" itemprop="url">LeetCode#1 Two Sums</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-26T12:10:20+08:00">
-                2017-08-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/" itemprop="url" rel="index">
-                    <span itemprop="name">程式解題</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/code/LeetCode/" itemprop="url" rel="index">
-                    <span itemprop="name">LeetCode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>給定一個整數的陣列<code>nums</code>，其中有兩個數的和會等於目標<code>target</code>，回傳他們的位置，且同個位置不能重複選取。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/26/LeetCode-1-Two-Sums/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
 
 
           </div>
@@ -933,6 +494,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -953,8 +518,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -969,7 +543,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -991,7 +565,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -1016,6 +590,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題"><span class="nav-number">1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸入"><span class="nav-number">2.</span> <span class="nav-text">輸入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸出"><span class="nav-number">3.</span> <span class="nav-text">輸出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">4.</span> <span class="nav-text">方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1129,10 +719,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
