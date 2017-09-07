@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[堆疊(Stack)與佇列(Queue)]]></title>
+    <url>%2F2017%2F09%2F06%2F%E5%A0%86%E7%96%8A-Stack-%E8%88%87%E4%BD%87%E5%88%97-Queue%2F</url>
+    <content type="text"><![CDATA[介紹Stack 與 Queue 都是一種 抽象資料型別 (Abstract Data Type)，兩者的區別簡單來說就是Stack是 Last-In-First-Out (LIFO)，而 Queue 則是 First-In-First-Out (FIFO)。 實作以下用 Linked List 來實作 Stack 與 Queue Stack首先是 stack 的節點。 1234class StackNode(): def __init__(self, value=None, next=None): self.value = value self.next = None 接著定義函式，因為是後進先出，所以用 top 來紀錄最後進入的數，因此不管是 push 還是 pop 都是更動到 top 的值。 12345678910111213141516171819202122232425262728293031323334353637383940414243444546class Stack(): def __init__(self, top=None): self.top = top def print_nodes(self): current = self.top while current: end = " -&gt; " if current.next else "\n" print(current.value, end=end) current = current.next def push(self, value): old_top = self.top self.top = StackNode(value, old_top) self.top.next = old_top def pop(self): if self.isEmpty(): print("Pop nothing, the stack is empty!") return self.top = self.top.next def top_value(self): if self.isEmpty(): return "Nothing at the top, the stack is empty!" return self.top.value def search(self, value): count = 0 current = self.top while current: if current.value == value: return count count += 1 current = current.next def isEmpty(self): return self.top is None def size(self): count = 0 current = self.top while current: count += 1 current = current.next return count Queue接著是 queue 的節點。 1234class QueueNode(): def __init__(self, value=None, next=None): self.value = value self.next = next 因為 queue 為先進先出，因此需要有兩個變數來紀錄頭跟尾的位置，可以將 queue 想像成排隊的時候，add 就是將新的節點接在隊伍的後方，delete 則是將節點從隊伍的頭移除。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class Queue(): def __init__(self, front=None, rear=None): self.front = front self.rear = rear def print_queue(self): current = self.front while current: end = " -&gt; " if current.next else "\n" print(current.value, end=end) current = current.next def add(self, value): if self.isEmpty(): self.front = QueueNode(value) self.rear = self.front else: self.rear.next = QueueNode(value) self.rear = self.rear.next def delete(self): if self.isEmpty(): print("Delete nothing, the queue is empty.") else: self.front = self.front.next def search(self, value): count = 0 current = self.front while current: if current.value == value: return count count += 1 current = current.next def top_value(self): if self.isEmpty(): return "Nothing at the top, the stack is empty!" return self.front.value def end_value(self): if self.isEmpty(): return "Nothing at the end, the stack is empty!" return self.rear.value def isEmpty(self): return self.front is None 程式碼：Stack Queue]]></content>
+      <categories>
+        <category>學校課程</category>
+        <category>資料結構</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Data Structure</tag>
+        <tag>Stack</tag>
+        <tag>Queue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode#167 Two Sum II - Input array is sorted feat. Two Pointers]]></title>
     <url>%2F2017%2F09%2F05%2FLeetCode-167-Two-Sum-II-Input-array-is-sorted-feat-Two-Pointers%2F</url>
     <content type="text"><![CDATA[問題給定一個遞增的整數陣列nums(已排序)，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。 輸入numbers = [2, 7, 11, 15] target = 9 輸出[1, 2] 方法這題是LeetCode#1 Two Sums的改版，差別是這題輸入的陣列已經經過排序了，這題還是可以用hash table來解，不過這裡我們要用比較不一樣的方法，叫作two pointers 。 two pointers在這裡的使用方法，就是兩個箭頭分別指向陣列的頭跟尾，藉由將左邊的箭頭向右調整以及右邊的箭頭向左調整，逼近出所要求的值。 12345678910class Solution(object): def twoSum(self, numbers, target): left, right = 0, len(numbers) - 1 while left &lt; right: if numbers[left] + numbers[right] &lt; target: left += 1 elif numbers[left] + numbers[right] &gt; target: right -= 1 else: return [left + 1, right + 1] 以下的問題也常常用two pointers來解： 字串、陣列反轉 兩個跑者一快一慢在操場上奔馳，問兩人何時相遇 字串回文(Palindrome)]]></content>
