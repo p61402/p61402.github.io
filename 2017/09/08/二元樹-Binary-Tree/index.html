@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Python,Data Structure,Tree,Binary Tree," />
 
 
 
@@ -94,13 +94,26 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="QOO&#39;s Blog">
-<meta property="og:url" content="https://p61402.github.io/archives/2017/09/index.html">
+<meta name="description" content="樹 Tree生活中常見各式各樣的數狀圖，像是族譜、賽程表等等，至於在計算機科學中，tree則是一種抽象資料型別(Abstract Data Type)，是一種具有階層式 (Hierarchical) 的數狀資料集合。">
+<meta name="keywords" content="Python,Data Structure,Tree,Binary Tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二元樹(Binary Tree)">
+<meta property="og:url" content="https://p61402.github.io/2017/09/08/二元樹-Binary-Tree/index.html">
 <meta property="og:site_name" content="QOO&#39;s Blog">
+<meta property="og:description" content="樹 Tree生活中常見各式各樣的數狀圖，像是族譜、賽程表等等，至於在計算機科學中，tree則是一種抽象資料型別(Abstract Data Type)，是一種具有階層式 (Hierarchical) 的數狀資料集合。">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://p61402.github.io/images/creatures.png">
+<meta property="og:image" content="https://p61402.github.io/images/tree.png">
+<meta property="og:image" content="https://p61402.github.io/images/list_bt.png">
+<meta property="og:image" content="https://p61402.github.io/images/list_bt_ex.png">
+<meta property="og:image" content="https://p61402.github.io/images/lcrs.png">
+<meta property="og:image" content="https://p61402.github.io/images/lcrs_ex.png">
+<meta property="og:image" content="https://p61402.github.io/images/lcrc_ex.png">
+<meta property="og:updated_time" content="2017-09-17T07:40:47.213Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="QOO&#39;s Blog">
+<meta name="twitter:title" content="二元樹(Binary Tree)">
+<meta name="twitter:description" content="樹 Tree生活中常見各式各樣的數狀圖，像是族譜、賽程表等等，至於在計算機科學中，tree則是一種抽象資料型別(Abstract Data Type)，是一種具有階層式 (Hierarchical) 的數狀資料集合。">
+<meta name="twitter:image" content="https://p61402.github.io/images/creatures.png">
 
 
 
@@ -129,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="https://p61402.github.io/archives/2017/09/"/>
+  <link rel="canonical" href="https://p61402.github.io/2017/09/08/二元樹-Binary-Tree/"/>
 
 
 
 
 
-  <title>Archive | QOO's Blog</title>
+  <title>二元樹(Binary Tree) | QOO's Blog</title>
   
 
 
@@ -160,7 +173,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -288,259 +301,262 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/09/08/二元樹-Binary-Tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="QOO">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QOO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">二元樹(Binary Tree)</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-08T13:26:40+08:00">
+                2017-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        Um..! 13 posts in total. Keep on posting.
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/course/" itemprop="url" rel="index">
+                    <span itemprop="name">學校課程</span>
+                  </a>
+                </span>
 
-      
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/course/資料結構/" itemprop="url" rel="index">
+                    <span itemprop="name">資料結構</span>
+                  </a>
+                </span>
 
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/10/挑戰LeetCode-Weekly-Contest-49/" itemprop="url">
-              
-                <span itemprop="name">挑戰LeetCode Weekly Contest 49</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-10T11:15:03+08:00"
-              content="2017-09-10" >
-          09-10
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/08/二元樹-Binary-Tree/" itemprop="url">
-              
-                <span itemprop="name">二元樹(Binary Tree)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-08T13:26:40+08:00"
-              content="2017-09-08" >
-          09-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/06/堆疊-Stack-與佇列-Queue/" itemprop="url">
-              
-                <span itemprop="name">堆疊(Stack)與佇列(Queue)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-06T07:33:35+08:00"
-              content="2017-09-06" >
-          09-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h2 id="樹-Tree"><a href="#樹-Tree" class="headerlink" title="樹 Tree"></a>樹 Tree</h2><p>生活中常見各式各樣的數狀圖，像是族譜、賽程表等等，至於在計算機科學中，<code>tree</code>則是一種<a href="https://en.wikipedia.org/wiki/Abstract_data_type" target="_blank" rel="external">抽象資料型別(Abstract Data Type)</a>，是一種具有階層式 (Hierarchical) 的數狀資料集合。</p>
+<p><img src="/images/creatures.png" alt="" title="物種分類"></p>
+<a id="more"></a>
+<h3 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h3><p>樹 (tree) 是一個由一個或多個節點 (node) 所組成的集合，滿足以下兩點：</p>
+<ol>
+<li>有一個特別的節點叫作「根」(root)</li>
+<li>其餘的節點 (node) 可被分割為 n &gt;= 0 個互斥 (disjoint) 的集合 T<sub>1</sub>, ..., T<sub>n</sub> , 每個集合都是一棵樹，並且稱作根的「子樹」 (subtree)</li>
+</ol>
+<h3 id="名詞介紹"><a href="#名詞介紹" class="headerlink" title="名詞介紹"></a>名詞介紹</h3><p><img src="/images/tree.png" alt="" title="Tree"></p>
+<ol>
+<li><code>degree</code> : 一個 node 子節點的個數，e.g. degree(A) = 3, degree(C) = 1, degree(F) = 0</li>
+<li><code>leaf (terminal)</code> : degree = 0 的 node，e.g. leaf = {K, L, F, G, M, I, J}</li>
+<li><code>parent &amp; children</code> : A 是 B 的 parent, B 是 A 的 children</li>
+<li><code>siblings</code> : 具有相同 parent 的 nodes, e.g. B, C, D 是 siblings</li>
+<li><code>degree of tree</code> : 所有 node 的 degree 中最大值代表這棵數的 degree，degree 為 k 的樹又稱為 k-ary tree</li>
+<li><code>ancestors</code> : 一個 node 走回 root 所要經過的 nodes, e.g. M 的 ancestors 有 A, D, H</li>
+<li><code>level</code> : root 的 level 為 0 或 1，children 的 level 為 root 的 level + 1，以此類推</li>
+<li><code>height (depth)</code> : 所有 node 中 level 的最大值代表這棵數的 height (depth)</li>
+</ol>
+<h3 id="表示方法"><a href="#表示方法" class="headerlink" title="表示方法"></a>表示方法</h3><ol>
+<li><p>List Representation
+<img src="/images/list_bt.png" alt="" title="List Representation">
+<img src="/images/list_bt_ex.png" alt="" title="List Representation Example"></p>
+</li>
+<li><p>Left Child-Right Sibling Representation
+<img src="/images/lcrs.png" alt="" title="Left Child-Right Sibling Representation">
+<img src="/images/lcrs_ex.png" alt="" title="Left Child-Right Sibling Representation Example"></p>
+</li>
+<li><p>Representation as Degree-Two Tree (Left Child-Right Child)
+<img src="/images/lcrc_ex.png" alt="" title="Left Child-Right Child Example"></p>
+</li>
+</ol>
+<hr>
+<h2 id="二元樹-Binary-Tree"><a href="#二元樹-Binary-Tree" class="headerlink" title="二元樹 Binary Tree"></a>二元樹 Binary Tree</h2><p>以上介紹的<code>tree</code>並沒有限制<code>subtree</code>的數量，但我們一般較常用的還是接下來要介紹的 (二元樹) Binary Tree 。  </p>
+<p>二元樹有以下幾點特性：</p>
+<ol>
+<li>每個 node 的 degree 不超過 2</li>
+<li>binary tree 可以不存在任何的節點 (empty)</li>
+<li>需要區分左子樹與右子樹，也就是左右子樹互換位置的話就會形成另一個新的樹</li>
+</ol>
+<h3 id="二元樹的表示方法"><a href="#二元樹的表示方法" class="headerlink" title="二元樹的表示方法"></a>二元樹的表示方法</h3><ol>
+<li>Array Representation</li>
+<li>Linked Representation</li>
+</ol>
+<p>以下使用<code>python</code>以<a href="../../../09/02/連結串列-Linked-List"><code>Linked List</code></a>實作<code>Binary Tree</code>。  </p>
+<p>首先定義樹的節點：
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, data=None, left=None, right=None)</span>:</span></div><div class="line">        self.data = data</div><div class="line">        self.left = left</div><div class="line">        self.right = right</div></pre></td></tr></table></figure></p>
+<p>接著是二元樹的類別以及基本方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinaryTree</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root=None)</span>:</span></div><div class="line">        self.root = root</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span><span class="params">(self, node)</span>:</span></div><div class="line">        <span class="keyword">return</span> node <span class="keyword">is</span> <span class="keyword">None</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">left_child</span><span class="params">(self, node)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.isEmpty(node):</div><div class="line">            <span class="keyword">return</span></div><div class="line">        <span class="keyword">return</span> node.left</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">right_child</span><span class="params">(self, node)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.isEmpty(node):</div><div class="line">            <span class="keyword">return</span></div><div class="line">        <span class="keyword">return</span> node.right</div></pre></td></tr></table></figure>
+<h3 id="二元樹的遍歷-Traversal"><a href="#二元樹的遍歷-Traversal" class="headerlink" title="二元樹的遍歷 Traversal"></a>二元樹的遍歷 Traversal</h3><ol>
+<li>Inorder Traversal<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">inorder</span><span class="params">(self, node)</span>:</span></div><div class="line">    <span class="keyword">if</span> node:</div><div class="line">        self.inorder(node.left)</div><div class="line">        print(node.data, end=<span class="string">" "</span>)</div><div class="line">        self.inorder(node.right)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>Preorder Traversal</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">preorder</span><span class="params">(self, node)</span>:</span></div><div class="line">    <span class="keyword">if</span> node:</div><div class="line">        print(node.data, end=<span class="string">" "</span>)</div><div class="line">        self.preorder(node.left)</div><div class="line">        self.preorder(node.right)</div></pre></td></tr></table></figure>
+</li>
+<li><p>Postorder Traversal</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">postorder</span><span class="params">(self, node)</span>:</span></div><div class="line">    <span class="keyword">if</span> node:</div><div class="line">        self.postorder(node.left)</div><div class="line">        self.postorder(node.right)</div><div class="line">        print(node.data, end=<span class="string">" "</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><p>Level-Order Traversal</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">levelorder</span><span class="params">(self, node)</span>:</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> node:</div><div class="line">        <span class="keyword">return</span></div><div class="line">    <span class="keyword">from</span> collections <span class="keyword">import</span> deque</div><div class="line">    queue = deque()</div><div class="line">    queue.append(node)</div><div class="line">    <span class="keyword">while</span> queue:</div><div class="line">        node = queue.popleft()</div><div class="line">        print(node.data, end=<span class="string">" "</span>)</div><div class="line">        <span class="keyword">if</span> node.left:</div><div class="line">            queue.append(node.left)</div><div class="line">        <span class="keyword">if</span> node.right:</div><div class="line">            queue.append(node.right)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><ol>
+<li><p>複製</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Return a Pointer to a same data from original node</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">copy</span><span class="params">(self, node)</span>:</span></div><div class="line">    <span class="keyword">if</span> node:</div><div class="line">        <span class="keyword">return</span> TreeNode(node.data, self.copy(node.left), self.copy(node.right))</div><div class="line">    <span class="keyword">return</span> <span class="keyword">None</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>相等</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@staticmethod</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">equal</span><span class="params">(first, second)</span>:</span></div><div class="line">    <span class="keyword">return</span> (<span class="keyword">not</span> first <span class="keyword">and</span> <span class="keyword">not</span> second) <span class="keyword">or</span> (first <span class="keyword">and</span> second <span class="keyword">and</span> (first.data == second.data) \</div><div class="line"><span class="keyword">and</span> BinaryTree.equal(first.left, second.left) <span class="keyword">and</span> BinaryTree.equal(first.right, second.right))</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>(未完成，待補上...)</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/05/LeetCode-167-Two-Sum-II-Input-array-is-sorted-feat-Two-Pointers/" itemprop="url">
-              
-                <span itemprop="name">LeetCode#167 Two Sum II - Input array is sorted feat. Two Pointers</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-05T07:19:19+08:00"
-              content="2017-09-05" >
-          09-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/04/挑戰LeetCode-Weekly-Contest-48/" itemprop="url">
-              
-                <span itemprop="name">挑戰LeetCode Weekly Contest 48</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-04T04:51:23+08:00"
-              content="2017-09-04" >
-          09-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/02/連結串列-Linked-List/" itemprop="url">
-              
-                <span itemprop="name">連結串列(Linked List)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-02T03:40:05+08:00"
-              content="2017-09-02" >
-          09-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Data-Structure/" rel="tag"># Data Structure</a>
+          
+            <a href="/tags/Tree/" rel="tag"># Tree</a>
+          
+            <a href="/tags/Binary-Tree/" rel="tag"># Binary Tree</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/06/堆疊-Stack-與佇列-Queue/" rel="next" title="堆疊(Stack)與佇列(Queue)">
+                <i class="fa fa-chevron-left"></i> 堆疊(Stack)與佇列(Queue)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/10/挑戰LeetCode-Weekly-Contest-49/" rel="prev" title="挑戰LeetCode Weekly Contest 49">
+                挑戰LeetCode Weekly Contest 49 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -548,6 +564,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -568,8 +588,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -631,6 +660,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#樹-Tree"><span class="nav-number">1.</span> <span class="nav-text">樹 Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定義"><span class="nav-number">1.1.</span> <span class="nav-text">定義</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#名詞介紹"><span class="nav-number">1.2.</span> <span class="nav-text">名詞介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表示方法"><span class="nav-number">1.3.</span> <span class="nav-text">表示方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二元樹-Binary-Tree"><span class="nav-number">2.</span> <span class="nav-text">二元樹 Binary Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二元樹的表示方法"><span class="nav-number">2.1.</span> <span class="nav-text">二元樹的表示方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二元樹的遍歷-Traversal"><span class="nav-number">2.2.</span> <span class="nav-text">二元樹的遍歷 Traversal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他操作"><span class="nav-number">2.3.</span> <span class="nav-text">其他操作</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -744,11 +789,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
 
 
   
