@@ -109,7 +109,10 @@
 <meta property="og:image" content="https://p61402.github.io/images/lcrs.png">
 <meta property="og:image" content="https://p61402.github.io/images/lcrs_ex.png">
 <meta property="og:image" content="https://p61402.github.io/images/lcrc_ex.png">
-<meta property="og:updated_time" content="2017-09-17T07:40:47.213Z">
+<meta property="og:image" content="https://p61402.github.io/images/array_representation.png">
+<meta property="og:image" content="https://p61402.github.io/images/skew_binary_tree.png">
+<meta property="og:image" content="https://p61402.github.io/images/linked_representation.png">
+<meta property="og:updated_time" content="2017-09-19T12:04:53.166Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="二元樹(Binary Tree)">
 <meta name="twitter:description" content="樹 Tree生活中常見各式各樣的數狀圖，像是族譜、賽程表等等，至於在計算機科學中，tree則是一種抽象資料型別(Abstract Data Type)，是一種具有階層式 (Hierarchical) 的數狀資料集合。">
@@ -448,7 +451,7 @@
 </li>
 </ol>
 <hr>
-<h2 id="二元樹-Binary-Tree"><a href="#二元樹-Binary-Tree" class="headerlink" title="二元樹 Binary Tree"></a>二元樹 Binary Tree</h2><p>以上介紹的<code>tree</code>並沒有限制<code>subtree</code>的數量，但我們一般較常用的還是接下來要介紹的 (二元樹) Binary Tree 。  </p>
+<h2 id="二元樹-Binary-Tree"><a href="#二元樹-Binary-Tree" class="headerlink" title="二元樹 Binary Tree"></a>二元樹 Binary Tree</h2><p>以上介紹的<code>tree</code>並沒有限制<code>subtree</code>的數量，但我們一般較常用的還是接下來要介紹的二元樹 (Binary Tree) 。  </p>
 <p>二元樹有以下幾點特性：</p>
 <ol>
 <li>每個 node 的 degree 不超過 2</li>
@@ -456,29 +459,56 @@
 <li>需要區分左子樹與右子樹，也就是左右子樹互換位置的話就會形成另一個新的樹</li>
 </ol>
 <h3 id="二元樹的表示方法"><a href="#二元樹的表示方法" class="headerlink" title="二元樹的表示方法"></a>二元樹的表示方法</h3><ol>
-<li>Array Representation</li>
-<li>Linked Representation</li>
+<li><p>Array Representation
+<img src="/images/array_representation.png" alt="" title="Array Representation"></p>
+<p>使用<code>array</code>來表示<code>binary tree</code>通常會具有以下的特性：</p>
+<ul>
+<li>parent index = ⌊ current index / 2 ⌋</li>
+<li>leftChild index = current index * 2</li>
+<li>rightChild index = current index * 2 + 1
+但是使用<code>array</code>表示，常常會造成空間上的浪費，如：  </li>
+</ul>
+<p><img src="/images/skew_binary_tree.png" alt="" title="Skew Binary Tree"></p>
+<p>能夠最有效利用<code>array</code>空間的樹是<code>complete binary tree</code>，像是<code>heap</code>就非常適合用<code>array</code>進行實作。  </p>
+</li>
+<li><p>Linked Representation
+<img src="/images/linked_representation.png" alt="" title="Linked Representation"></p>
+<p>另一種表示方法是使用<code>linked list</code>實作，雖然每個<code>node</code>都需要額外的空間來儲存<code>link</code>，但是對於空間上的利用卻能夠進行比較有效的管控。</p>
+</li>
 </ol>
-<p>以下使用<code>python</code>以<a href="../../../09/02/連結串列-Linked-List"><code>Linked List</code></a>實作<code>Binary Tree</code>。  </p>
+<h3 id="實作"><a href="#實作" class="headerlink" title="實作"></a>實作</h3><p>以下使用<code>python</code>以<a href="../../../09/02/連結串列-Linked-List"><code>Linked List</code></a>實作<code>Binary Tree</code>。  </p>
 <p>首先定義樹的節點：
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, data=None, left=None, right=None)</span>:</span></div><div class="line">        self.data = data</div><div class="line">        self.left = left</div><div class="line">        self.right = right</div></pre></td></tr></table></figure></p>
 <p>接著是二元樹的類別以及基本方法：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinaryTree</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root=None)</span>:</span></div><div class="line">        self.root = root</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span><span class="params">(self, node)</span>:</span></div><div class="line">        <span class="keyword">return</span> node <span class="keyword">is</span> <span class="keyword">None</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">left_child</span><span class="params">(self, node)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.isEmpty(node):</div><div class="line">            <span class="keyword">return</span></div><div class="line">        <span class="keyword">return</span> node.left</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">right_child</span><span class="params">(self, node)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.isEmpty(node):</div><div class="line">            <span class="keyword">return</span></div><div class="line">        <span class="keyword">return</span> node.right</div></pre></td></tr></table></figure>
-<h3 id="二元樹的遍歷-Traversal"><a href="#二元樹的遍歷-Traversal" class="headerlink" title="二元樹的遍歷 Traversal"></a>二元樹的遍歷 Traversal</h3><ol>
-<li>Inorder Traversal<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">inorder</span><span class="params">(self, node)</span>:</span></div><div class="line">    <span class="keyword">if</span> node:</div><div class="line">        self.inorder(node.left)</div><div class="line">        print(node.data, end=<span class="string">" "</span>)</div><div class="line">        self.inorder(node.right)</div></pre></td></tr></table></figure>
-</li>
-</ol>
+<h3 id="二元樹的遍歷-Traversal"><a href="#二元樹的遍歷-Traversal" class="headerlink" title="二元樹的遍歷 Traversal"></a>二元樹的遍歷 Traversal</h3><p>若遍歷一棵樹具有以下三個步驟，  </p>
+<ul>
+<li>L: moving left</li>
+<li>V: visiting the node</li>
+<li>R: moving right</li>
+</ul>
+<p>則遍歷的方法就有，L,V,R 三種步驟的排列數 = 3! = 6 種: LVR, LRV, VLR, VRL, RLV, RVL 。  </p>
+<p>取其中三種當作遍歷的方法：</p>
+<ul>
+<li>preorder:&nbsp;&nbsp;&nbsp;VLR</li>
+<li>inorder:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LVR</li>
+<li>postorder:&nbsp;LRV</li>
+</ul>
+<p>記的方法很簡單，看 V 的位置就對了，若 V 的位置在前面就是<code>preorder</code>，在中間就是<code>inorder</code>，在後面就是<code>postorder</code>。</p>
 <ol>
-<li><p>Preorder Traversal</p>
+<li><p>Inorder Traversal  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">inorder</span><span class="params">(self, node)</span>:</span></div><div class="line">    <span class="keyword">if</span> node:</div><div class="line">        self.inorder(node.left)</div><div class="line">        print(node.data, end=<span class="string">" "</span>)</div><div class="line">        self.inorder(node.right)</div></pre></td></tr></table></figure>
+</li>
+<li><p>Preorder Traversal  </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">preorder</span><span class="params">(self, node)</span>:</span></div><div class="line">    <span class="keyword">if</span> node:</div><div class="line">        print(node.data, end=<span class="string">" "</span>)</div><div class="line">        self.preorder(node.left)</div><div class="line">        self.preorder(node.right)</div></pre></td></tr></table></figure>
 </li>
-<li><p>Postorder Traversal</p>
+<li><p>Postorder Traversal  </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">postorder</span><span class="params">(self, node)</span>:</span></div><div class="line">    <span class="keyword">if</span> node:</div><div class="line">        self.postorder(node.left)</div><div class="line">        self.postorder(node.right)</div><div class="line">        print(node.data, end=<span class="string">" "</span>)</div></pre></td></tr></table></figure>
 </li>
-<li><p>Level-Order Traversal</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">levelorder</span><span class="params">(self, node)</span>:</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> node:</div><div class="line">        <span class="keyword">return</span></div><div class="line">    <span class="keyword">from</span> collections <span class="keyword">import</span> deque</div><div class="line">    queue = deque()</div><div class="line">    queue.append(node)</div><div class="line">    <span class="keyword">while</span> queue:</div><div class="line">        node = queue.popleft()</div><div class="line">        print(node.data, end=<span class="string">" "</span>)</div><div class="line">        <span class="keyword">if</span> node.left:</div><div class="line">            queue.append(node.left)</div><div class="line">        <span class="keyword">if</span> node.right:</div><div class="line">            queue.append(node.right)</div></pre></td></tr></table></figure>
+<li><p>Level-Order Traversal<br>第四種遍歷的方法，依照<code>node</code>的<code>level</code>的順序依序拜訪各結點。</p>
 </li>
 </ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">levelorder</span><span class="params">(self, node)</span>:</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> node:</div><div class="line">        <span class="keyword">return</span></div><div class="line">    <span class="keyword">from</span> collections <span class="keyword">import</span> deque</div><div class="line">    queue = deque()</div><div class="line">    queue.append(node)</div><div class="line">    <span class="keyword">while</span> queue:</div><div class="line">        node = queue.popleft()</div><div class="line">        print(node.data, end=<span class="string">" "</span>)</div><div class="line">        <span class="keyword">if</span> node.left:</div><div class="line">            queue.append(node.left)</div><div class="line">        <span class="keyword">if</span> node.right:</div><div class="line">            queue.append(node.right)</div></pre></td></tr></table></figure>
 <h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><ol>
 <li><p>複製</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Return a Pointer to a same data from original node</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">copy</span><span class="params">(self, node)</span>:</span></div><div class="line">    <span class="keyword">if</span> node:</div><div class="line">        <span class="keyword">return</span> TreeNode(node.data, self.copy(node.left), self.copy(node.right))</div><div class="line">    <span class="keyword">return</span> <span class="keyword">None</span></div></pre></td></tr></table></figure>
@@ -670,7 +700,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#樹-Tree"><span class="nav-number">1.</span> <span class="nav-text">樹 Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定義"><span class="nav-number">1.1.</span> <span class="nav-text">定義</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#名詞介紹"><span class="nav-number">1.2.</span> <span class="nav-text">名詞介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表示方法"><span class="nav-number">1.3.</span> <span class="nav-text">表示方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二元樹-Binary-Tree"><span class="nav-number">2.</span> <span class="nav-text">二元樹 Binary Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二元樹的表示方法"><span class="nav-number">2.1.</span> <span class="nav-text">二元樹的表示方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二元樹的遍歷-Traversal"><span class="nav-number">2.2.</span> <span class="nav-text">二元樹的遍歷 Traversal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他操作"><span class="nav-number">2.3.</span> <span class="nav-text">其他操作</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#樹-Tree"><span class="nav-number">1.</span> <span class="nav-text">樹 Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定義"><span class="nav-number">1.1.</span> <span class="nav-text">定義</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#名詞介紹"><span class="nav-number">1.2.</span> <span class="nav-text">名詞介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表示方法"><span class="nav-number">1.3.</span> <span class="nav-text">表示方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二元樹-Binary-Tree"><span class="nav-number">2.</span> <span class="nav-text">二元樹 Binary Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二元樹的表示方法"><span class="nav-number">2.1.</span> <span class="nav-text">二元樹的表示方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#實作"><span class="nav-number">2.2.</span> <span class="nav-text">實作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二元樹的遍歷-Traversal"><span class="nav-number">2.3.</span> <span class="nav-text">二元樹的遍歷 Traversal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他操作"><span class="nav-number">2.4.</span> <span class="nav-text">其他操作</span></a></li></ol></li></ol></div>
             
 
           </div>
