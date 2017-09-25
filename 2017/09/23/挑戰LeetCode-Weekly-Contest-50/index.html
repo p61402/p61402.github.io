@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LeetCode,Python,Two Pointers," />
+  <meta name="keywords" content="LeetCode,Python,LeetCode Weekly Contest," />
 
 
 
@@ -94,20 +94,18 @@
 
 
 
-<meta name="description" content="問題給定一個遞增的整數陣列nums(已排序)，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。">
-<meta name="keywords" content="LeetCode,Python,Two Pointers">
+<meta name="description" content="解題心得這次的題目有兩題都可以用遞迴來寫，但對我來說腦袋真的轉不過來啊！果然如俗話所說：「遞迴只應天上有，凡人應當用迴圈」，描述的真是貼切，但遞迴之美，總是讓我們這些凡人流連忘返，遞迴啊遞迴，究竟何時才能讓願意人們真正看清您的真面目呢？">
+<meta name="keywords" content="LeetCode,Python,LeetCode Weekly Contest">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode#167 Two Sum II - Input array is sorted feat. Two Pointers">
-<meta property="og:url" content="https://p61402.github.io/2017/09/05/LeetCode-167-Two-Sum-II-Input-array-is-sorted-feat-Two-Pointers/index.html">
+<meta property="og:title" content="挑戰LeetCode Weekly Contest 50">
+<meta property="og:url" content="https://p61402.github.io/2017/09/23/挑戰LeetCode-Weekly-Contest-50/index.html">
 <meta property="og:site_name" content="QOO&#39;s Blog">
-<meta property="og:description" content="問題給定一個遞增的整數陣列nums(已排序)，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。">
+<meta property="og:description" content="解題心得這次的題目有兩題都可以用遞迴來寫，但對我來說腦袋真的轉不過來啊！果然如俗話所說：「遞迴只應天上有，凡人應當用迴圈」，描述的真是貼切，但遞迴之美，總是讓我們這些凡人流連忘返，遞迴啊遞迴，究竟何時才能讓願意人們真正看清您的真面目呢？">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://p61402.github.io/images/two_pointers.png">
-<meta property="og:updated_time" content="2017-09-05T00:09:52.024Z">
+<meta property="og:updated_time" content="2017-09-25T18:11:11.197Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode#167 Two Sum II - Input array is sorted feat. Two Pointers">
-<meta name="twitter:description" content="問題給定一個遞增的整數陣列nums(已排序)，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。">
-<meta name="twitter:image" content="https://p61402.github.io/images/two_pointers.png">
+<meta name="twitter:title" content="挑戰LeetCode Weekly Contest 50">
+<meta name="twitter:description" content="解題心得這次的題目有兩題都可以用遞迴來寫，但對我來說腦袋真的轉不過來啊！果然如俗話所說：「遞迴只應天上有，凡人應當用迴圈」，描述的真是貼切，但遞迴之美，總是讓我們這些凡人流連忘返，遞迴啊遞迴，究竟何時才能讓願意人們真正看清您的真面目呢？">
 
 
 
@@ -136,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://p61402.github.io/2017/09/05/LeetCode-167-Two-Sum-II-Input-array-is-sorted-feat-Two-Pointers/"/>
+  <link rel="canonical" href="https://p61402.github.io/2017/09/23/挑戰LeetCode-Weekly-Contest-50/"/>
 
 
 
 
 
-  <title>LeetCode#167 Two Sum II - Input array is sorted feat. Two Pointers | QOO's Blog</title>
+  <title>挑戰LeetCode Weekly Contest 50 | QOO's Blog</title>
   
 
 
@@ -309,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/09/05/LeetCode-167-Two-Sum-II-Input-array-is-sorted-feat-Two-Pointers/">
+    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/09/23/挑戰LeetCode-Weekly-Contest-50/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="QOO">
@@ -326,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode#167 Two Sum II - Input array is sorted feat. Two Pointers</h1>
+          <h1 class="post-title" itemprop="name headline">挑戰LeetCode Weekly Contest 50</h1>
         
 
         <div class="post-meta">
@@ -338,8 +336,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-05T07:19:19+08:00">
-                2017-09-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-23T20:04:30+08:00">
+                2017-09-23
               </time>
             
 
@@ -409,22 +407,66 @@
       
 
       
-        <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>給定一個遞增的整數陣列<code>nums</code>(已排序)，其中有兩個數的和會等於目標<code>target</code>，回傳他們的位置，且同個位置不能重複選取。
-<a id="more"></a></p>
-<h2 id="輸入"><a href="#輸入" class="headerlink" title="輸入"></a>輸入</h2><pre><code>numbers = [2, 7, 11, 15]
-target = 9
-</code></pre><h2 id="輸出"><a href="#輸出" class="headerlink" title="輸出"></a>輸出</h2><pre><code>[1, 2]
-</code></pre><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>這題是<a href="../../../08/26/LeetCode-1-Two-Sums">LeetCode#1 Two Sums</a>的改版，差別是這題輸入的陣列已經經過排序了，這題還是可以用<code>hash table</code>來解，不過這裡我們要用比較不一樣的方法，叫作<code>two pointers</code> 。  </p>
-<p><code>two pointers</code>在這裡的使用方法，就是兩個箭頭分別指向陣列的頭跟尾，藉由將左邊的箭頭向右調整以及右邊的箭頭向左調整，逼近出所要求的值。  </p>
-<p><img src="/images/two_pointers.png" alt="" title="Two Pointers"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, numbers, target)</span>:</span></div><div class="line">        left, right = <span class="number">0</span>, len(numbers) - <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> left &lt; right:</div><div class="line">            <span class="keyword">if</span> numbers[left] + numbers[right] &lt; target:</div><div class="line">                left += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> numbers[left] + numbers[right] &gt; target:</div><div class="line">                right -= <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">return</span> [left + <span class="number">1</span>, right + <span class="number">1</span>]</div></pre></td></tr></table></figure>
-<p>以下的問題也常常用<code>two pointers</code>來解：</p>
-<ol>
-<li>字串、陣列反轉</li>
-<li>兩個跑者一快一慢在操場上奔馳，問兩人何時相遇</li>
-<li>字串回文(Palindrome)</li>
-</ol>
+        <h2 id="解題心得"><a href="#解題心得" class="headerlink" title="解題心得"></a>解題心得</h2><p>這次的題目有兩題都可以用遞迴來寫，但對我來說腦袋真的轉不過來啊！<br>果然如俗話所說：「遞迴只應天上有，凡人應當用迴圈」，描述的真是貼切，但遞迴之美，總是讓我們這些凡人流連忘返，遞迴啊遞迴，究竟何時才能讓願意人們真正看清您的真面目呢？</p>
+<a id="more"></a>
+<hr>
+<h2 id="第1題-680-Valid-Palindrome-II"><a href="#第1題-680-Valid-Palindrome-II" class="headerlink" title="第1題 680. Valid Palindrome II"></a>第1題 680. Valid Palindrome II</h2><h3 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h3><p>給一個非空的字串<code>s</code>，在最多只能刪除一個字元的條件下，<code>s</code>是否能成為一個回文字串。<br>字串只包含小寫字母<code>a-z</code>，字串長度不超過<code>50000</code>。</p>
+<h3 id="輸入與輸出"><a href="#輸入與輸出" class="headerlink" title="輸入與輸出"></a>輸入與輸出</h3><pre><code>Input: &quot;aba&quot;
+Output: True
 
+Input: &quot;abca&quot;
+Output: True
+Explanation: You could delete the character &apos;c&apos;.
+</code></pre><h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>使用<code>two pointer</code>的技巧，<code>low</code>與<code>high</code>分別從前面與後面開始走，若遇到不一樣的字元，則檢查在刪除其中任一個字元後是否能滿足回文的條件。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">validPalindrome</span><span class="params">(self, s)</span>:</span></div><div class="line">        low = <span class="number">0</span></div><div class="line">        high = len(s) - <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> low &lt; high:</div><div class="line">            <span class="keyword">if</span> s[low] == s[high]:</div><div class="line">                low += <span class="number">1</span></div><div class="line">                high -= <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">if</span> self.isPalindrome(s, low+<span class="number">1</span>, high):</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">                <span class="keyword">if</span> self.isPalindrome(s, low, high<span class="number">-1</span>):</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isPalindrome</span><span class="params">(self, s, low, high)</span>:</span></div><div class="line">        <span class="keyword">while</span> low &lt; high:</div><div class="line">            <span class="keyword">if</span> s[low] != s[high]:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">            low += <span class="number">1</span></div><div class="line">            high -= <span class="number">1</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">True</span></div></pre></td></tr></table></figure>
+<hr>
+<h2 id="第2題-677-Map-Sum-Pairs"><a href="#第2題-677-Map-Sum-Pairs" class="headerlink" title="第2題 677. Map Sum Pairs"></a>第2題 677. Map Sum Pairs</h2><h3 id="問題-1"><a href="#問題-1" class="headerlink" title="問題"></a>問題</h3><p>實作一個字典，能夠插入一對<code>(key, value)</code>，其中<code>key</code>為字串，<code>value</code>為整數。<br>輸入一個字串<code>prefix</code>，輸出字典中所有以<code>prefix</code>為開頭的所有<code>key</code>所對應的<code>value</code>的和。</p>
+<h3 id="輸入與輸出-1"><a href="#輸入與輸出-1" class="headerlink" title="輸入與輸出"></a>輸入與輸出</h3><pre><code>Input: &quot;aba&quot;
+Output: True
+
+Input: &quot;abca&quot;
+Output: True
+Explanation: You could delete the character &apos;c&apos;.
+</code></pre><h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><p>直接使用<code>python</code>的內建<code>dict</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MapSum</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.d = dict()</div><div class="line">        </div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, key, val)</span>:</span></div><div class="line">        self.d[key] = val</div><div class="line">        </div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sum</span><span class="params">(self, prefix)</span>:</span></div><div class="line">        summation = <span class="number">0</span></div><div class="line">        length = len(prefix)</div><div class="line">        <span class="keyword">for</span> k, v <span class="keyword">in</span> self.d.items():</div><div class="line">            <span class="keyword">if</span> k[:length] == prefix:</div><div class="line">                summation += v</div><div class="line">        <span class="keyword">return</span> summation</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="第3題-678-Valid-Parenthesis-String"><a href="#第3題-678-Valid-Parenthesis-String" class="headerlink" title="第3題 678. Valid Parenthesis String"></a>第3題 678. Valid Parenthesis String</h2><h3 id="問題-2"><a href="#問題-2" class="headerlink" title="問題"></a>問題</h3><p>輸入一個字串，字串內的元素只包含<code>(</code>,<code>)</code>,<code>*</code>三種，判斷此字串是否滿足以下條件：</p>
+<ol>
+<li>任何一個左方的<code>(</code>都必須對應到一個右方的<code>)</code></li>
+<li>任何一個右方的<code>)</code>都必須對應到一個左方的<code>(</code></li>
+<li>左方的<code>(</code>必須出現在右方的<code>)</code>之前</li>
+<li><code>*</code>可以是<code>(</code>或<code>)</code>或空字串其中一種</li>
+<li>空字串是合法的</li>
+</ol>
+<h3 id="輸入與輸出-2"><a href="#輸入與輸出-2" class="headerlink" title="輸入與輸出"></a>輸入與輸出</h3><pre><code>Input: &quot;()&quot;
+Output: True
+
+Input: &quot;(*)&quot;
+Output: True
+
+Input: &quot;(*))&quot;
+Output: True
+</code></pre><h3 id="方法-2"><a href="#方法-2" class="headerlink" title="方法"></a>方法</h3><p>使用一個變數<code>p</code>紀錄括號的消長，出現一組<code>(</code>,<code>)</code>便可抵消。<br>至於出現<code>*</code>的話，因為有三種可能，因此用<code>backtracking</code>分支成三種可能，只要其中一種能夠滿足條件就代表合法。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">checkValidString</span><span class="params">(self, s)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.backtracking(list(s), <span class="number">0</span>, <span class="number">0</span>)</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">backtracking</span><span class="params">(self, c, p, index)</span>:</span></div><div class="line">        <span class="keyword">if</span> p &lt; <span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(index, len(c)):</div><div class="line">            x = c[i]</div><div class="line">            <span class="keyword">if</span> x == <span class="string">'('</span>:</div><div class="line">                p += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> x == <span class="string">')'</span>:</div><div class="line">                <span class="keyword">if</span> p &lt;= <span class="number">0</span>:</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">                p -= <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">return</span> self.backtracking(c, p + <span class="number">1</span>, i + <span class="number">1</span>) <span class="keyword">or</span> self.backtracking(c, p - <span class="number">1</span>, i + <span class="number">1</span>) <span class="keyword">or</span> self.backtracking(c, p, i + <span class="number">1</span>)</div><div class="line">        <span class="keyword">return</span> p == <span class="number">0</span></div></pre></td></tr></table></figure>
+<p>以上是使用python的解法，可惜跳出 TLE，因此將同樣的方法改寫成<code>C++</code>的版本，就可以通過了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">checkValidString</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> backtracking(s, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">backtracking</span><span class="params">(<span class="built_in">string</span> c, <span class="keyword">int</span> p, <span class="keyword">int</span> index)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (p &lt; <span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = index; i &lt; c.length(); i++) &#123;</div><div class="line">            <span class="keyword">char</span> x = c[i];</div><div class="line">            <span class="keyword">if</span> (x == <span class="string">'('</span>)</div><div class="line">                p++;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (x == <span class="string">')'</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (p &lt;= <span class="number">0</span>)</div><div class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">                p--;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span></div><div class="line">                <span class="keyword">return</span> backtracking(c, p+<span class="number">1</span>, i+<span class="number">1</span>) || backtracking(c, p<span class="number">-1</span>, i+<span class="number">1</span>) || backtracking(c, p, i+<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> p == <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="第4題-679-24-Game"><a href="#第4題-679-24-Game" class="headerlink" title="第4題 679. 24 Game"></a>第4題 679. 24 Game</h2><h3 id="問題-3"><a href="#問題-3" class="headerlink" title="問題"></a>問題</h3><p>給四個範圍<code>1~9</code>的整數，問是否能經過<code>+</code>,<code>-</code>,<code>*</code>,<code>/</code>,<code>(</code>,<code>)</code>的運算後的得到結果為<code>24</code>。</p>
+<h3 id="輸入與輸出-3"><a href="#輸入與輸出-3" class="headerlink" title="輸入與輸出"></a>輸入與輸出</h3><pre><code>Input: [4, 1, 8, 7]
+Output: True
+Explanation: (8-4) * (7-1) = 24
+
+Input: [1, 2, 1, 2]
+Output: False
+</code></pre><h3 id="方法-3"><a href="#方法-3" class="headerlink" title="方法"></a>方法</h3><p>總共有 4 個數字以及 4 個運算子，括號的部份代表運算的先後順序，因此計算的步驟如下：  </p>
+<ol>
+<li>從 4 個數字中取 2 個(順序有分)，再從 4 個運算子當中選 1 個，所以有 4 x 5 x 3 種選法</li>
+<li>第 1 步驟運算完後數字剩下 3 個，再從 3 個數字中取 2 個(順序有分)，同樣從 4 個運算子當中選 1 個，所以有 3 x 2 x 4 種選法</li>
+<li>第 2 步驟運算完後數字剩下 2 個，再從 2 個數字當中取 2 個(順序有分)，從 4 個運算子中選一個，所以有 2 x 4 種選法</li>
+</ol>
+<p>因此總共有 4 x 3 x 3 x 3 x 2 x 4 x 2 x 4 = 9216 種組合方法  </p>
+<p>所以用遞迴枚舉出所有的方法就可以將所有答案計算出來。要注意的是除數不能為 0 ，還有由於浮點數運算的誤差，因此計算結果未必剛好等於 24 ，可能會有非常微小的誤差值，所以要給一個容忍值才行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">judgePoint24</span><span class="params">(self, A)</span>:</span></div><div class="line">        <span class="keyword">if</span> len(A) == <span class="number">1</span>:</div><div class="line">            <span class="keyword">if</span> abs(A[<span class="number">0</span>] - <span class="number">24</span>) &lt; <span class="number">1e-6</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(A)):</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(len(A)):</div><div class="line">                <span class="keyword">if</span> i != j:</div><div class="line">                    B = [A[x] <span class="keyword">for</span> x <span class="keyword">in</span> range(len(A)) <span class="keyword">if</span> x != i <span class="keyword">and</span> x != j]</div><div class="line">                    <span class="keyword">if</span> self.judgePoint24([A[i] + A[j]] + B) <span class="keyword">or</span> self.judgePoint24([A[i] - A[j]] + B) <span class="keyword">or</span> self.judgePoint24([A[i] * A[j]] + B):</div><div class="line">                        <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">                    <span class="keyword">if</span> A[j] <span class="keyword">and</span> self.judgePoint24([A[i] / A[j]] + B):</div><div class="line">                            <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">False</span></div></pre></td></tr></table></figure>
       
     </div>
     
@@ -445,7 +487,7 @@ target = 9
           
             <a href="/tags/Python/" rel="tag"># Python</a>
           
-            <a href="/tags/Two-Pointers/" rel="tag"># Two Pointers</a>
+            <a href="/tags/LeetCode-Weekly-Contest/" rel="tag"># LeetCode Weekly Contest</a>
           
         </div>
       
@@ -458,8 +500,8 @@ target = 9
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/04/挑戰LeetCode-Weekly-Contest-48/" rel="next" title="挑戰LeetCode Weekly Contest 48">
-                <i class="fa fa-chevron-left"></i> 挑戰LeetCode Weekly Contest 48
+              <a href="/2017/09/10/挑戰LeetCode-Weekly-Contest-49/" rel="next" title="挑戰LeetCode Weekly Contest 49">
+                <i class="fa fa-chevron-left"></i> 挑戰LeetCode Weekly Contest 49
               </a>
             
           </div>
@@ -467,10 +509,6 @@ target = 9
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/06/堆疊-Stack-與佇列-Queue/" rel="prev" title="堆疊(Stack)與佇列(Queue)">
-                堆疊(Stack)與佇列(Queue) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -604,7 +642,7 @@ target = 9
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題"><span class="nav-number">1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸入"><span class="nav-number">2.</span> <span class="nav-text">輸入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸出"><span class="nav-number">3.</span> <span class="nav-text">輸出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">4.</span> <span class="nav-text">方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解題心得"><span class="nav-number">1.</span> <span class="nav-text">解題心得</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第1題-680-Valid-Palindrome-II"><span class="nav-number">2.</span> <span class="nav-text">第1題 680. Valid Palindrome II</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#問題"><span class="nav-number">2.1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸入與輸出"><span class="nav-number">2.2.</span> <span class="nav-text">輸入與輸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">2.3.</span> <span class="nav-text">方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2題-677-Map-Sum-Pairs"><span class="nav-number">3.</span> <span class="nav-text">第2題 677. Map Sum Pairs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#問題-1"><span class="nav-number">3.1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸入與輸出-1"><span class="nav-number">3.2.</span> <span class="nav-text">輸入與輸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-1"><span class="nav-number">3.3.</span> <span class="nav-text">方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3題-678-Valid-Parenthesis-String"><span class="nav-number">4.</span> <span class="nav-text">第3題 678. Valid Parenthesis String</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#問題-2"><span class="nav-number">4.1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸入與輸出-2"><span class="nav-number">4.2.</span> <span class="nav-text">輸入與輸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-2"><span class="nav-number">4.3.</span> <span class="nav-text">方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第4題-679-24-Game"><span class="nav-number">5.</span> <span class="nav-text">第4題 679. 24 Game</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#問題-3"><span class="nav-number">5.1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸入與輸出-3"><span class="nav-number">5.2.</span> <span class="nav-text">輸入與輸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-3"><span class="nav-number">5.3.</span> <span class="nav-text">方法</span></a></li></ol></li></ol></div>
             
 
           </div>
