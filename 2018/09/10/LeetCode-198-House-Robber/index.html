@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="LeetCode,C," />
 
 
 
@@ -94,13 +94,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="QOO&#39;s Blog">
-<meta property="og:url" content="https://p61402.github.io/categories/course/index.html">
+<meta name="description" content="問題有一個職業盜賊想要在某條街上行竊，這條街上有著一整排的房屋，每棟房屋內都有特定數量的金錢，他希望能夠偷到越多錢越好。但是想在這條街行竊有個限制，每兩棟相鄰的房屋之間都有連結保全系統，若他行竊兩棟相鄰的房屋，保全系統就會自動聯繫警察。 給定一個非負整數的list，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？">
+<meta name="keywords" content="LeetCode,C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode 198 House Robber">
+<meta property="og:url" content="https://p61402.github.io/2018/09/10/LeetCode-198-House-Robber/index.html">
 <meta property="og:site_name" content="QOO&#39;s Blog">
+<meta property="og:description" content="問題有一個職業盜賊想要在某條街上行竊，這條街上有著一整排的房屋，每棟房屋內都有特定數量的金錢，他希望能夠偷到越多錢越好。但是想在這條街行竊有個限制，每兩棟相鄰的房屋之間都有連結保全系統，若他行竊兩棟相鄰的房屋，保全系統就會自動聯繫警察。 給定一個非負整數的list，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-09-09T17:33:13.253Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="QOO&#39;s Blog">
+<meta name="twitter:title" content="LeetCode 198 House Robber">
+<meta name="twitter:description" content="問題有一個職業盜賊想要在某條街上行竊，這條街上有著一整排的房屋，每棟房屋內都有特定數量的金錢，他希望能夠偷到越多錢越好。但是想在這條街行竊有個限制，每兩棟相鄰的房屋之間都有連結保全系統，若他行竊兩棟相鄰的房屋，保全系統就會自動聯繫警察。 給定一個非負整數的list，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？">
 
 
 
@@ -129,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://p61402.github.io/categories/course/"/>
+  <link rel="canonical" href="https://p61402.github.io/2018/09/10/LeetCode-198-House-Robber/"/>
 
 
 
 
 
-  <title>Category: 學校課程 | QOO's Blog</title>
+  <title>LeetCode 198 House Robber | QOO's Blog</title>
   
 
 
@@ -160,7 +165,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -288,111 +293,191 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>學校課程<small>Category</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2018/09/10/LeetCode-198-House-Robber/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="QOO">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QOO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2017/09/08/二元樹-Binary-Tree/" itemprop="url">
-              
-                <span itemprop="name">二元樹(Binary Tree)</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">LeetCode 198 House Robber</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-08T13:26:40+08:00"
-              content="2017-09-08" >
-          09-08
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-10T00:41:42+08:00">
+                2018-09-10
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/code/" itemprop="url" rel="index">
+                    <span itemprop="name">程式解題</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/code/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/06/堆疊-Stack-與佇列-Queue/" itemprop="url">
-              
-                <span itemprop="name">堆疊(Stack)與佇列(Queue)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-06T07:33:35+08:00"
-              content="2017-09-06" >
-          09-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
+        <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>有一個職業盜賊想要在某條街上行竊，這條街上有著一整排的房屋，每棟房屋內都有特定數量的金錢，他希望能夠偷到越多錢越好。但是想在這條街行竊有個限制，每兩棟相鄰的房屋之間都有連結保全系統，若他行竊兩棟相鄰的房屋，保全系統就會自動聯繫警察。
+給定一個非負整數的<code>list</code>，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？
+<a id="more"></a></p>
+<h2 id="輸入與輸出"><a href="#輸入與輸出" class="headerlink" title="輸入與輸出"></a>輸入與輸出</h2><pre><code>Input: [1,2,3,1]
+Output: 4
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/02/連結串列-Linked-List/" itemprop="url">
-              
-                <span itemprop="name">連結串列(Linked List)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-02T03:40:05+08:00"
-              content="2017-09-02" >
-          09-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+Input: [2,7,9,3,1]
+Output: 12
+</code></pre><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>使用動態規劃，假設 a<sub>n</sub> 為行竊第 n 棟房屋能夠獲得的金錢數量，可得 a<sub>n</sub> = a<sub>n-2</sub> + a<sub>n-3</sub>。
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span> (a &gt; b)</div><div class="line">        <span class="keyword">return</span> a;</div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">return</span> b;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span> (numsSize == <span class="number">0</span>)</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">int</span> i;</div><div class="line">    <span class="keyword">if</span> (numsSize &gt;= <span class="number">3</span>)</div><div class="line">        nums[<span class="number">2</span>] += nums[<span class="number">0</span>];</div><div class="line">    <span class="keyword">for</span> (i = <span class="number">3</span>; i &lt; numsSize; i++)</div><div class="line">        nums[i] += max(nums[i - <span class="number">2</span>], nums[i - <span class="number">3</span>]);</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (numsSize == <span class="number">1</span>)</div><div class="line">        <span class="keyword">return</span> nums[<span class="number">0</span>];</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (numsSize == <span class="number">2</span>)</div><div class="line">        <span class="keyword">return</span> max(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);</div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">return</span> max(nums[i - <span class="number">1</span>], nums[i - <span class="number">2</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          
+            <a href="/tags/C/" rel="tag"># C</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/23/挑戰LeetCode-Weekly-Contest-50/" rel="next" title="挑戰LeetCode Weekly Contest 50">
+                <i class="fa fa-chevron-left"></i> 挑戰LeetCode Weekly Contest 50
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -400,6 +485,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -420,8 +509,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -483,6 +581,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題"><span class="nav-number">1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸入與輸出"><span class="nav-number">2.</span> <span class="nav-text">輸入與輸出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">3.</span> <span class="nav-text">方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -596,10 +710,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
