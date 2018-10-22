@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[CS:APP Ch2 重點整理]]></title>
+    <url>%2F2018%2F10%2F22%2FCS-APP-Ch2-%E9%87%8D%E9%BB%9E%E6%95%B4%E7%90%86%2F</url>
+    <content type="text"><![CDATA[CS:APP Ch2 重點整理資料的儲存16 進位表示法 (Hexadecimal)| hex | Decimal | Binary | |:---:|:---:|:---:| | 0 | 0 | 0000 | | 1 | 1 | 0001 | | 2 | 2 | 0010 | | 3 | 3 | 0011 | | 4 | 4 | 0100 | | 5 | 5 | 0101 | | 6 | 6 | 0110 | | 7 | 7 | 0111 | | 8 | 8 | 1000 | | 9 | 9 | 1001 | | A | 10 |1010 | | B | 11 |1011 | | C | 12 |1100 | | D | 13 |1101 | | E | 14 |1110 | | F | 15 |1111 | Data Sizes每台機器都有 word size，而 word size 決定了 pointer 的大小，也決定虛擬記憶體的最大可定址範圍，例如一台 word size = w-bit 的機器，可以定址 0 ~ 2^w^ - 1 的範圍。 32-bit 的 word size 只能定址 4GB 的範圍，而 64-bit 的 word size 卻能夠定址到 16EB (1.84x10^19^) | 排序方法 | 平均情况 | 最好情况 | 最坏情况 | 辅助空间 | 稳定性 | |:-----|:-----|:-----|:-----|:-----|:-----| | 冒泡排序 | O(n²) | O(nlogn) | O(n²) | O(1) | 稳定 | | 简单选择 | O(n²) | O(n²) | O(n²) | O(1) | 稳定 | | 直接插入 | O(n²) | O(n) | O(n²) | O(1) | 稳定 | | 希尔排序 | O(nlogn)~O(n²) | O(n^1.3) | O(n²) | O(1) | 不稳定 | | 堆排序 | O(nlogn) | O(nlogn) | O(nlogn) | O(1) | 不稳定 | | 归并排序 | O(nlogn) | O(nlogn) | O(nlogn) | O(n) | 不稳定 | | 快速排序 | O(nlogn) | O(nlogn) | O(n²) | O(nlogn)~O(n) | 不稳定 |]]></content>
+      <categories>
+        <category>學校課程</category>
+        <category>進階電腦系統理論與實作</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode#204 Count Primes]]></title>
     <url>%2F2018%2F09%2F10%2FLeetCode-204-Count-Primes%2F</url>
     <content type="text"><![CDATA[問題經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。 輸入與輸出Input: 10 Output: 4 Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7. 方法建質數表。 方法一： 逐一檢查 1 ~ n - 1 的整數中有多少個質數，但效率不好，因此採用第二種方法。 方法二： 埃拉托斯特尼篩法，從 2 開始將已知質數的倍數標記成合數，可以減少很多不必要的計算。 123456789101112131415161718int countPrimes(int n)&#123; int i, j, prime_count = 0; bool* primes = malloc(n * sizeof(bool)); memset(primes, true, n * sizeof(bool)); for (i = 2; i &lt; n; i++) &#123; if (primes[i]) &#123; prime_count++; for (j = 2 * i; j &lt; n; j += i) primes[j] = false; &#125; &#125; return prime_count;&#125;]]></content>
@@ -9,22 +21,22 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>LeetCode</tag>
         <tag>C</tag>
+        <tag>LeetCode</tag>
         <tag>Prime</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[LeetCode#198 House Robber]]></title>
     <url>%2F2018%2F09%2F10%2FLeetCode-198-House-Robber%2F</url>
-    <content type="text"><![CDATA[問題有一個職業盜賊想要在某條街上行竊，這條街上有著一整排的房屋，每棟房屋內都有特定數量的金錢，他希望能夠偷到越多錢越好。但是想在這條街行竊有個限制，每兩棟相鄰的房屋之間都有連結保全系統，若他行竊兩棟相鄰的房屋，保全系統就會自動聯繫警察。 給定一個非負整數的list，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？ 輸入與輸出Input: [1,2,3,1] Output: 4 Input: [2,7,9,3,1] Output: 12 方法使用動態規劃，假設 an 為行竊第 n 棟房屋能夠獲得的金錢數量，可得 an = max(an-2, an-3)。 1234567891011121314151617181920212223242526int max(int a, int b)&#123; if (a &gt; b) return a; else return b;&#125;int rob(int* nums, int numsSize) &#123; if (numsSize == 0) return 0; int i; if (numsSize &gt;= 3) nums[2] += nums[0]; for (i = 3; i &lt; numsSize; i++) nums[i] += max(nums[i - 2], nums[i - 3]); if (numsSize == 1) return nums[0]; else if (numsSize == 2) return max(nums[0], nums[1]); else return max(nums[i - 1], nums[i - 2]);&#125;]]></content>
+    <content type="text"><![CDATA[問題有一個職業盜賊想要在某條街上行竊，這條街上有著一整排的房屋，每棟房屋內都有特定數量的金錢，他希望能夠偷到越多錢越好。但是想在這條街行竊有個限制，每兩棟相鄰的房屋之間都有連結保全系統，若他行竊兩棟相鄰的房屋，保全系統就會自動聯繫警察。 給定一個非負整數的list，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？ 輸入與輸出Input: [1,2,3,1] Output: 4 Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3). Total amount you can rob = 1 + 3 = 4. Input: [2,7,9,3,1] Output: 12 Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1). Total amount you can rob = 2 + 9 + 1 = 12. 方法使用動態規劃，假設 an 為行竊第 n 棟房屋能夠獲得的金錢數量，可得 an = max(an-2, an-3)。 1234567891011121314151617181920212223242526int max(int a, int b)&#123; if (a &gt; b) return a; else return b;&#125;int rob(int* nums, int numsSize) &#123; if (numsSize == 0) return 0; int i; if (numsSize &gt;= 3) nums[2] += nums[0]; for (i = 3; i &lt; numsSize; i++) nums[i] += max(nums[i - 2], nums[i - 3]); if (numsSize == 1) return nums[0]; else if (numsSize == 2) return max(nums[0], nums[1]); else return max(nums[i - 1], nums[i - 2]);&#125;]]></content>
       <categories>
         <category>程式解題</category>
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>LeetCode</tag>
         <tag>C</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
