@@ -5,9 +5,9 @@
   
 
 
-<html class="theme-next mist use-motion" lang="en">
+<html class="theme-next gemini use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -108,7 +108,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Gemini',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
@@ -135,7 +135,7 @@
 
 
 
-  <title>QOO's Blog</title>
+  <title>QOO's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -160,7 +160,7 @@
     
   
 
-  <div class="container sidebar-position-left 
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left 
    page-home 
  ">
     <div class="headband"></div>
@@ -304,7 +304,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2018/10/22/CS-APP-Ch2-重點整理/">
+    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2018/12/05/CS224n-assignment-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="QOO">
@@ -323,7 +323,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/22/CS-APP-Ch2-重點整理/" itemprop="url">CS:APP Ch2 重點整理</a></h1>
+                <a class="post-title-link" href="/2018/12/05/CS224n-assignment-1/" itemprop="url">CS224n assignment 1</a></h1>
         
 
         <div class="post-meta">
@@ -335,8 +335,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-22T23:08:55+08:00">
-                2018-10-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-05T01:12:00+08:00">
+                2018-12-05
               </time>
             
 
@@ -369,8 +369,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/course/進階電腦系統理論與實作/" itemprop="url" rel="index">
-                    <span itemprop="name">進階電腦系統理論與實作</span>
+                  <a href="/categories/course/自然語言處理/" itemprop="url" rel="index">
+                    <span itemprop="name">自然語言處理</span>
                   </a>
                 </span>
 
@@ -407,38 +407,21 @@
 
       
         
-          
-            <h1 id="CS-APP-Ch2-重點整理"><a href="#CS-APP-Ch2-重點整理" class="headerlink" title="CS:APP Ch2 重點整理"></a>CS:APP Ch2 重點整理</h1><h2 id="資料的儲存"><a href="#資料的儲存" class="headerlink" title="資料的儲存"></a>資料的儲存</h2><h3 id="16-進位表示法-Hexadecimal"><a href="#16-進位表示法-Hexadecimal" class="headerlink" title="16 進位表示法 (Hexadecimal)"></a>16 進位表示法 (Hexadecimal)</h3><p>| hex | Decimal | Binary |
-|:---:|:---:|:---:|
-| 0 | 0 | 0000 |
-| 1 | 1 | 0001 |
-| 2 | 2 | 0010 |
-| 3 | 3 | 0011 |
-| 4 | 4 | 0100 |
-| 5 | 5 | 0101 |
-| 6 | 6 | 0110 |
-| 7 | 7 | 0111 |
-| 8 | 8 | 1000 |
-| 9 | 9 | 1001 |
-| A | 10 |1010 |
-| B | 11 |1011 |
-| C | 12 |1100 |
-| D | 13 |1101 |
-| E | 14 |1110 |
-| F | 15 |1111 |</p>
-<h3 id="Data-Sizes"><a href="#Data-Sizes" class="headerlink" title="Data Sizes"></a>Data Sizes</h3><p>每台機器都有 word size，而 word size 決定了 pointer 的大小，也決定虛擬記憶體的最大可定址範圍，例如一台 word size = w-bit 的機器，可以定址 0 ~ 2^w^ - 1 的範圍。</p>
-<p>32-bit 的 word size 只能定址 4GB 的範圍，而 64-bit 的 word size 卻能夠定址到 16EB (1.84x10^19^)</p>
-<p>| 排序方法 | 平均情况 | 最好情况 | 最坏情况 | 辅助空间 | 稳定性 |
-|:-----|:-----|:-----|:-----|:-----|:-----|
-| 冒泡排序 | O(n²) | O(nlogn) | O(n²) | O(1) | 稳定 |
-| 简单选择 | O(n²) | O(n²) | O(n²) | O(1) | 稳定 |
-| 直接插入 | O(n²) | O(n) | O(n²) | O(1) | 稳定 |
-| 希尔排序 | O(nlogn)~O(n²) | O(n^1.3) | O(n²) | O(1) | 不稳定 |
-| 堆排序 | O(nlogn) | O(nlogn) | O(nlogn) | O(1) | 不稳定 |
-| 归并排序 | O(nlogn) | O(nlogn) | O(nlogn) | O(n) | 不稳定 |
-| 快速排序 | O(nlogn) | O(nlogn) | O(n²) | O(nlogn)~O(n) | 不稳定 |</p>
-
-          
+          <h1 id="CS224n-assignment-1"><a href="#CS224n-assignment-1" class="headerlink" title="CS224n assignment 1"></a>CS224n assignment 1</h1><p>這是史丹佛大學的一門開放式課程，叫做 <a href="http://web.stanford.edu/class/cs224n/" target="_blank" rel="external"><strong>Natural Language Processing with Deep Learning</strong></a>，所指派的第一個作業。這個作業透過以數學推導類神經網路的運算過程，以及實作<code>wor2vec</code>來進行情感分析，為初學者學習自然語言能夠處理打下基礎。</p>
+<p>這個作業主要分為 4 個部分：</p>
+<ol>
+<li>Softmax</li>
+<li>Neural Network Bascis</li>
+<li>word2vec</li>
+<li>Sentiment Analysis</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/05/CS224n-assignment-1/" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1961,7 +1944,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -2018,12 +2001,32 @@
 <div class="theme-info">
   Theme -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Gemini
   </a>
 </div>
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
 
         
       </div>
@@ -2097,6 +2100,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
 
   
     <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
@@ -2460,6 +2470,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
 
   
 
