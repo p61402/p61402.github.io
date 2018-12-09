@@ -94,19 +94,22 @@
 
 
 
-<meta name="description" content="CS224n assignment 1這是史丹佛大學的一門開放式課程，叫做 Natural Language Processing with Deep Learning，所指派的第一個作業。這個作業透過以數學推導類神經網路的運算過程，以及實作wor2vec來進行情感分析，為初學者學習自然語言能夠處理打下基礎。 這個作業主要分為 4 個部分：  Softmax Neural Netw">
+<meta name="description" content="CS224n assignment 1這是 Stanford University 的一門開放式課程，叫做 Natural Language Processing with Deep Learning，所指派的第一個作業。這個作業透過以數學推導類神經網路的運算過程，以及實作wor2vec來進行情感分析，為初學者學習自然語言處理打下基礎。 這個作業主要分為 4 個部分：  Softm">
 <meta name="keywords" content="NLP,Deep Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS224n assignment 1">
 <meta property="og:url" content="https://p61402.github.io/2018/12/05/CS224n-assignment-1/index.html">
 <meta property="og:site_name" content="QOO&#39;s Blog">
-<meta property="og:description" content="CS224n assignment 1這是史丹佛大學的一門開放式課程，叫做 Natural Language Processing with Deep Learning，所指派的第一個作業。這個作業透過以數學推導類神經網路的運算過程，以及實作wor2vec來進行情感分析，為初學者學習自然語言能夠處理打下基礎。 這個作業主要分為 4 個部分：  Softmax Neural Netw">
+<meta property="og:description" content="CS224n assignment 1這是 Stanford University 的一門開放式課程，叫做 Natural Language Processing with Deep Learning，所指派的第一個作業。這個作業透過以數學推導類神經網路的運算過程，以及實作wor2vec來進行情感分析，為初學者學習自然語言處理打下基礎。 這個作業主要分為 4 個部分：  Softm">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://p61402.github.io/images/neural_network.png">
-<meta property="og:updated_time" content="2018-12-06T01:42:58.602Z">
+<meta property="og:image" content="https://p61402.github.io/images/q3_word_vectors.png">
+<meta property="og:image" content="https://p61402.github.io/images/q4_reg_v_acc.png">
+<meta property="og:image" content="https://p61402.github.io/images/q4_dev_conf.png">
+<meta property="og:updated_time" content="2018-12-09T09:34:38.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS224n assignment 1">
-<meta name="twitter:description" content="CS224n assignment 1這是史丹佛大學的一門開放式課程，叫做 Natural Language Processing with Deep Learning，所指派的第一個作業。這個作業透過以數學推導類神經網路的運算過程，以及實作wor2vec來進行情感分析，為初學者學習自然語言能夠處理打下基礎。 這個作業主要分為 4 個部分：  Softmax Neural Netw">
+<meta name="twitter:description" content="CS224n assignment 1這是 Stanford University 的一門開放式課程，叫做 Natural Language Processing with Deep Learning，所指派的第一個作業。這個作業透過以數學推導類神經網路的運算過程，以及實作wor2vec來進行情感分析，為初學者學習自然語言處理打下基礎。 這個作業主要分為 4 個部分：  Softm">
 <meta name="twitter:image" content="https://p61402.github.io/images/neural_network.png">
 
 
@@ -414,7 +417,7 @@
       
 
       
-        <h1 id="CS224n-assignment-1"><a href="#CS224n-assignment-1" class="headerlink" title="CS224n assignment 1"></a>CS224n assignment 1</h1><p>這是史丹佛大學的一門開放式課程，叫做 <a href="http://web.stanford.edu/class/cs224n/" target="_blank" rel="external"><strong>Natural Language Processing with Deep Learning</strong></a>，所指派的第一個作業。這個作業透過以數學推導類神經網路的運算過程，以及實作<code>wor2vec</code>來進行情感分析，為初學者學習自然語言能夠處理打下基礎。</p>
+        <h1 id="CS224n-assignment-1"><a href="#CS224n-assignment-1" class="headerlink" title="CS224n assignment 1"></a>CS224n assignment 1</h1><p>這是 Stanford University 的一門開放式課程，叫做 <a href="http://web.stanford.edu/class/cs224n/" target="_blank" rel="external"><strong>Natural Language Processing with Deep Learning</strong></a>，所指派的第一個作業。這個作業透過以數學推導類神經網路的運算過程，以及實作<code>wor2vec</code>來進行情感分析，為初學者學習自然語言處理打下基礎。</p>
 <p>這個作業主要分為 4 個部分：</p>
 <ol>
 <li>Softmax</li>
@@ -434,8 +437,8 @@ probabilities for numerical stability (i.e., subtracting its maximum element fro
 <p>$softmax(x+c)_i=\dfrac{e^{x_i+c}}{\sum_j{e^{x_j+c}}}=\dfrac{e^{x_i}e^c}{\sum_j{e^{x_j}e^c}}=\dfrac{e^ce^{x_i}}{e^c\sum_j{e^{x_j}}}=\dfrac{e^{x_i}}{\sum_j{e^{x_j}}}=softmax(x)$</p>
 <p>這個特性在實際計算 softmax 時常被使用，將輸入 x 的每一項都加上 x 中的最大值，可以減少計算量。</p>
 <h3 id="b-實作-softmax-function"><a href="#b-實作-softmax-function" class="headerlink" title="(b) 實作 softmax function"></a>(b) 實作 softmax function</h3><p>Given an input matrix of N rows and D columns, compute the softmax prediction for each
-row using the optimization in part (a). Write your implementation in <code>q1 softmax.py</code>. You may test
-by executing <code>python q1 softmax.py</code>.
+row using the optimization in part (a). Write your implementation in <code>q1_softmax.py</code>. You may test
+by executing <code>python q1_softmax.py</code>.
 Note: The provided tests are not exhaustive. Later parts of the assignment will reference this code so
 it is important to have a correct implementation. Your implementation should also be efficient and
 vectorized whenever possible (i.e., use numpy matrix operations rather than for loops). A non-vectorized
@@ -456,7 +459,7 @@ $$CE(y,\hat{y})=-\sum_i y_i log(\hat{y_i})$$
 where $y$ is the one-hot label vector, and $\hat{y}$ is the predicted probability vector for all classes. (Hint: you
 might want to consider the fact many elements of $y$ are zeros, and assume that only the k-th dimension
 of $y$ is one.)</p>
-<h4 id="solution-3"><a href="#solution-3" class="headerlink" title="solution"></a>solution</h4><p>$\dfrac{\partial CE(y,\hat{y})}{\partial \theta}$</p>
+<h4 id="solution-3"><a href="#solution-3" class="headerlink" title="solution"></a>solution</h4><p>計算 $\dfrac{\partial CE(y,\hat{y})}{\partial \theta}$</p>
 <p>分成兩種情況：</p>
 <p>1. m = n</p>
 <p>$\dfrac{\partial CE(y_m,\hat{y_m})}{\partial \theta_n}=\dfrac{\partial -y_nlog\hat{y_n}}{\partial \theta_n}=-y_n \times \dfrac{1}{\hat{y_n}}\times \dfrac{\partial \dfrac{e^{\theta_n}}{\sum_j{e^{\theta j}}}}{\partial \theta_n}=-y_n \times \dfrac{1}{\hat{y_n}}\times\dfrac{e^{\theta n}\sum_j{e^{\theta_j}-e^{\theta n}e^{\theta n}}}{(\sum_j{e^{\theta_j}})^2}$
@@ -464,7 +467,8 @@ $=-y_n \times \dfrac{1}{\hat{y_n}} \times \dfrac{e^{\theta n}}{\sum_j{e^{\theta_
 <p>2. m ≠ n</p>
 <p>$\dfrac{\partial CE(y_m,\hat{y_m})}{\partial\theta_n}=\dfrac{- \sum_{m \neq n}{y_m log\hat{y_m}}}{\partial\theta_n}=-\sum_{m \neq n} y_m \times \dfrac{1}{\hat{y_m}} \times \dfrac{\partial \dfrac{e^{\theta_m}}{\sum_j{e^{\theta_j}}}}{\partial \theta_n}=-\sum_{m \neq n} y_m \times \dfrac{1}{\hat{y_m}} \times \dfrac{0-e^{\theta_n}e^{\theta_m}}{(\sum_j{e^{\theta_j}})^2}$</p>
 <p>$=-\sum_{m \neq n} y_m \times \dfrac{1}{\hat{y_m}} \times \dfrac{-e^{\theta_n}}{\sum_j{e^{\theta_j}}} \times \dfrac{e^{\theta_m}}{\sum_j{e^{\theta_j}}}=-\sum_{m \neq n} y_m \times \dfrac{1}{\hat{y_m}} \times (-\hat{y_n}) \times \hat{y_m}=\sum_{m \neq n}y_m \hat{y_n}$</p>
-<p>$\dfrac{\partial CE}{\partial \theta_i}=-y_i(1-\hat{y_i}) + \sum_{k \neq i}y_k \hat{y_i}=-y_i+\hat{y_i}^2 + \sum_{k \neq i}y_k \hat{y_i}=\sum_k{y_k \hat{y_i}}-y_i=\hat{y_i}\sum_k{y_k}-y_i=\hat{y_i}-y_i$</p>
+<p>因此
+$\dfrac{\partial CE}{\partial \theta_i}=-y_i(1-\hat{y_i}) + \sum_{k \neq i}y_k \hat{y_i}=-y_i+\hat{y_i}^2 + \sum_{k \neq i}y_k \hat{y_i}=\sum_k{y_k \hat{y_i}}-y_i=\hat{y_i}\sum_k{y_k}-y_i=\hat{y_i}-y_i$</p>
 <h3 id="c-Backpropagation"><a href="#c-Backpropagation" class="headerlink" title="(c) Backpropagation"></a>(c) Backpropagation</h3><p>Derive the gradients with respect to the inputs $x$ to an one-hidden-layer neural network (that
 is, find $\frac{\partial J}{\partial x}$ where $J = CE(y, \hat{y})$ is the cost function for the neural network). The neural network employs
 sigmoid activation function for the hidden layer, and softmax for the output layer. Assume the one-hot
@@ -488,14 +492,14 @@ the output is $Dy$-dimensional, and there are $H$ hidden units?</p>
 <p>$W_2: H \times D_y$</p>
 <p>$b_2: D_y$</p>
 <p>總共有 $(D_x \times H)+H+(H \times D_y)+D_y=(D_x+1)H+(H+1)D_y$ 個參數。</p>
-<h3 id="e-實作-sigmoid-function"><a href="#e-實作-sigmoid-function" class="headerlink" title="(e) 實作 sigmoid function"></a>(e) 實作 sigmoid function</h3><p>Fill in the implementation for the sigmoid activation function and its gradient in <code>q2 sigmoid.py</code>.
-Test your implementation using <code>python q2 sigmoid.py</code>. Again, thoroughly test your code as the provided
+<h3 id="e-實作-sigmoid-function"><a href="#e-實作-sigmoid-function" class="headerlink" title="(e) 實作 sigmoid function"></a>(e) 實作 sigmoid function</h3><p>Fill in the implementation for the sigmoid activation function and its gradient in <code>q2_sigmoid.py</code>.
+Test your implementation using <code>python q2_sigmoid.py</code>. Again, thoroughly test your code as the provided
 tests may not be exhaustive.</p>
 <h4 id="solution-6"><a href="#solution-6" class="headerlink" title="solution"></a>solution</h4><p>實作出<code>sigmoid</code>以及其梯度<code>sigmoid_grad</code>兩個函式，直接利用(a)小題的結果可以輕鬆實現。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(x)</span>:</span></div><div class="line">    s = <span class="number">1</span> / (<span class="number">1</span> + np.exp(-x))</div><div class="line">    <span class="keyword">return</span> s</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid_grad</span><span class="params">(s)</span>:</span></div><div class="line">    ds = s * (<span class="number">1</span> - s)</div><div class="line">    <span class="keyword">return</span> ds</div></pre></td></tr></table></figure>
 <h3 id="f-Gradient-Check"><a href="#f-Gradient-Check" class="headerlink" title="(f) Gradient Check"></a>(f) Gradient Check</h3><p>To make debugging easier, we will now implement a gradient checker. Fill in the implementation
-for gradcheck naive in <code>q2 gradcheck.py</code>. Test your code using <code>python q2 gradcheck.py</code>.</p>
+for gradcheck naive in <code>q2_gradcheck.py</code>. Test your code using <code>python q2_gradcheck.py</code>.</p>
 <h4 id="solution-7"><a href="#solution-7" class="headerlink" title="solution"></a>solution</h4><p>註解中指定使用 centered difference 方法來實作 gradient check，因為他比 forward / backward difference 方法誤差更小。</p>
 <p>Forward difference approximation:
 $$f&#39;(x)\approx \dfrac{f(x+h)−f(x)}{h}$$
@@ -505,9 +509,340 @@ Backward difference approximations:
 $$f&#39;(x)\approx \dfrac{f(x)−f(x−h)}{h}$$</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">gradcheck_naive</span><span class="params">(f, x)</span>:</span></div><div class="line"></div><div class="line">    rndstate = random.getstate()</div><div class="line">    random.setstate(rndstate)</div><div class="line">    fx, grad = f(x) <span class="comment"># Evaluate function value at original point</span></div><div class="line">    h = <span class="number">1e-4</span>        <span class="comment"># Do not change this!</span></div><div class="line"></div><div class="line">    <span class="comment"># Iterate over all indexes ix in x to check the gradient.</span></div><div class="line">    it = np.nditer(x, flags=[<span class="string">'multi_index'</span>], op_flags=[<span class="string">'readwrite'</span>])</div><div class="line">    <span class="keyword">while</span> <span class="keyword">not</span> it.finished:</div><div class="line">        ix = it.multi_index</div><div class="line"></div><div class="line">        <span class="comment">### YOUR CODE HERE:</span></div><div class="line">        x_upper, x_lower = x.copy(), x.copy()</div><div class="line"></div><div class="line">        x_upper[ix] += h</div><div class="line">        random.setstate(rndstate)</div><div class="line">        f_upper = f(x_upper)[<span class="number">0</span>]</div><div class="line"></div><div class="line">        x_lower[ix] -= h</div><div class="line">        random.setstate(rndstate)</div><div class="line">        f_lower = f(x_lower)[<span class="number">0</span>]</div><div class="line"></div><div class="line">        numgrad = (f_upper - f_lower) / (<span class="number">2</span> * h)</div><div class="line">        <span class="comment">### END YOUR CODE</span></div><div class="line"></div><div class="line">        <span class="comment"># Compare gradients</span></div><div class="line">        reldiff = abs(numgrad - grad[ix]) / max(<span class="number">1</span>, abs(numgrad), abs(grad[ix]))</div><div class="line">        <span class="keyword">if</span> reldiff &gt; <span class="number">1e-5</span>:</div><div class="line">            <span class="keyword">print</span> <span class="string">"Gradient check failed."</span></div><div class="line">            <span class="keyword">print</span> <span class="string">"First gradient error found at index %s"</span> % str(ix)</div><div class="line">            <span class="keyword">print</span> <span class="string">"Your gradient: %f \t Numerical gradient: %f"</span> % (</div><div class="line">                grad[ix], numgrad)</div><div class="line">            <span class="keyword">return</span></div><div class="line"></div><div class="line">        it.iternext() <span class="comment"># Step to next dimension</span></div><div class="line"></div><div class="line">    <span class="keyword">print</span> <span class="string">"Gradient check passed!"</span></div></pre></td></tr></table></figure>
 <h3 id="g-實作類神經網路的-Forward-及-Backward-Pass"><a href="#g-實作類神經網路的-Forward-及-Backward-Pass" class="headerlink" title="(g) 實作類神經網路的 Forward 及 Backward Pass"></a>(g) 實作類神經網路的 Forward 及 Backward Pass</h3><p>Now, implement the forward and backward passes for a neural network with one sigmoid
-hidden layer. Fill in your implementation in <code>q2 neural.py</code>. Sanity check your implementation with
-<code>python q2 neural.py</code>.</p>
+hidden layer. Fill in your implementation in <code>q2_neural.py</code>. Sanity check your implementation with
+<code>python q2_neural.py</code>.</p>
 <h4 id="solution-8"><a href="#solution-8" class="headerlink" title="solution"></a>solution</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward_backward_prop</span><span class="params">(X, labels, params, dimensions)</span>:</span></div><div class="line">    <span class="comment">### Unpack network parameters (do not modify)</span></div><div class="line">    ofs = <span class="number">0</span></div><div class="line">    Dx, H, Dy = (dimensions[<span class="number">0</span>], dimensions[<span class="number">1</span>], dimensions[<span class="number">2</span>])</div><div class="line"></div><div class="line">    W1 = np.reshape(params[ofs:ofs+ Dx * H], (Dx, H))</div><div class="line">    ofs += Dx * H</div><div class="line">    b1 = np.reshape(params[ofs:ofs + H], (<span class="number">1</span>, H))</div><div class="line">    ofs += H</div><div class="line">    W2 = np.reshape(params[ofs:ofs + H * Dy], (H, Dy))</div><div class="line">    ofs += H * Dy</div><div class="line">    b2 = np.reshape(params[ofs:ofs + Dy], (<span class="number">1</span>, Dy))</div><div class="line"></div><div class="line">    <span class="comment"># Note: compute cost based on `sum` not `mean`.</span></div><div class="line">    <span class="comment">### YOUR CODE HERE: forward propagation</span></div><div class="line">    h = sigmoid(np.dot(X, W1) + b1)</div><div class="line">    y_hat = softmax(np.dot(h, W2) + b2)</div><div class="line">    cost = cost = -np.sum(labels * np.log(y_hat))</div><div class="line">    <span class="comment">### END YOUR CODE</span></div><div class="line"></div><div class="line">    <span class="comment">### YOUR CODE HERE: backward propagation</span></div><div class="line">    d3 = y_hat - labels</div><div class="line">    gradW2 = np.dot(h.T, d3)</div><div class="line">    gradb2 = np.sum(d3, axis=<span class="number">0</span>)</div><div class="line">    dh = np.dot(d3, W2.T)</div><div class="line">    grad_h = sigmoid_grad(h) * dh</div><div class="line">    gradW1 = np.dot(X.T, grad_h)</div><div class="line">    gradb1 = np.sum(grad_h, axis=<span class="number">0</span>)</div><div class="line">    <span class="comment">### END YOUR CODE</span></div><div class="line"></div><div class="line">    <span class="comment">### Stack gradients (do not modify)</span></div><div class="line">    grad = np.concatenate((gradW1.flatten(), gradb1.flatten(),</div><div class="line">        gradW2.flatten(), gradb2.flatten()))</div><div class="line"></div><div class="line">    <span class="keyword">return</span> cost, grad</div></pre></td></tr></table></figure>
+<h2 id="3-word2vec"><a href="#3-word2vec" class="headerlink" title="3. word2vec"></a>3. word2vec</h2><h3 id="a-計算-Loss-Function-對-v-c-的-gradient"><a href="#a-計算-Loss-Function-對-v-c-的-gradient" class="headerlink" title="(a) 計算 Loss Function 對 $v_c$ 的 gradient"></a>(a) 計算 Loss Function 對 $v_c$ 的 gradient</h3><p>Assume you are given a “predicted” word vector $v_c$ corresponding to the center word $c$ for
+Skip-Gram, and word prediction is made with the softmax function found in <code>word2vec</code> models</p>
+<p>$$\hat{y_o}=p(o|c)=\dfrac{exp(u_o^\top v_c)}{\sum\limits_{w=1}^V{exp(u_w^\top v_c)}}$$</p>
+<p>where $u_w (w = 1, . . . , V )$ are the “output” word vectors for all words in the vocabulary. Assuming
+cross entropy cost is applied to this prediction and word o is the expected word (the o-th element of the
+one-hot label vector is one), derive the gradients with respect to $v_c$.
+Hint: It will be helpful to use notation from question 2. For instance, letting $\hat{y}$ be the vector of softmax
+predictions for every word, $y$ as the expected word vector, and the loss function</p>
+<p>$$J_{softmax−CE}(o, v_c, U) = CE(y,\hat{y})$$</p>
+<p>where $U = [u_1,u_2, · · · ,u_V ]$ is the matrix of all the output vectors. Make sure you state the orientation
+of your vectors and matrices.</p>
+<h4 id="solution-9"><a href="#solution-9" class="headerlink" title="solution"></a>solution</h4><p>求 $\dfrac{\partial J}{\partial v_c}$</p>
+<p>$J=-\sum_i y_i log\hat{y_i}=-log \dfrac{exp(u_o^\top v_c)}{\sum\limits_{w=1}^V exp(u_w^\top v_c)}=-log(exp(u_o^\top v_c))+log(\sum\limits_{w=1}^V exp(u_w^\top v_c))$</p>
+<p>$\dfrac{\partial J}{\partial v_c}=\dfrac{\partial -log(exp(u_o^\top v_c))}{\partial v_c}+\dfrac{\partial log(\sum_{w=1}^V exp(u_w^\top v_c))}{\partial v_c}$</p>
+<p>(1)
+$\dfrac{-1}{exp(u_o^\top v_c)} \times exp(u_o^\top v_c) \times u_o=-u_o$</p>
+<p>(2)
+$\dfrac{1}{\sum\limits_{w=1}^V exp(u_w^\top v_c)} \times \sum\limits_{x=1}^V exp(u_x^\top v_c) \times u_x=\sum\limits_{x=1}^V \dfrac{exp(u_x^\top v_c)}{\sum\limits_{w=1}^V exp(u_w^\top v_c)}\times u_x=\sum\limits_{x=1}^V \hat{y_x} u_x$</p>
+<p>$\dfrac{\partial J}{\partial v_c}=-u_o+\sum\limits_{x=1}^V \hat{y_x} u_x=U(\hat{y}-y)$</p>
+<h3 id="b-計算-Loss-Function-對-u-k-的-Gradient"><a href="#b-計算-Loss-Function-對-u-k-的-Gradient" class="headerlink" title="(b) 計算 Loss Function 對 $u_k$ 的 Gradient"></a>(b) 計算 Loss Function 對 $u_k$ 的 Gradient</h3><p>As in the previous part, derive gradients for the “output” word vectors $u_k$’s (including $u_o$).</p>
+<h4 id="solution-10"><a href="#solution-10" class="headerlink" title="solution"></a>solution</h4><p>$\dfrac{\partial J}{\partial u_w}=\dfrac{\partial -log(exp(u_o^\top v_c))}{\partial u_w}+\dfrac{\partial log(\sum_{w=1}^V exp(u_w^\top v_c))}{\partial u_w}$</p>
+<p>$1. w=o$</p>
+<p>$=-v_c+\dfrac{1}{\sum_{x=1}^V exp(u_x^\top v_c)} \times \sum\limits_{w=1}^{V}exp(u_w^\top v_c) \times v_c=v_c \times \sum\limits_{w=1}^V \dfrac{exp(v_w^\top v_c)}{\sum\limits_{x=1}^V exp(u_x^\top v_c)}-v_c=\sum\limits_{w=1}^V \hat{y_w}v_c-v_c=v_c(\hat{y}-y)^\top$</p>
+<p>$2. w\neq o$</p>
+<p>$=0+\dfrac{1}{\sum_{x=1}^V exp(u_x^\top v_c)} \times \sum\limits_{w=1}^{V}exp(u_w^\top v_c) \times v_c=v_c \times \sum\limits_{w=1}^V \dfrac{exp(v_w^\top v_c)}{\sum\limits_{x=1}^V exp(u_x^\top v_c)}=\sum\limits_{w=1}^V \hat{y_w}v_c$</p>
+<h3 id="c-Negative-Sampling"><a href="#c-Negative-Sampling" class="headerlink" title="(c) Negative Sampling"></a>(c) Negative Sampling</h3><p>Repeat part (a) and (b) assuming we are using the negative sampling loss for the predicted
+vector $v_c$, and the expected output word index is $o$. Assume that $K$ negative samples (words) are drawn,
+and they are $1, 2, ..., K$ respectively for simplicity of notation $(o \notin {1, . . . , K})$. Again, for a given word,
+$o$, denote its output vector as $u_o$. The negative sampling loss function in this case is</p>
+<p>$$J_{neg-sample}(o,V_c,U)=-log(\sigma(u_o^\top v_c))-\sum\limits_{k=1}^K log(\sigma(-u_k^\top v_c))$$</p>
+<p>where $σ(·)$ is the sigmoid function.
+After you’ve done this, describe with one sentence why this cost function is much more efficient to
+compute than the softmax-CE loss (you could provide a speed-up ratio, i.e., the runtime of the softmaxCE
+loss divided by the runtime of the negative sampling loss).</p>
+<p>Note: the cost function here is the negative of what Mikolov et al had in their original paper, because we
+are doing a minimization instead of maximization in our code.</p>
+<h4 id="solution-11"><a href="#solution-11" class="headerlink" title="solution"></a>solution</h4><p>$1. \mathbf{\dfrac{\partial J}{\partial v_c}}=-dfrac{1}{\sigma(u_o^\top v_c)}\times \sigma(u_o^\top v_c) \times (1-\sigma(u_o^\top v_c)) \times v_o - \sum\limits_{k=1}^K \dfrac{1}{\sigma(-u_k^\top v_c)} \times \sigma(-u_k^\top v_c) \times (1-\sigma(-u_k^\top v_c)) \times (-u_k)$</p>
+<p>$=-u_o(1-\sigma(u_o^\top v_c))+\sum\limits_{k=1}^K u_k(1-\sigma(-u_k^\top v_c))$</p>
+<p>$2. \mathbf{\dfrac{\partial J}{\partial u_o}}=-\dfrac{1}{\sigma(u_o^\top v_c)}\times \sigma(u_o^\top v_c) \times (1-\sigma(u_o^\top v_c)) \times v_c$</p>
+<p>$=-v_c(1-\sigma(u_o^\top v_c))=(\sigma(u_o^\top v_c)-1)v_c$</p>
+<p>$3. \mathbf{\dfrac{\partial J}{\partial u_k}}=-\dfrac{1}{\sigma(-u_k^\top v_c)}\times \sigma(-u_k^\top v_c) \times (1-\sigma(-u_k^\top v_c)) \times (-v_c)$</p>
+<p>$=(1-\sigma(-u_k^\top v_c))v_c,k=1,2,...,K$</p>
+<h3 id="d-計算-Skip-gram-及-CBOW-的-Gradient"><a href="#d-計算-Skip-gram-及-CBOW-的-Gradient" class="headerlink" title="(d) 計算 Skip-gram 及 CBOW 的 Gradient"></a>(d) 計算 Skip-gram 及 CBOW 的 Gradient</h3><p>Suppose the center word is $c = w_t$ and the context words are $[w_{t−m}, . . ., w_{t−1}, w_t, w_{t+1},. . ., w_{t+m}]$, where $m$ is the context size. Derive gradients for all of the word vectors for Skip-Gram and
+CBOW given the previous parts.
+Hint: feel free to use $F(o, v_c)$ (where o is the expected word) as a placeholder for the $J_{softmax−CE}(o, v_c, ...)$
+or $J_{neg−sample}(o, v_c, ...)$ cost functions in this part — you’ll see that this is a useful abstraction for the
+coding part. That is, your solution may contain terms of the form $\frac{\partial F(o,v_c)}
+{\partial ...}$ .
+Recall that for skip-gram, the cost for a context centered around $c$ is</p>
+<p>$$J_{skip-gram}(w_{t−m...t+m}) = \sum_{−m≤j≤m,j\neq 0}F(w_{t+j} , v_c)$$</p>
+<p>where $w_{t+j}$ refers to the word at the j-th index from the center.
+CBOW is slightly different. Instead of using $v_c$ as the predicted vector, we use $\hat{v}$ defined below. For (a
+simpler variant of) CBOW, we sum up the input word vectors in the context</p>
+<p>$$\hat{v} = \sum_{−m≤j≤m,j\neq =0}v_{w_t+j}$$</p>
+<p>then the CBOW cost is</p>
+<p>$$J_{CBOW}(w_{c−m...c+m}) = F(w_t, \hat{v})$$</p>
+<p>Note: To be consistent with the $\hat{v}$ notation such as for the code portion, for skip-gram $\hat{v} = v_c$.</p>
+<h4 id="solution-12"><a href="#solution-12" class="headerlink" title="solution"></a>solution</h4><ul>
+<li>Skip-gram</li>
+</ul>
+<p>$\dfrac{\partial J_{skip-gram}(w_{t-m...t+m})}{\partial U}=\sum_{-m≤j≤m,j\neq 0} \dfrac{\partial F(w_{t+j},v_c)}{\partial U}$</p>
+<p>$\dfrac{\partial J_{skip-gram}(w_{t-m...t+m})}{\partial v_c}=\sum_{-m≤j≤m,j\neq 0} \dfrac{\partial F(w_{t+j},v_c)}{\partial v_c}$</p>
+<p>$\dfrac{\partial J_{skip-gram}(w_{t-m...t+m})}{\partial v_{t+j}}=0,\forall j \neq c$</p>
+<ul>
+<li>CBOW</li>
+</ul>
+<p>$\dfrac{\partial J_{CBOW}(w_{t-m...t+m})}{\partial U}=\dfrac{\partial F(w_t,\hat{v})}{\partial U}$</p>
+<p>$\dfrac{\partial J_{CBOW}(w_{t-m...t+m})}{\partial v_{w_{t+j}}}=\dfrac{\partial F(w_t,\hat{v})}{\partial \hat{v}},\forall j \in {-m,...,-1,1,...,m}$</p>
+<p>$\dfrac{\partial J_{CBOW}(w_{t-m...t+m})}{\partial U}=0,\forall j \notin {-m,...,-1,1,...,m}$</p>
+<h3 id="e-實作-Skip-gram"><a href="#e-實作-Skip-gram" class="headerlink" title="(e) 實作 Skip-gram"></a>(e) 實作 Skip-gram</h3><p>In this part you will implement the word2vec models and train your own word vectors
+with stochastic gradient descent (SGD). First, write a helper function to normalize rows of a matrix in
+<code>q3_word2vec.py</code>. In the same file, fill in the implementation for the softmax and negative sampling cost
+and gradient functions. Then, fill in the implementation of the cost and gradient functions for the skipgram
+model. When you are done, test your implementation by running <code>python q3_word2vec.py</code>.</p>
+<p>Note: If you choose not to implement CBOW (part h), simply remove the NotImplementedError so that
+your tests will complete.</p>
+<h4 id="solution-13"><a href="#solution-13" class="headerlink" title="solution"></a>solution</h4><p>實作<code>q3_word2vec.py</code>中的以下函式：</p>
+<ol>
+<li><code>normalizeRows</code></li>
+<li><code>softmaxCostAndGradient</code></li>
+<li><code>negSamplingCostAndGradient</code></li>
+<li><code>skipgram</code></li>
+</ol>
+<h5 id="normalizeRows"><a href="#normalizeRows" class="headerlink" title="normalizeRows"></a><code>normalizeRows</code></h5><p>對每個列向量進行正規化，公式：$\hat{v}=\dfrac{v}{|v|}$。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">normalizeRows</span><span class="params">(x)</span>:</span></div><div class="line">    length = np.sqrt(np.sum(np.power(x, <span class="number">2</span>), axis=<span class="number">1</span>))</div><div class="line">    x /= length[:,<span class="keyword">None</span>]</div><div class="line">    <span class="keyword">return</span> x</div></pre></td></tr></table></figure>
+<h5 id="softmaxCostAndGradient"><a href="#softmaxCostAndGradient" class="headerlink" title="softmaxCostAndGradient"></a><code>softmaxCostAndGradient</code></h5><p><code>predicted</code>: $v_c$、<code>target</code>: $o$、<code>outputVector</code>: $U^\top$、<code>gradz2</code>: $\hat{y}-y$、<code>gradPred</code>: $\dfrac{\partial J}{\partial v_c}$、<code>grad</code>: $\dfrac{\partial J}{\partial u_k}$</p>
+<p>利用 (a)(b) 小題的結果：</p>
+<p>$\dfrac{\partial J}{\partial v_c}=U(\hat{y}-y)$</p>
+<p>$\dfrac{\partial J}{\partial u_k}=v_c(\hat{y}-y)^\top$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmaxCostAndGradient</span><span class="params">(predicted, target, outputVectors, dataset)</span>:</span></div><div class="line"></div><div class="line">    <span class="comment">### YOUR CODE HERE</span></div><div class="line">    y_hat = softmax(np.dot(outputVectors, predicted))</div><div class="line">    cost = -np.log(y_hat[target])</div><div class="line">    gradz2 = y_hat.copy()</div><div class="line">    gradz2[target] -= <span class="number">1.0</span></div><div class="line">    gradPred = np.dot(outputVectors.T, gradz2)</div><div class="line">    grad = np.outer(gradz2, predicted)</div><div class="line">    <span class="comment">### END YOUR CODE</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> cost, gradPred, grad</div></pre></td></tr></table></figure>
+<h5 id="negSamplingCostAndGradient"><a href="#negSamplingCostAndGradient" class="headerlink" title="negSamplingCostAndGradient"></a><code>negSamplingCostAndGradient</code></h5><p>利用 (c) 小題的結果：</p>
+<p><code>gradPred</code>: $\mathbf{\dfrac{\partial J}{\partial v_c}}=-u_o(1-\sigma(u_o^\top v_c))+\sum\limits_{k=1}^K u_k(1-\sigma(-u_k^\top v_c))$</p>
+<p><code>grad</code>: $\mathbf{\dfrac{\partial J}{\partial u_o}}=(\sigma(u_o^\top v_c)-1)v_c$</p>
+<p><code>grad</code>: $\mathbf{\dfrac{\partial J}{\partial u_k}}=(1-\sigma(-u_k^\top v_c))v_c,k=1,2,...,K$</p>
+<p>cost function 為 $CE(y,\hat{y})$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">negSamplingCostAndGradient</span><span class="params">(predicted, target, outputVectors, dataset,</span></span></div><div class="line"><span class="function"><span class="params">                               K=<span class="number">10</span>)</span>:</span></div><div class="line">    <span class="comment"># Sampling of indices is done for you. Do not modify this if you</span></div><div class="line">    <span class="comment"># wish to match the autograder and receive points!</span></div><div class="line">    indices = [target]</div><div class="line">    indices.extend(getNegativeSamples(target, dataset, K))</div><div class="line"></div><div class="line">    <span class="comment">### YOUR CODE HERE</span></div><div class="line">    grad = np.zeros(outputVectors.shape)</div><div class="line">    gradPred = np.zeros(predicted.shape)</div><div class="line">    z = sigmoid(np.dot(outputVectors[target].T, predicted))</div><div class="line">    cost = -np.log(z)</div><div class="line">    grad[target] += (z - <span class="number">1.0</span>) * predicted</div><div class="line">    gradPred += (z - <span class="number">1.0</span>) * outputVectors[target]</div><div class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> xrange(<span class="number">1</span>, K + <span class="number">1</span>):</div><div class="line">        index = indices[k]</div><div class="line">        z = sigmoid(np.dot(-outputVectors[index].T, predicted))</div><div class="line">        cost -= np.log(z)</div><div class="line">        grad[index] -= (z - <span class="number">1.0</span>) * predicted</div><div class="line">        gradPred -= (z - <span class="number">1.0</span>) * outputVectors[index]</div><div class="line">    <span class="comment">### END YOUR CODE</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> cost, gradPred, grad</div></pre></td></tr></table></figure>
+<h5 id="skipgram"><a href="#skipgram" class="headerlink" title="skipgram"></a><code>skipgram</code></h5><p>利用 (d) 小題的結果：</p>
+<ul>
+<li>Skip-gram</li>
+</ul>
+<p><code>gradOut</code>:$\dfrac{\partial J_{skip-gram}(w_{t-m...t+m})}{\partial U}=\sum_{-m≤j≤m,j\neq 0} \dfrac{\partial F(w_{t+j},v_c)}{\partial U}$</p>
+<p><code>gradIn</code>: $\dfrac{\partial J_{skip-gram}(w_{t-m...t+m})}{\partial v_c}=\sum_{-m≤j≤m,j\neq 0} \dfrac{\partial F(w_{t+j},v_c)}{\partial v_c}$</p>
+<p><code>gradIn</code>: $\dfrac{\partial J_{skip-gram}(w_{t-m...t+m})}{\partial v_{t+j}}=0,\forall j \neq c$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">skipgram</span><span class="params">(currentWord, C, contextWords, tokens, inputVectors, outputVectors,</span></span></div><div class="line"><span class="function"><span class="params">             dataset, word2vecCostAndGradient=softmaxCostAndGradient)</span>:</span></div><div class="line"></div><div class="line">    cost = <span class="number">0.0</span></div><div class="line">    gradIn = np.zeros(inputVectors.shape)</div><div class="line">    gradOut = np.zeros(outputVectors.shape)</div><div class="line"></div><div class="line">    <span class="comment">### YOUR CODE HERE</span></div><div class="line">    current_word_index = tokens[currentWord]</div><div class="line">    vc = inputVectors[current_word_index]</div><div class="line"></div><div class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> contextWords:</div><div class="line">        target_index = tokens[j]</div><div class="line">        c_cost, c_grad_in, c_grad_out = word2vecCostAndGradient(vc, target_index, outputVectors, dataset)</div><div class="line">        cost += c_cost</div><div class="line">        gradIn[current_word_index] += c_grad_in</div><div class="line">        gradOut += c_grad_out</div><div class="line">    <span class="comment">### END YOUR CODE</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> cost, gradIn, gradOut</div></pre></td></tr></table></figure>
+<p>執行<code>python q3_word2vec.py</code>，產生以下結果代表成功。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Testing normalizeRows...</div><div class="line">[[ 0.6         0.8       ]</div><div class="line"> [ 0.4472136   0.89442719]]</div><div class="line"></div><div class="line">==== Gradient check <span class="keyword">for</span> skip-gram ====</div><div class="line">Gradient check passed!</div><div class="line">Gradient check passed!</div></pre></td></tr></table></figure>
+<h3 id="f-Stochastic-Gradient-Descent"><a href="#f-Stochastic-Gradient-Descent" class="headerlink" title="(f) Stochastic Gradient Descent"></a>(f) Stochastic Gradient Descent</h3><p>Complete the implementation for your SGD optimizer in <code>q3_sgd.py</code>. Test your implementation
+by running <code>python q3_sgd.py</code>.</p>
+<h4 id="solution-14"><a href="#solution-14" class="headerlink" title="solution"></a>solution</h4><p><code>step</code>就是 learning rate，原始程式碼已經給定，直接將其乘上 gradient 即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sgd</span><span class="params">(f, x0, step, iterations, postprocessing=None, useSaved=False,</span></span></div><div class="line"><span class="function"><span class="params">        PRINT_EVERY=<span class="number">10</span>)</span>:</span></div><div class="line"></div><div class="line">    <span class="comment"># Anneal learning rate every several iterations</span></div><div class="line">    ANNEAL_EVERY = <span class="number">20000</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> useSaved:</div><div class="line">        start_iter, oldx, state = load_saved_params()</div><div class="line">        <span class="keyword">if</span> start_iter &gt; <span class="number">0</span>:</div><div class="line">            x0 = oldx</div><div class="line">            step *= <span class="number">0.5</span> ** (start_iter / ANNEAL_EVERY)</div><div class="line"></div><div class="line">        <span class="keyword">if</span> state:</div><div class="line">            random.setstate(state)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        start_iter = <span class="number">0</span></div><div class="line"></div><div class="line">    x = x0</div><div class="line"></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> postprocessing:</div><div class="line">        postprocessing = <span class="keyword">lambda</span> x: x</div><div class="line"></div><div class="line">    expcost = <span class="keyword">None</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> iter <span class="keyword">in</span> xrange(start_iter + <span class="number">1</span>, iterations + <span class="number">1</span>):</div><div class="line">        <span class="comment"># Don't forget to apply the postprocessing after every iteration!</span></div><div class="line">        <span class="comment"># You might want to print the progress every few iterations.</span></div><div class="line"></div><div class="line">        cost = <span class="keyword">None</span></div><div class="line">        <span class="comment">### YOUR CODE HERE</span></div><div class="line">        cost, grad = f(x)</div><div class="line">        x -= step * grad</div><div class="line">        postprocessing(x)</div><div class="line">        <span class="comment">### END YOUR CODE</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> iter % PRINT_EVERY == <span class="number">0</span>:</div><div class="line">            <span class="keyword">if</span> <span class="keyword">not</span> expcost:</div><div class="line">                expcost = cost</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                expcost = <span class="number">.95</span> * expcost + <span class="number">.05</span> * cost</div><div class="line">            <span class="keyword">print</span> <span class="string">"iter %d: %f"</span> % (iter, expcost)</div><div class="line"></div><div class="line">        <span class="keyword">if</span> iter % SAVE_PARAMS_EVERY == <span class="number">0</span> <span class="keyword">and</span> useSaved:</div><div class="line">            save_params(iter, x)</div><div class="line"></div><div class="line">        <span class="keyword">if</span> iter % ANNEAL_EVERY == <span class="number">0</span>:</div><div class="line">            step *= <span class="number">0.5</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> x</div></pre></td></tr></table></figure>
+<h3 id="g-訓練詞向量"><a href="#g-訓練詞向量" class="headerlink" title="(g) 訓練詞向量"></a>(g) 訓練詞向量</h3><p>Show time! Now we are going to load some real data and train word vectors with everything
+you just implemented! We are going to use the Stanford Sentiment Treebank (SST) dataset to train word
+vectors, and later apply them to a simple sentiment analysis task. You will need to fetch the datasets
+first. To do this, run <code>sh get datasets.sh</code>. There is no additional code to write for this part; just
+run <code>python q3_run.py</code>.</p>
+<p>Note: The training process may take a long time depending on the efficiency of your implementation
+<strong>(an efficient implementation takes approximately an hour).</strong> Plan accordingly!</p>
+<p>When the script finishes, a visualization for your word vectors will appear. It will also be saved as
+<code>q3_word vectors.png</code> in your project directory. <strong>Include the plot in your homework write up.</strong>
+Briefly explain in at most three sentences what you see in the plot.</p>
+<h4 id="solution-15"><a href="#solution-15" class="headerlink" title="solution"></a>solution</h4><p>執行<code>sh get datasets.sh</code>下載 <strong>Stanford Sentiment Treebank (SST)</strong> 資料集。</p>
+<p>接著再執行<code>python q3_run.py</code>開始訓練，預設<code>iteration=40000</code>，每 10 次 iteration 會印出一次當前的 cost，沒意外的話 cost 應該要隨著訓練的過程遞減。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">iter 39950: 9.435311</div><div class="line">iter 39960: 9.492463</div><div class="line">iter 39970: 9.520291</div><div class="line">iter 39980: 9.524589</div><div class="line">iter 39990: 9.550077</div><div class="line">iter 40000: 9.577164</div><div class="line">sanity check: cost at convergence should be around or below 10</div><div class="line">training took 4038 seconds</div></pre></td></tr></table></figure>
+<p>訓練時間約為 67 分鐘，訓練使用的處理器為 i7-8750H，可以參考一下。</p>
+<p>訓練完成後會產生一張圖<code>q3_word_vectors.png</code>：</p>
+<p><img src="/images/q3_word_vectors.png" alt="q3_word_vectors.png"></p>
+<p>在<code>q3_run.py</code>中可以發現在原始程式碼中，挑選了一些詞來進行視覺化，透過 SVD 降維後使得能夠在二維平面上觀察這些詞的相對距離。</p>
+<h3 id="h-實作-CBOW"><a href="#h-實作-CBOW" class="headerlink" title="(h) 實作 CBOW"></a>(h) 實作 CBOW</h3><p>Implement the CBOW model in <code>q3_word2vec.py</code>. Note: This part is optional
+but the gradient derivations for CBOW in part (d) are not!.</p>
+<h4 id="solution-16"><a href="#solution-16" class="headerlink" title="solution"></a>solution</h4><p>同樣利用 (d) 小題的結果：</p>
+<p><code>gradOut</code>: $\dfrac{\partial J_{CBOW}(w_{t-m...t+m})}{\partial U}=\dfrac{\partial F(w_t,\hat{v})}{\partial U}$</p>
+<p><code>gradIn</code>: $\dfrac{\partial J_{CBOW}(w_{t-m...t+m})}{\partial v_{w_{t+j}}}=\dfrac{\partial F(w_t,\hat{v})}{\partial \hat{v}},\forall j \in {-m,...,-1,1,...,m}$</p>
+<p><code>gradIn</code>: $\dfrac{\partial J_{CBOW}(w_{t-m...t+m})}{\partial U}=0,\forall j \notin {-m,...,-1,1,...,m}$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">cbow</span><span class="params">(currentWord, C, contextWords, tokens, inputVectors, outputVectors,</span></span></div><div class="line"><span class="function"><span class="params">         dataset, word2vecCostAndGradient=softmaxCostAndGradient)</span>:</span></div><div class="line"></div><div class="line">    cost = <span class="number">0.0</span></div><div class="line">    gradIn = np.zeros(inputVectors.shape)</div><div class="line">    gradOut = np.zeros(outputVectors.shape)</div><div class="line"></div><div class="line">    <span class="comment">### YOUR CODE HERE</span></div><div class="line">    indices = [tokens[contextWord] <span class="keyword">for</span> contextWord <span class="keyword">in</span> contextWords]</div><div class="line">    v_hat = np.sum(inputVectors[indices], axis=<span class="number">0</span>)</div><div class="line">    target_index = tokens[currentWord]</div><div class="line">    cost, grad_in, gradOut = word2vecCostAndGradient(v_hat, target_index, outputVectors, dataset)</div><div class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> indices:</div><div class="line">        gradIn[j] += grad_in</div><div class="line">    <span class="comment">### END YOUR CODE</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> cost, gradIn, gradOut</div></pre></td></tr></table></figure>
+<p>執行<code>python q3_word2vec.py</code>，在完成 (e)(h) 小題後的結果應如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Testing normalizeRows...</div><div class="line">[[ 0.6         0.8       ]</div><div class="line"> [ 0.4472136   0.89442719]]</div><div class="line"></div><div class="line">==== Gradient check <span class="keyword">for</span> skip-gram ====</div><div class="line">Gradient check passed!</div><div class="line">Gradient check passed!</div><div class="line"></div><div class="line">==== Gradient check <span class="keyword">for</span> CBOW      ====</div><div class="line">Gradient check passed!</div><div class="line">Gradient check passed!</div></pre></td></tr></table></figure>
+<h2 id="4-Sentiment-Analysis"><a href="#4-Sentiment-Analysis" class="headerlink" title="4. Sentiment Analysis"></a>4. Sentiment Analysis</h2><p>Now, with the word vectors you trained, we are going to perform a simple sentiment analysis. For each
+sentence in the Stanford Sentiment Treebank dataset, we are going to use the average of all the word vectors
+in that sentence as its feature, and try to predict the sentiment level of the said sentence. The sentiment
+level of the phrases are represented as real values in the original dataset, here we’ll just use five classes:</p>
+<p><strong>“very negative (−−)”, “negative (−)”, “neutral”, “positive (+)”, “very positive (++)”</strong></p>
+<p>which are represented by 0 to 4 in the code, respectively. For this part, you will learn to train a softmax
+classifier, and perform train/dev validation to improve generalization.</p>
+<h3 id="a-以特徵向量來表示一個句子"><a href="#a-以特徵向量來表示一個句子" class="headerlink" title="(a) 以特徵向量來表示一個句子"></a>(a) 以特徵向量來表示一個句子</h3><p>Implement a sentence featurizer. A simple way of representing a sentence is taking the average
+of the vectors of the words in the sentence. Fill in the implementation in <code>q4_sentiment.py</code>.</p>
+<h4 id="solution-17"><a href="#solution-17" class="headerlink" title="solution"></a>solution</h4><p>將句子中所有詞的詞向量進行平均，將得到的向量用來表示整個句子。</p>
+<p>Inputs:</p>
+<p><code>tokens</code>: 一個 dictionary，key 為詞，value 為該詞的索引</p>
+<p><code>wordVectors</code>: 詞向量</p>
+<p><code>sentence</code>: 一個句子</p>
+<p>Output:</p>
+<p><code>sentVector</code>: 句子的特徵向量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">getSentenceFeatures</span><span class="params">(tokens, wordVectors, sentence)</span>:</span></div><div class="line"></div><div class="line">    sentVector = np.zeros((wordVectors.shape[<span class="number">1</span>],))</div><div class="line"></div><div class="line">    <span class="comment">### YOUR CODE HERE</span></div><div class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> sentence:</div><div class="line">        index = tokens[word]</div><div class="line">        sentVector += wordVectors[index]</div><div class="line">    sentVector /= float(len(sentence))</div><div class="line">    <span class="comment">### END YOUR CODE</span></div><div class="line"></div><div class="line">    <span class="keyword">assert</span> sentVector.shape == (wordVectors.shape[<span class="number">1</span>],)</div><div class="line">    <span class="keyword">return</span> sentVector</div></pre></td></tr></table></figure>
+<h3 id="b-正規化-Regularization"><a href="#b-正規化-Regularization" class="headerlink" title="(b) 正規化 (Regularization)"></a>(b) 正規化 (Regularization)</h3><p>Explain in at most two sentences why we want to introduce regularization when doing classification (in fact, most machine learning tasks).</p>
+<h4 id="solution-18"><a href="#solution-18" class="headerlink" title="solution"></a>solution</h4><p>正規化可以避免 overfitting，使得模型更加 generalization。</p>
+<h3 id="c-尋找超參數-hyperparameter"><a href="#c-尋找超參數-hyperparameter" class="headerlink" title="(c) 尋找超參數 (hyperparameter)"></a>(c) 尋找超參數 (hyperparameter)</h3><p>Fill in the hyperparameter selection code in <code>q4_sentiment.py</code> to search for the “optimal” regularization parameter. You need to implement both <code>getRegularizationValues</code> and
+<code>chooseBestModel</code>. Attach your code for <code>chooseBestModel</code> to your written write-up. You should
+be able to attain at least 36.5% accuracy on the dev and test sets using the pretrained vectors in part
+(d).</p>
+<h5 id="solution-19"><a href="#solution-19" class="headerlink" title="solution"></a>solution</h5><p>參考其他人的做法，使用 log function 產生遞增的值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">getRegularizationValues</span><span class="params">()</span>:</span></div><div class="line">    values = <span class="keyword">None</span>   <span class="comment"># Assign a list of floats in the block below</span></div><div class="line">    <span class="comment">### YOUR CODE HERE</span></div><div class="line">    values = np.logspace(<span class="number">-5</span>, <span class="number">2</span>, num=<span class="number">100</span>, base=<span class="number">10</span>)</div><div class="line">    <span class="comment">### END YOUR CODE</span></div><div class="line">    <span class="keyword">return</span> sorted(values)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">chooseBestModel</span><span class="params">(results)</span>:</span></div><div class="line">    bestResult = <span class="keyword">None</span></div><div class="line"></div><div class="line">    <span class="comment">### YOUR CODE HERE</span></div><div class="line">    bestResult = max(results, key=<span class="keyword">lambda</span> x: x[<span class="string">"dev"</span>])</div><div class="line">    <span class="comment">### END YOUR CODE</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> bestResult</div></pre></td></tr></table></figure>
+<h3 id="d-模型比較"><a href="#d-模型比較" class="headerlink" title="(d) 模型比較"></a>(d) 模型比較</h3><p>Run python <code>q4_sentiment.py --yourvectors</code> to train a model using your word vectors
+from q3. Now, run python <code>q4_sentiment.py --pretrained</code> to train a model using pretrained
+GloVe vectors (on Wikipedia data). Compare and report the best train, dev, and test accuracies. Why
+do you think the pretrained vectors did better? Be specific and justify with 3 distinct reasons.</p>
+<ul>
+<li>yourvectors</li>
+</ul>
+<table style="width:100%">
+  <tr>
+    <th>Reg</th>
+    <th>Train</th> 
+    <th>Dev</th>
+    <th>Test</th>
+  </tr>
+  <tr>
+    <td>1.00E-05</td>
+    <td>31.004</td> 
+    <td>32.516</td>
+    <td>30.452</td>
+  </tr>
+  <tr>
+    <td>1.15E-04</td>
+    <td>31.063</td> 
+    <td>32.516</td>
+    <td>30.362</td>
+  </tr>
+    <tr>
+    <td>1.12E-03</td>
+    <td>31.133</td> 
+    <td>32.516</td>
+    <td>30.362</td>
+  </tr>
+    <tr>
+    <td>1.10E-02</td>
+    <td>30.922</td> 
+    <td>32.334</td>
+    <td>29.955</td>
+  </tr>
+  <tr>
+    <td>1.07E-01</td>
+    <td>30.290</td> 
+    <td>31.789</td>
+    <td>29.864</td>
+  </tr>
+  <tr>
+    <td>1.05E+00</td>
+    <td>28.816</td> 
+    <td>29.609</td>
+    <td>27.059</td>
+  </tr>
+</table>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Best regularization value: 2.26E-05</div><div class="line">Test accuracy (%): 30.316742</div></pre></td></tr></table></figure>
+<ul>
+<li>pretrained GloVe vectors (on Wikipedia data)</li>
+</ul>
+<table style="width:100%">
+  <tr>
+    <th>Reg</th>
+    <th>Train</th> 
+    <th>Dev</th>
+    <th>Test</th>
+  </tr>
+  <tr>
+    <td>1.00E-05</td>
+    <td>39.923</td> 
+    <td>36.421</td>
+    <td>37.059</td>
+  </tr>
+  <tr>
+    <td>1.15E-04</td>
+    <td>39.958</td> 
+    <td>36.512</td>
+    <td>37.014</td>
+  </tr>
+    <tr>
+    <td>1.12E-03</td>
+    <td>39.899</td> 
+    <td>36.331</td>
+    <td>37.014</td>
+  </tr>
+    <tr>
+    <td>1.10E-02</td>
+    <td>39.923</td> 
+    <td>36.331</td>
+    <td>37.195</td>
+  </tr>
+  <tr>
+    <td>1.07E-01</td>
+    <td>39.782</td> 
+    <td>36.240</td>
+    <td>37.149</td>
+  </tr>
+  <tr>
+    <td>1.05E+00</td>
+    <td>39.478</td> 
+    <td>36.512</td>
+    <td>37.330</td>
+  </tr>
+</table>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Best regularization value: 1.20E+01</div><div class="line">Test accuracy (%): 37.556561</div></pre></td></tr></table></figure>
+<p>觀察兩者的表現可以發現使用 pretrained 的模型效果明顯比較好，可能原因如下：</p>
+<ol>
+<li>更高維度的詞向量可能包含更多的資訊</li>
+<li>GloVe 使用更大的語料庫進行訓練</li>
+<li>word2vec 與 GloVe 的差異 <a href="https://www.zhihu.com/question/37153871" target="_blank" rel="external">(參考資料)</a></li>
+</ol>
+<h3 id="e-Regularization-Term-的變化在-train-set-及-dev-set-的表現差異"><a href="#e-Regularization-Term-的變化在-train-set-及-dev-set-的表現差異" class="headerlink" title="(e) Regularization Term 的變化在 train set 及 dev set 的表現差異"></a>(e) Regularization Term 的變化在 train set 及 dev set 的表現差異</h3><p>Plot the classification accuracy on the train and dev set with respect to the regularization
+value for the pretrained GloVe vectors, using a logarithmic scale on the x-axis. This should have been
+done automatically. <strong>Include <code>q4_reg acc.png</code> in your homework write up.</strong> Briefly explain in at
+most three sentences what you see in the plot.</p>
+<h5 id="solution-20"><a href="#solution-20" class="headerlink" title="solution"></a>solution</h5><p><img src="/images/q4_reg_v_acc.png" alt=""></p>
+<h3 id="f-Confusion-Matrix"><a href="#f-Confusion-Matrix" class="headerlink" title="(f) Confusion Matrix"></a>(f) Confusion Matrix</h3><p>We will now analyze errors that the model makes (with pretrained GloVe vectors). When you
+ran <code>python q4_sentiment.py --pretrained</code>, two files should have been generated. Take a look
+at <code>q4_dev_conf.png</code> and <strong>include it in your homework writeup.</strong> Interpret the confusion matrix
+in at most three sentences.</p>
+<h5 id="solution-21"><a href="#solution-21" class="headerlink" title="solution"></a>solution</h5><p>由預測結果與標準答案的數量比較所產生的 confusion matrix，由左上到右下的對角線所經過的格子為 True Positive 的數量。</p>
+<p><img src="/images/q4_dev_conf.png" alt=""></p>
+<h3 id="g-為何分類錯誤？"><a href="#g-為何分類錯誤？" class="headerlink" title="(g) 為何分類錯誤？"></a>(g) 為何分類錯誤？</h3><p>Next, take a look at <code>q4_dev_pred.txt</code>. Choose 3 examples where your classifier made errors
+and briefly explain the error and what features the classifier would need to classify the example correctly
+(1 sentence per example). Try to pick examples with different reasons.</p>
+<h5 id="solution-22"><a href="#solution-22" class="headerlink" title="solution"></a>solution</h5><p>將每筆分類結果與標準答案的差距取絕對值，統計如下：</p>
+<table>
+  <tr>
+    <th>差距</th>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+  </tr>
+  <tr>
+    <th>數量</th>
+    <td>409</td>
+    <td>444</td>
+    <td>188</td>
+    <td>59</td>
+    <td>1</td>
+</tr></table>
+
+<p>可以看到其實大部分的誤差都在 1 分以內，若將標準降低為差距 1 分或以下就算分類正確，準確率會從原來的 37% 大幅提高到 77%，因此整體的預測其實還算是準確的。</p>
+<table style="width:100%">
+  <tr>
+    <th width="12%">Answer</th>
+    <th width="12%">Predicted</th>
+    <th width="26%">Sentence</th>
+    <th width="50%">Possible Issue</th>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>4</td>
+    <td>a lackluster , unessential sequel to the classic disney adaptation of j.m. barrie &#39;s peter pan .</td>
+    <td>唯一一筆預測與實際分數差距4分的資料，看起來 lackluster, unessential 都是負面的詞彙，classic 則是偏向正面的詞彙，而 j.m. barrie &#39;s peter pan 則比較算是雜訊，其餘則是稍微中性的詞語，若將專有名詞去掉或許能提升預測的分數</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>1</td>
+    <td>the draw -lrb- for `` big bad love &#39;&#39; -rrb- is a solid performance by arliss howard .</td>
+    <td>太多無意義的符號干擾</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>1</td>
+    <td>it is amusing , and that &#39;s all it needs to be .</td>
+    <td>amusing 應該比較偏向正面的詞彙，單純以字面上來判斷即便是常人也有可能將其歸類為正向的語句，但是這句話有點讓人感覺到若是由反派的惡勢力說出口或許會有點讓人恐懼。透過這個例子可以知道除了判斷句子的意思，說話者當時的意境也會影響到這句話的情感。</td>
+  </tr>
+</table>
+
 
       
     </div>
@@ -682,7 +1017,7 @@ hidden layer. Fill in your implementation in <code>q2 neural.py</code>. Sanity c
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CS224n-assignment-1"><span class="nav-number">1.</span> <span class="nav-text">CS224n assignment 1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Softmax"><span class="nav-number">1.1.</span> <span class="nav-text">1. Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-softmax-的性質"><span class="nav-number">1.1.1.</span> <span class="nav-text">(a) softmax 的性質</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-實作-softmax-function"><span class="nav-number">1.1.2.</span> <span class="nav-text">(b) 實作 softmax function</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-1"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">solution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Neural-Network-Basics"><span class="nav-number">1.2.</span> <span class="nav-text">2. Neural Network Basics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-推導-sigmoid-function-的-gradient"><span class="nav-number">1.2.1.</span> <span class="nav-text">(a) 推導 sigmoid function 的 gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-2"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-推導-cross-entropy-loss-的-gradient"><span class="nav-number">1.2.2.</span> <span class="nav-text">(b) 推導 cross entropy loss 的 gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-3"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-Backpropagation"><span class="nav-number">1.2.3.</span> <span class="nav-text">(c) Backpropagation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-4"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-類神經網路的參數數量"><span class="nav-number">1.2.4.</span> <span class="nav-text">(d) 類神經網路的參數數量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-5"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-實作-sigmoid-function"><span class="nav-number">1.2.5.</span> <span class="nav-text">(e) 實作 sigmoid function</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-6"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#f-Gradient-Check"><span class="nav-number">1.2.6.</span> <span class="nav-text">(f) Gradient Check</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-7"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#g-實作類神經網路的-Forward-及-Backward-Pass"><span class="nav-number">1.2.7.</span> <span class="nav-text">(g) 實作類神經網路的 Forward 及 Backward Pass</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-8"><span class="nav-number">1.2.7.1.</span> <span class="nav-text">solution</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CS224n-assignment-1"><span class="nav-number">1.</span> <span class="nav-text">CS224n assignment 1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Softmax"><span class="nav-number">1.1.</span> <span class="nav-text">1. Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-softmax-的性質"><span class="nav-number">1.1.1.</span> <span class="nav-text">(a) softmax 的性質</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-實作-softmax-function"><span class="nav-number">1.1.2.</span> <span class="nav-text">(b) 實作 softmax function</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-1"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">solution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Neural-Network-Basics"><span class="nav-number">1.2.</span> <span class="nav-text">2. Neural Network Basics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-推導-sigmoid-function-的-gradient"><span class="nav-number">1.2.1.</span> <span class="nav-text">(a) 推導 sigmoid function 的 gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-2"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-推導-cross-entropy-loss-的-gradient"><span class="nav-number">1.2.2.</span> <span class="nav-text">(b) 推導 cross entropy loss 的 gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-3"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-Backpropagation"><span class="nav-number">1.2.3.</span> <span class="nav-text">(c) Backpropagation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-4"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-類神經網路的參數數量"><span class="nav-number">1.2.4.</span> <span class="nav-text">(d) 類神經網路的參數數量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-5"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-實作-sigmoid-function"><span class="nav-number">1.2.5.</span> <span class="nav-text">(e) 實作 sigmoid function</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-6"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#f-Gradient-Check"><span class="nav-number">1.2.6.</span> <span class="nav-text">(f) Gradient Check</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-7"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#g-實作類神經網路的-Forward-及-Backward-Pass"><span class="nav-number">1.2.7.</span> <span class="nav-text">(g) 實作類神經網路的 Forward 及 Backward Pass</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-8"><span class="nav-number">1.2.7.1.</span> <span class="nav-text">solution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-word2vec"><span class="nav-number">1.3.</span> <span class="nav-text">3. word2vec</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-計算-Loss-Function-對-v-c-的-gradient"><span class="nav-number">1.3.1.</span> <span class="nav-text">(a) 計算 Loss Function 對 $v_c$ 的 gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-9"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-計算-Loss-Function-對-u-k-的-Gradient"><span class="nav-number">1.3.2.</span> <span class="nav-text">(b) 計算 Loss Function 對 $u_k$ 的 Gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-10"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-Negative-Sampling"><span class="nav-number">1.3.3.</span> <span class="nav-text">(c) Negative Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-11"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-計算-Skip-gram-及-CBOW-的-Gradient"><span class="nav-number">1.3.4.</span> <span class="nav-text">(d) 計算 Skip-gram 及 CBOW 的 Gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-12"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-實作-Skip-gram"><span class="nav-number">1.3.5.</span> <span class="nav-text">(e) 實作 Skip-gram</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-13"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">solution</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#normalizeRows"><span class="nav-number">1.3.5.1.1.</span> <span class="nav-text">normalizeRows</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#softmaxCostAndGradient"><span class="nav-number">1.3.5.1.2.</span> <span class="nav-text">softmaxCostAndGradient</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#negSamplingCostAndGradient"><span class="nav-number">1.3.5.1.3.</span> <span class="nav-text">negSamplingCostAndGradient</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#skipgram"><span class="nav-number">1.3.5.1.4.</span> <span class="nav-text">skipgram</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#f-Stochastic-Gradient-Descent"><span class="nav-number">1.3.6.</span> <span class="nav-text">(f) Stochastic Gradient Descent</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-14"><span class="nav-number">1.3.6.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#g-訓練詞向量"><span class="nav-number">1.3.7.</span> <span class="nav-text">(g) 訓練詞向量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-15"><span class="nav-number">1.3.7.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#h-實作-CBOW"><span class="nav-number">1.3.8.</span> <span class="nav-text">(h) 實作 CBOW</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-16"><span class="nav-number">1.3.8.1.</span> <span class="nav-text">solution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Sentiment-Analysis"><span class="nav-number">1.4.</span> <span class="nav-text">4. Sentiment Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-以特徵向量來表示一個句子"><span class="nav-number">1.4.1.</span> <span class="nav-text">(a) 以特徵向量來表示一個句子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-17"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-正規化-Regularization"><span class="nav-number">1.4.2.</span> <span class="nav-text">(b) 正規化 (Regularization)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#solution-18"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-尋找超參數-hyperparameter"><span class="nav-number">1.4.3.</span> <span class="nav-text">(c) 尋找超參數 (hyperparameter)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#solution-19"><span class="nav-number">1.4.3.0.1.</span> <span class="nav-text">solution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-模型比較"><span class="nav-number">1.4.4.</span> <span class="nav-text">(d) 模型比較</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-Regularization-Term-的變化在-train-set-及-dev-set-的表現差異"><span class="nav-number">1.4.5.</span> <span class="nav-text">(e) Regularization Term 的變化在 train set 及 dev set 的表現差異</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#solution-20"><span class="nav-number">1.4.5.0.1.</span> <span class="nav-text">solution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#f-Confusion-Matrix"><span class="nav-number">1.4.6.</span> <span class="nav-text">(f) Confusion Matrix</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#solution-21"><span class="nav-number">1.4.6.0.1.</span> <span class="nav-text">solution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#g-為何分類錯誤？"><span class="nav-number">1.4.7.</span> <span class="nav-text">(g) 為何分類錯誤？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#solution-22"><span class="nav-number">1.4.7.0.1.</span> <span class="nav-text">solution</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
