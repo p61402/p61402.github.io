@@ -106,7 +106,7 @@
 <meta property="og:image" content="https://p61402.github.io/images/q3_word_vectors.png">
 <meta property="og:image" content="https://p61402.github.io/images/q4_reg_v_acc.png">
 <meta property="og:image" content="https://p61402.github.io/images/q4_dev_conf.png">
-<meta property="og:updated_time" content="2018-12-09T09:34:38.124Z">
+<meta property="og:updated_time" content="2018-12-10T01:33:23.366Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS224n assignment 1">
 <meta name="twitter:description" content="CS224n assignment 1這是 Stanford University 的一門開放式課程，叫做 Natural Language Processing with Deep Learning，所指派的第一個作業。這個作業透過以數學推導類神經網路的運算過程，以及實作wor2vec來進行情感分析，為初學者學習自然語言處理打下基礎。 這個作業主要分為 4 個部分：  Softm">
@@ -435,7 +435,7 @@ Note: In practice, we make use of this property and choose $c = − max_i x_i$ w
 probabilities for numerical stability (i.e., subtracting its maximum element from all elements of $x$).</p>
 <h4 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h4><p>證明若將 softmax 的輸入 x 的每一項都加上一個常數後，結果會與原本相同。</p>
 <p>$softmax(x+c)_i=\dfrac{e^{x_i+c}}{\sum_j{e^{x_j+c}}}=\dfrac{e^{x_i}e^c}{\sum_j{e^{x_j}e^c}}=\dfrac{e^ce^{x_i}}{e^c\sum_j{e^{x_j}}}=\dfrac{e^{x_i}}{\sum_j{e^{x_j}}}=softmax(x)$</p>
-<p>這個特性在實際計算 softmax 時常被使用，將輸入 x 的每一項都加上 x 中的最大值，可以減少計算量。</p>
+<p>這個特性在實際計算 softmax 時常被使用，將輸入 x 的每一項都減去 x 中的最大值，可以減少計算量。</p>
 <h3 id="b-實作-softmax-function"><a href="#b-實作-softmax-function" class="headerlink" title="(b) 實作 softmax function"></a>(b) 實作 softmax function</h3><p>Given an input matrix of N rows and D columns, compute the softmax prediction for each
 row using the optimization in part (a). Write your implementation in <code>q1_softmax.py</code>. You may test
 by executing <code>python q1_softmax.py</code>.
@@ -448,8 +448,8 @@ implementation will not receive full credit!</p>
 <p>注意在<code>x</code>的維度為 1 x D 與 N x D (N ≥ 2)時的處理方式不同。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(x)</span>:</span></div><div class="line">    orig_shape = x.shape</div><div class="line"></div><div class="line">    <span class="keyword">if</span> len(x.shape) &gt; <span class="number">1</span>:</div><div class="line">        <span class="comment"># Matrix</span></div><div class="line">        x = np.apply_along_axis(softmax, <span class="number">1</span>, x)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="comment"># Vector</span></div><div class="line">        x -= np.amax(x)</div><div class="line">        x = np.exp(x) / np.sum(np.exp(x))</div><div class="line"></div><div class="line">    <span class="keyword">assert</span> x.shape == orig_shape</div><div class="line">    <span class="keyword">return</span> x</div></pre></td></tr></table></figure>
 <h2 id="2-Neural-Network-Basics"><a href="#2-Neural-Network-Basics" class="headerlink" title="2. Neural Network Basics"></a>2. Neural Network Basics</h2><h3 id="a-推導-sigmoid-function-的-gradient"><a href="#a-推導-sigmoid-function-的-gradient" class="headerlink" title="(a) 推導 sigmoid function 的 gradient"></a>(a) 推導 sigmoid function 的 gradient</h3><p>Derive the gradients of the sigmoid function and show that it can be rewritten as a function
-of the function value (i.e., in some expression where only σ(x), but not x, is present). Assume that the
-input x is a scalar for this question. Recall, the sigmoid function is
+of the function value (i.e., in some expression where only $\sigma(x)$, but not $x$, is present). Assume that the
+input $x$ is a scalar for this question. Recall, the sigmoid function is
 $$\sigma(x)=\dfrac{1}{1+e^{-x}}$$</p>
 <h4 id="solution-2"><a href="#solution-2" class="headerlink" title="solution"></a>solution</h4><p>$\dfrac{\partial\sigma(x)}{\partial x}=\dfrac{-1}{(1+e^{-x})^2}\times e^{-x}\times (-1)=\dfrac{e^{-x}}{(1+e^{-x})^2}=\dfrac{1}{1+e^{-x}}\times{\dfrac{1+e^{-x}-1}{1+e^{-x}}}=\sigma(x)(1-\sigma(x))$</p>
 <h3 id="b-推導-cross-entropy-loss-的-gradient"><a href="#b-推導-cross-entropy-loss-的-gradient" class="headerlink" title="(b) 推導 cross entropy loss 的 gradient"></a>(b) 推導 cross entropy loss 的 gradient</h3><p>Derive the gradient with regard to the inputs of a softmax function when cross entropy loss
@@ -839,7 +839,7 @@ and briefly explain the error and what features the classifier would need to cla
     <td>4</td>
     <td>1</td>
     <td>it is amusing , and that &#39;s all it needs to be .</td>
-    <td>amusing 應該比較偏向正面的詞彙，單純以字面上來判斷即便是常人也有可能將其歸類為正向的語句，但是這句話有點讓人感覺到若是由反派的惡勢力說出口或許會有點讓人恐懼。透過這個例子可以知道除了判斷句子的意思，說話者當時的意境也會影響到這句話的情感。</td>
+    <td>amusing 應該比較偏向正面的詞彙，但是其餘的詞感覺大部分都是冗詞。</td>
   </tr>
 </table>
 
