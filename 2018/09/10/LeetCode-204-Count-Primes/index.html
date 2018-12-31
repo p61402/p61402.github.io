@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="問題經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。">
+<meta name="description" content="問題 經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。">
 <meta name="keywords" content="LeetCode,C,Prime">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode#204 Count Primes">
 <meta property="og:url" content="https://p61402.github.io/2018/09/10/LeetCode-204-Count-Primes/index.html">
 <meta property="og:site_name" content="QOO&#39;s Blog">
-<meta property="og:description" content="問題經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。">
+<meta property="og:description" content="問題 經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-09-10T06:27:30.284Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode#204 Count Primes">
-<meta name="twitter:description" content="問題經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。">
+<meta name="twitter:description" content="問題 經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。">
 
 
 
@@ -140,7 +140,7 @@
 
 
 
-  <title>LeetCode#204 Count Primes | QOO's Blog</title>
+  <title>LeetCode#204 Count Primes | QOO's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -165,7 +165,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -412,15 +412,12 @@
       
 
       
-        <h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。
-<a id="more"></a></p>
-<h2 id="輸入與輸出"><a href="#輸入與輸出" class="headerlink" title="輸入與輸出"></a>輸入與輸出</h2><pre><code>Input: 10
-Output: 4
-Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.
-</code></pre><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>建質數表。</p>
+        <h2 id="問題">問題</h2>
+<p>經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。 <a id="more"></a> ## 輸入與輸出 ## Input: 10 Output: 4 Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7. ## 方法 ## 建質數表。</p>
 <p>方法一： 逐一檢查 1 ~ n - 1 的整數中有多少個質數，但效率不好，因此採用第二種方法。</p>
 <p>方法二： <a href="https://zh.wikipedia.org/wiki/埃拉托斯特尼筛法" target="_blank" rel="external">埃拉托斯特尼篩法</a>，從 2 開始將已知質數的倍數標記成合數，可以減少很多不必要的計算。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">countPrimes</span><span class="params">(<span class="keyword">int</span> n)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> i, j, prime_count = <span class="number">0</span>;</div><div class="line">    <span class="keyword">bool</span>* primes = <span class="built_in">malloc</span>(n * <span class="keyword">sizeof</span>(<span class="keyword">bool</span>));</div><div class="line">    <span class="built_in">memset</span>(primes, <span class="literal">true</span>, n * <span class="keyword">sizeof</span>(<span class="keyword">bool</span>)); </div><div class="line"></div><div class="line">    <span class="keyword">for</span> (i = <span class="number">2</span>; i &lt; n; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (primes[i])</div><div class="line">        &#123;</div><div class="line">            prime_count++;</div><div class="line">            <span class="keyword">for</span> (j = <span class="number">2</span> * i; j &lt; n; j += i)</div><div class="line">                primes[j] = <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> prime_count;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -600,7 +597,7 @@ Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題"><span class="nav-number">1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸入與輸出"><span class="nav-number">2.</span> <span class="nav-text">輸入與輸出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">3.</span> <span class="nav-text">方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題"><span class="nav-number">1.</span> <span class="nav-text">問題</span></a></li></ol></div>
             
 
           </div>
@@ -1119,7 +1116,24 @@ Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 
 
