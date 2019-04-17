@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="Mxm9E-j9Gv7WuZQYUJ6BytlCEOcioYX-OQuCqPdBp6I" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="NLP,Deep Learning," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="CS224n assignment 2 這次的作業主要目的是讓我們實作 Dependency Parsing 以及熟悉 Tensorflow 的運作原理。">
+<meta name="keywords" content="NLP,Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS224n assignment 2">
+<meta property="og:url" content="https://p61402.github.io/2018/12/31/CS224n-assignment-2/index.html">
+<meta property="og:site_name" content="QOO&#39;s Blog">
+<meta property="og:description" content="CS224n assignment 2 這次的作業主要目的是讓我們實作 Dependency Parsing 以及熟悉 Tensorflow 的運作原理。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://p61402.github.io/images/dependency_parsing.png">
+<meta property="og:image" content="https://p61402.github.io/images/minibatch_dependency_parsing.png">
+<meta property="og:updated_time" content="2019-04-17T16:44:00.262Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS224n assignment 2">
+<meta name="twitter:description" content="CS224n assignment 2 這次的作業主要目的是讓我們實作 Dependency Parsing 以及熟悉 Tensorflow 的運作原理。">
+<meta name="twitter:image" content="https://p61402.github.io/images/dependency_parsing.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://p61402.github.io/2018/12/31/CS224n-assignment-2/"/>
+
+
+
+
+
+  <title>CS224n assignment 2 | QOO's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">QOO's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2018/12/31/CS224n-assignment-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="QOO">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QOO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">CS224n assignment 2</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-31T22:24:53+08:00">
+                2018-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/course/" itemprop="url" rel="index">
+                    <span itemprop="name">學校課程</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/course/自然語言處理/" itemprop="url" rel="index">
+                    <span itemprop="name">自然語言處理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="cs224n-assignment-2">CS224n assignment 2</h1>
+<p>這次的作業主要目的是讓我們實作 Dependency Parsing 以及熟悉 Tensorflow 的運作原理。</p>
+<a id="more"></a>
+<h2 id="tensorflow-softmax">1. Tensorflow Softmax</h2>
+<p>In this question, we will implement a linear classifier with loss function <span class="math display">\[ J(\mathbf{W}) = CE(\mathbf{y},softmax(\mathbf{xW} + \mathbf{b})) \]</span> Where <span class="math inline">\(\mathbf{x}\)</span> is a vector of features, <span class="math inline">\(\mathbf{W}\)</span> is the model’s weight matrix, and <span class="math inline">\(\mathbf{b}\)</span> is a bias term. We will use TensorFlow’s automatic differentiation capability to fit this model to provided data.</p>
+<h3 id="a-使用-tensorflow-實作-softmax">(a) 使用 Tensorflow 實作 Softmax</h3>
+<p>Implement the softmax function using TensorFlow in <code>q1_softmax.py</code>. Remember that <span class="math display">\[ softmax(x)_i = \dfrac{e^{x_i}}{\sum_j{e^{x_j}}} \]</span> Note that you may <strong>not</strong> use <code>tf.nn.softmax</code> or related built-in functions. You can run basic (nonexhaustive tests) by running <code>python q1_softmax.py</code>.</p>
+<h4 id="a-solution">1.(a) solution</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(x)</span>:</span></div><div class="line">    out = tf.exp(x) / tf.reduce_sum(tf.exp(x), axis=<span class="number">1</span>, keepdims=<span class="keyword">True</span>)</div><div class="line">    <span class="keyword">return</span> out</div></pre></td></tr></table></figure>
+<h3 id="b-使用-tensorflow-實作-cross-entropy-loss">(b) 使用 Tensorflow 實作 Cross Entropy Loss</h3>
+<p>Implement the cross-entropy loss using TensorFlow in <code>q1_softmax.py</code>. Remember that <span class="math display">\[ CE(\mathbf{y},\mathbf{\hat{y}})=-\sum\limits_{i=1}^{N_c} y_i log(\hat{y_i})\]</span> where <span class="math inline">\(\mathbf{y} \in \mathbb{R}^{N_c}\)</span> is a one-hot label vector and <span class="math inline">\(Nc\)</span> is the number of classes. This loss is summed over all examples in a minibatch. Note that you may <strong>not</strong> use TensorFlow’s built-in cross-entropy functions for this question. You can run basic (non-exhaustive tests) by running <code>python q1_softmax.py</code>.</p>
+<h4 id="b-solution">1.(b) solution</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">cross_entropy_loss</span><span class="params">(y, yhat)</span>:</span></div><div class="line">    out = -tf.reduce_sum(tf.multiply(tf.to_float(y), tf.log(yhat)))</div><div class="line">    <span class="keyword">return</span> out</div></pre></td></tr></table></figure>
+<h3 id="c-placeholder-variable-與-feed-dictionary">(c) Placeholder Variable 與 Feed Dictionary</h3>
+<p>Carefully study the Model class in <code>model.py</code>. Briefly explain the purpose of placeholder variables and feed dictionaries in TensorFlow computations. Fill in the implementations for <code>add_placeholders</code> and <code>create_feed_dict</code> in <code>q1_classifier.py</code>.</p>
+<h4 id="c-solution">1.(c) solution</h4>
+<p><strong>Hint:</strong> Note that configuration variables are stored in the Config class. You will need to use these configuration variables in the code.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_placeholders</span><span class="params">(self)</span>:</span></div><div class="line">    self.input_placeholder = tf.placeholder(dtype=tf.float32, shape=(self.config.batch_size, self.config.n_features))</div><div class="line">    self.labels_placeholder = tf.placeholder(dtype=tf.float32, shape=(self.config.batch_size, self.config.n_classes))</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_feed_dict</span><span class="params">(self, inputs_batch, labels_batch=None)</span>:</span></div><div class="line">    feed_dict = &#123;self.input_placeholder: inputs_batch,</div><div class="line">                    self.labels_placeholder: labels_batch&#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> feed_dict</div></pre></td></tr></table></figure>
+<h3 id="d-使用-tensorflow-建立網路架構">(d) 使用 Tensorflow 建立網路架構</h3>
+<p>Implement the transformation for a softmax classifier in the function <code>add_prediction_op</code> in <code>q1_classifier.py</code>. Add cross-entropy loss in the function <code>add_loss_op</code> in the same file. Use the implementations from the earlier parts of the problem (already imported for you), <strong>not</strong> TensorFlow built-ins.</p>
+<h4 id="d-solution">1.(d) solution</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_prediction_op</span><span class="params">(self)</span>:</span></div><div class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'transformation'</span>):</div><div class="line">        b = tf.Variable(tf.zeros(shape=[self.config.n_classes]))</div><div class="line">        W = tf.Variable(tf.zeros(shape=[self.config.n_features, self.config.n_classes]))</div><div class="line">        z = tf.matmul(self.input_placeholder, W) + b</div><div class="line">    pred = softmax(z)</div><div class="line">    <span class="keyword">return</span> pred</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_loss_op</span><span class="params">(self, pred)</span>:</span></div><div class="line">    loss = cross_entropy_loss(self.labels_placeholder, pred)</div><div class="line">    <span class="keyword">return</span> loss</div></pre></td></tr></table></figure>
+<h3 id="e-使用-tensorflow-加入-optimizer">(e) 使用 Tensorflow 加入 Optimizer</h3>
+<p>Fill in the implementation for <code>add_training_op</code> in <code>q1_classifier.py</code>. Explain in a few sentences what happens when the model’s <code>train_op</code> is called (what gets computed during forward propagation, what gets computed during backpropagation, and what will have changed after the op has been run?). Verify that your model is able to fit to synthetic data by running <code>python q1_classifier.py</code> and making sure that the tests pass.</p>
+<p><strong>Hint:</strong> Make sure to use the learning rate specified in <code>Config</code>.</p>
+<h4 id="e-solution">1.(e) solution</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_training_op</span><span class="params">(self, loss)</span>:</span></div><div class="line">    train_op = tf.train.GradientDescentOptimizer(learning_rate=self.config.lr).minimize(loss)</div><div class="line">    <span class="keyword">return</span> train_op</div></pre></td></tr></table></figure>
+<h2 id="neural-transition-based-dependency-parsing">2. Neural Transition-Based Dependency Parsing</h2>
+<p>In this section, you’ll be implementing a neural-network based dependency parser. A dependency parser analyzes the grammatical structure of a sentence, establishing relationships between “head” words and words which modify those heads. Your implementation will be a transition-based parser, which incrementally builds up a parse one step at a time. At every step it maintains a partial parse, which is represented as follows:</p>
+<ul>
+<li>A stack of words that are currently being processed.</li>
+<li>A buffer of words yet to be processed.</li>
+<li>A list of dependencies predicted by the parser.</li>
+</ul>
+<p>Initially, the stack only contains ROOT, the dependencies lists is empty, and the buffer contains all words of the sentence in order. At each step, the parse applies a transition to the partial parse until its buffer is empty and the stack is size 1. The following transitions can be applied:</p>
+<ul>
+<li>SHIFT: removes the first word from the buffer and pushes it onto the stack.</li>
+<li>LEFT-ARC: marks the second (second most recently added) item on the stack as a dependent of the first item and removes the second item from the stack.</li>
+<li>RIGHT-ARC: marks the first (most recently added) item on the stack as a dependent of the second item and removes the first item from the stack.</li>
+</ul>
+<p>Your parser will decide among transitions at each state using a neural network classifier. First, you will implement the partial parse representation and transition functions.</p>
+<h3 id="a-試試看">(a) 試試看</h3>
+<p>Go through the sequence of transitions needed for parsing the sentence “I parsed this sentence correctly”. The dependency tree for the sentence is shown below. At each step, give the configuration of the stack and buffer, as well as what transition was applied this step and what new dependency was added (if any). The first three steps are provided below as an example.</p>
+<p><img src="/images/dependency_parsing.png"></p>
+<h4 id="a-solution-1">2.(a) solution</h4>
+<table>
+<tr>
+<th>
+stack
+</th>
+<th>
+buffer
+</th>
+<th>
+new dependency
+</th>
+<th>
+transition
+</th>
+</tr>
+<tr>
+<th>
+[ROOT]
+</th>
+<td>
+[I, parsed, this, setence, correctly]
+</td>
+<td>
+</td>
+<td>
+Initial Configuration
+</td>
+</tr>
+<tr>
+<th>
+[ROOT, I]
+</th>
+<td>
+[parsed, this, setence, correctly]
+</td>
+<td>
+</td>
+<td>
+SHIFT
+</td>
+</tr>
+<tr>
+<th>
+[ROOT, I, parsed]
+</th>
+<td>
+[this, setence, correctly]
+</td>
+<td>
+</td>
+<td>
+SHIFT
+</td>
+</tr>
+<tr>
+<th>
+[ROOT, parsed]
+</th>
+<td>
+[this, setence, correctly]
+</td>
+<td>
+parsed -&gt; I
+</td>
+<td>
+LEFT-ARC
+</td>
+</tr>
+<tr>
+<th>
+[ROOT, parsed, this]
+</th>
+<td>
+[setence, correctly]
+</td>
+<td>
+</td>
+<td>
+SHIFT
+</td>
+</tr>
+<tr>
+<th>
+[ROOT, parsed, this]
+</th>
+<td>
+[setence, correctly]
+</td>
+<td>
+</td>
+<td>
+SHIFT
+</td>
+</tr>
+<tr>
+<th>
+[ROOT, parsed, this, sentence]
+</th>
+<td>
+[correctly]
+</td>
+<td>
+</td>
+<td>
+SHIFT
+</td>
+</tr>
+<tr>
+<th>
+[ROOT, parsed, setence]
+</th>
+<td>
+[correctly]
+</td>
+<td>
+sentence -&gt; this
+</td>
+<td>
+LEFT-ARC
+</td>
+</tr>
+<tr>
+<th>
+[ROOT, parsed]
+</th>
+<td>
+[correctly]
+</td>
+<td>
+parse -&gt; sentence
+</td>
+<td>
+RIGHT-ARC
+</td>
+</tr>
+<tr>
+<th>
+[ROOT, parsed, correctly]
+</th>
+<td>
+[]
+</td>
+<td>
+</td>
+<td>
+SHFIT
+</td>
+</tr>
+<tr>
+<th>
+[ROOT, parsed]
+</th>
+<td>
+[]
+</td>
+<td>
+parse -&gt; correctly
+</td>
+<td>
+RIGHT-ARC
+</td>
+</tr>
+<tr>
+<th>
+[ROOT]
+</th>
+<td>
+[]
+</td>
+<td>
+ROOT -&gt; parsed
+</td>
+<td>
+RIGHT-ARC
+</td>
+</tr>
+</table>
+<h3 id="b-時間複雜度">(b) 時間複雜度</h3>
+<p>A sentence containing n words will be parsed in how many steps (in terms of n)? Briefly explain why.</p>
+<h4 id="b-solution-1">2.(b) solution</h4>
+<p>每個詞都會進行一次 SHIFT 及 LEFT/RIGHT-ARC，因此共 2n 次。</p>
+<h3 id="c-實作-dependency-parsing">(c) 實作 Dependency Parsing</h3>
+<p>Implement the <code>__init__</code> and <code>parse_step</code> functions in the <code>PartialParse</code> class in <code>q2_parser_transitions.py</code>. This implements the transition mechanics your parser will use. You can run basic (not-exhaustive) tests by running python <code>q2_parser_transitions.py</code>.</p>
+<h4 id="c-solution-1">2.(c) solution</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, sentence)</span>:</span></div><div class="line">    self.sentence = sentence</div><div class="line">    self.stack = [<span class="string">'ROOT'</span>]</div><div class="line">    self.buffer = sentence[:]</div><div class="line">    self.dependencies = []</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_step</span><span class="params">(self, transition)</span>:</span></div><div class="line">    <span class="keyword">if</span> transition == <span class="string">"S"</span>:</div><div class="line">        self.stack.append(self.buffer[<span class="number">0</span>])</div><div class="line">        self.buffer.pop(<span class="number">0</span>)</div><div class="line">    <span class="keyword">elif</span> transition == <span class="string">"LA"</span>:</div><div class="line">        self.dependencies.append((self.stack[<span class="number">-1</span>], self.stack[<span class="number">-2</span>]))</div><div class="line">        self.stack.pop(<span class="number">-2</span>)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        self.dependencies.append((self.stack[<span class="number">-2</span>], self.stack[<span class="number">-1</span>]))</div><div class="line">        self.stack.pop(<span class="number">-1</span>)</div></pre></td></tr></table></figure>
+<h3 id="d-minibatch-dependency-parsing">(d) Minibatch Dependency Parsing</h3>
+<p>Our network will predict which transition should be applied next to a partial parse. We could use it to parse a single sentence by applying predicted transitions until the parse is complete. However, neural networks run much more efficiently when making predictions about batches of data at a time (i.e., predicting the next transition for a many different partial parses simultaneously). We can parse sentences in minibatches with the following algorithm.</p>
+<p><img src="/../images/minibatch_dependency_parsing.png"></p>
+<p>Implement this algorithm in the <code>minibatch_parse</code> function in <code>q2_ parser_transitions.py</code>. You can run basic (not-exhaustive) tests by running <code>python q2_parser_transitions.py</code>.</p>
+<p>Note: You will need <code>minibatch_parse</code> to be correctly implemented to evaluate the model you will build in part (h). However, you do not need it to train the model, so you should be able to complete most of part (h) even if minibatch parse is not implemented yet.</p>
+<h4 id="d-solution-1">2.(d) solution</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">minibatch_parse</span><span class="params">(sentences, model, batch_size)</span>:</span></div><div class="line">    partial_parse = [PartialParse(sentence) <span class="keyword">for</span> sentence <span class="keyword">in</span> sentences]</div><div class="line">    dependencies = []</div><div class="line"></div><div class="line">    <span class="keyword">while</span> len(partial_parse) &gt; <span class="number">0</span>:</div><div class="line">        mini_batch = partial_parse[:batch_size]</div><div class="line">        <span class="keyword">while</span> len(mini_batch) &gt; <span class="number">0</span>:</div><div class="line">            transitions = model.predict(mini_batch)</div><div class="line">            <span class="keyword">for</span> i, action <span class="keyword">in</span> enumerate(transitions):</div><div class="line">                mini_batch[i].parse_step(action)</div><div class="line">            mini_batch = [parse <span class="keyword">for</span> parse <span class="keyword">in</span> mini_batch <span class="keyword">if</span> len(parse.stack) &gt; <span class="number">1</span> <span class="keyword">or</span> len(parse.buffer) &gt; <span class="number">0</span>]</div><div class="line">        dependencies.extend(p.dependencies <span class="keyword">for</span> p <span class="keyword">in</span> partial_parse[:batch_size])</div><div class="line">        partial_parse = partial_parse[batch_size:]</div><div class="line"></div><div class="line">    <span class="keyword">return</span> dependencies</div></pre></td></tr></table></figure>
+<h3 id="e-xavier-initialization">(e) Xavier initialization</h3>
+<p>In order to avoid neurons becoming too correlated and ending up in poor local minimina, it is often helpful to randomly initialize parameters. One of the most frequent initializations used is called Xavier initialization.</p>
+<p>Given a matrix <span class="math inline">\(A\)</span> of dimension <span class="math inline">\(m × n\)</span>, Xavier initialization selects values <span class="math inline">\(A_{ij}\)</span> uniformly from <span class="math inline">\([-\epsilon,\epsilon]\)</span>, where</p>
+<p><span class="math display">\[\epsilon=\dfrac{\sqrt{6}}{\sqrt{m+n}}\]</span></p>
+<p>Implement the initialization in xavier weight init in <code>q2 _initialization.py</code>. You can run basic (nonexhaustive tests) by running python <code>q2_initialization.py</code>. This function will be used to initialize <span class="math inline">\(W\)</span> and <span class="math inline">\(U\)</span>.</p>
+<h4 id="e-solution-1">2.(e) solution</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">xavier_weight_init</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_xavier_initializer</span><span class="params">(shape, **kwargs)</span>:</span></div><div class="line">        epsilon = tf.sqrt(<span class="number">6</span> / tf.cast(np.sum(shape), tf.float32))</div><div class="line">        out = tf.random_uniform(shape=shape, minval=-epsilon, maxval=epsilon)</div><div class="line"></div><div class="line">        <span class="keyword">return</span> out</div><div class="line">    <span class="comment"># Returns defined initializer function.</span></div><div class="line">    <span class="keyword">return</span> _xavier_initializer</div></pre></td></tr></table></figure>
+<h3 id="f-dropout">(f) Dropout</h3>
+<p>We will regularize our network by applying Dropout. During training this randomly sets units in the hidden layer <span class="math inline">\(h\)</span> to zero with probability <span class="math inline">\(p_{drop}\)</span> and then multiplies <span class="math inline">\(h\)</span> by a constant <span class="math inline">\(\gamma\)</span> (dropping different units each minibatch). We can write this as</p>
+<p><span class="math display">\[h_{drop}=\gamma d \circ h\]</span></p>
+<p>where <span class="math inline">\(d ∈ \{0, 1\}^{D_h}\)</span> (<span class="math inline">\(D_h\)</span> is the size of <span class="math inline">\(h\)</span>) is a mask vector where each entry is 0 with probability <span class="math inline">\(p_{drop}\)</span> and 1 with probability (1 − <span class="math inline">\(p_{drop}\)</span>). <span class="math inline">\(\gamma\)</span> is chosen such that the value of hdrop in expectation equals <span class="math inline">\(h\)</span>:</p>
+<p><span class="math display">\[E_{p_{drop}}[h_{drop}]_i=h_i\]</span></p>
+<p>for all <span class="math inline">\(0 &lt; i &lt; D_h\)</span>. What must <span class="math inline">\(\gamma\)</span> equal in terms of <span class="math inline">\(p_{drop}\)</span>? Briefly justify your answer.</p>
+<h4 id="f-solution">2.(f) solution</h4>
+<p><span class="math inline">\(E_p{h_p}_i=E_p[\gamma d_i h_i] = p \times 0 + (1-p) \times \gamma h_i = (1-p)\gamma h_i = h_i\)</span></p>
+<p><span class="math inline">\(\Rightarrow r = \dfrac{1}{1-p}\)</span></p>
+<h3 id="g-adam-optmizer">(g) Adam Optmizer</h3>
+<p>We will train our model using the Adam optimizer. Recall that standard SGD uses the update rule</p>
+<p><span class="math display">\[\theta \leftarrow \theta - \alpha \nabla_\theta J_{minibatch}(\theta)\]</span></p>
+<p>where <span class="math inline">\(\theta\)</span> is a vector containing all of the model parameters, <span class="math inline">\(J\)</span> is the loss function, <span class="math inline">\(\nabla_\theta J_{minibatch}(\theta)\)</span> is the gradient of the loss function with respect to the parameters on a minibatch of data, and <span class="math inline">\(\alpha\)</span> is the learning rate. Adam uses a more sophisticated update rule with two additional steps.</p>
+<p>First, Adam uses a trick called momentum by keeping track of m, a rolling average of the gradients:</p>
+<p><span class="math display">\[m \leftarrow \beta_1 m + (1-\beta_1) \nabla_\theta J_{minibatch}(\theta)\]</span></p>
+<p><span class="math display">\[\theta \leftarrow \theta - \alpha m\]</span></p>
+<p>where <span class="math inline">\(\beta_1\)</span> is a hyperparameter between 0 and 1 (often set to 0.9). Briefly explain (you don’t need to prove mathematically, just give an intuition) how using <span class="math inline">\(m\)</span> stops the updates from varying as much. Why might this help with learning?</p>
+<p>Adam also uses adaptive learning rates by keeping track of v, a rolling average of the magnitudes of the gradients:</p>
+<p><span class="math display">\[m \leftarrow \beta_1 m + (1-\beta_1) \nabla_\theta J_{minibatch}(\theta)\]</span></p>
+<p><span class="math display">\[m \leftarrow \beta_2 v + (1-\beta_2) \nabla_\theta J_{minibatch}(\theta) \circ \nabla_\theta J_{minibatch}(\theta)\]</span></p>
+<p><span class="math display">\[\theta \leftarrow \theta - \alpha \circ m / \sqrt{v}\]</span></p>
+<p>where <span class="math inline">\(\circ\)</span> and <span class="math inline">\(/\)</span> denote elementwise multiplication and division (so <span class="math inline">\(z \circ z\)</span> is elementwise squaring) and <span class="math inline">\(\beta_2\)</span> is a hyperparameter between 0 and 1 (often set to 0.99). Since Adam divides the update by <span class="math inline">\(\sqrt{v}\)</span>, which of the model parameters will get larger updates? Why might this help with learning?</p>
+<h3 id="h-parser-模型實作">(h) Parser 模型實作</h3>
+<p>In <code>q2_parser_model.py</code> implement the neural network classifier governing the dependency parser by filling in the appropriate sections. We will train and evaluate our model on the Penn Treebank (annotated with Universal Dependencies).Run <code>python q2_parser_model.py</code> to train your model and compute predictions on the test data (make sure to turn off debug settings when doing final evaluation).</p>
+<p>Hints:</p>
+<ul>
+<li><p>When debugging, pass the keyword argument <code>debug=True</code> to the main method (it is set to <code>true</code> by default). This will cause the code to run over a small subset of the data, so the training the model won’t take as long.</p></li>
+<li><p>This code should run within 1 hour on a CPU.</p></li>
+<li><p>When running with <code>debug=True</code>, you should be able to get a loss smaller than 0.2 and a UAS larger than 65 on the dev set (although in rare cases your results may be lower, there is some randomness when training). When running with <code>debug=False</code>, you should be able to get a loss smaller than 0.08 on the train set and an Unlabeled Attachment Score larger than 87 on the dev set. For comparison, the model in the original neural dependency parsing paper gets 92.5 UAS. If you want, you can tweak the hyperparameters for your model (hidden layer size, hyperparameters for Adam, number of epochs, etc.) to improve the performance (but you are not required to do so).</p></li>
+</ul>
+<h4 id="h-solution">2.(h) solution</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> cPickle</div><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</div><div class="line"></div><div class="line"><span class="keyword">from</span> model <span class="keyword">import</span> Model</div><div class="line"><span class="keyword">from</span> q2_initialization <span class="keyword">import</span> xavier_weight_init</div><div class="line"><span class="keyword">from</span> utils.parser_utils <span class="keyword">import</span> minibatches, load_and_preprocess_data</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Config</span><span class="params">(object)</span>:</span></div><div class="line">    n_features = <span class="number">36</span></div><div class="line">    n_classes = <span class="number">3</span></div><div class="line">    dropout = <span class="number">0.5</span>  <span class="comment"># (p_drop in the handout)</span></div><div class="line">    embed_size = <span class="number">50</span></div><div class="line">    hidden_size = <span class="number">200</span></div><div class="line">    batch_size = <span class="number">1024</span></div><div class="line">    n_epochs = <span class="number">10</span></div><div class="line">    lr = <span class="number">0.0005</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ParserModel</span><span class="params">(Model)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_placeholders</span><span class="params">(self)</span>:</span></div><div class="line">        self.input_placeholder = tf.placeholder(dtype=tf.int32, shape=(<span class="keyword">None</span>, self.config.n_features))</div><div class="line">        self.labels_placeholder = tf.placeholder(dtype=tf.float32, shape=(<span class="keyword">None</span>, self.config.n_classes))</div><div class="line">        self.dropout_placeholder = tf.placeholder(dtype=tf.float32)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_feed_dict</span><span class="params">(self, inputs_batch, labels_batch=None, dropout=<span class="number">0</span>)</span>:</span></div><div class="line">        feed_dict = &#123;self.input_placeholder: inputs_batch,</div><div class="line">                     self.dropout_placeholder: dropout&#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> labels_batch <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">            feed_dict[self.labels_placeholder] = labels_batch</div><div class="line"></div><div class="line">        <span class="keyword">return</span> feed_dict</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_embedding</span><span class="params">(self)</span>:</span></div><div class="line">        embedding = tf.Variable(self.pretrained_embeddings)</div><div class="line">        embeddings = tf.reshape(tf.nn.embedding_lookup(embedding, self.input_placeholder), [<span class="number">-1</span>, self.config.n_features * self.config.embed_size])</div><div class="line">        <span class="keyword">return</span> embeddings</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_prediction_op</span><span class="params">(self)</span>:</span></div><div class="line">        x = self.add_embedding()</div><div class="line">        xavier_initializer = xavier_weight_init()</div><div class="line">        W = tf.Variable(xavier_initializer((self.config.n_features * self.config.embed_size, self.config.hidden_size)))</div><div class="line">        b1 = tf.Variable(tf.zeros(self.config.hidden_size))</div><div class="line">        U = tf.Variable(xavier_initializer((self.config.hidden_size, self.config.n_classes)))</div><div class="line">        b2 = tf.Variable(tf.zeros(self.config.n_classes))</div><div class="line">        h = tf.nn.relu(tf.matmul(x, W) + b1)</div><div class="line">        h_drop = tf.nn.dropout(h, <span class="number">1</span> - self.dropout_placeholder)</div><div class="line">        pred = tf.matmul(h_drop, U) + b2</div><div class="line"></div><div class="line">        <span class="keyword">return</span> pred</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_loss_op</span><span class="params">(self, pred)</span>:</span></div><div class="line">        loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=pred, labels=self.labels_placeholder))</div><div class="line">        <span class="keyword">return</span> loss</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_training_op</span><span class="params">(self, loss)</span>:</span></div><div class="line">        train_op = tf.train.AdamOptimizer(learning_rate=self.config.lr).minimize(loss)</div><div class="line">        <span class="keyword">return</span> train_op</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train_on_batch</span><span class="params">(self, sess, inputs_batch, labels_batch)</span>:</span></div><div class="line">        feed = self.create_feed_dict(inputs_batch, labels_batch=labels_batch,</div><div class="line">                                     dropout=self.config.dropout)</div><div class="line">        _, loss = sess.run([self.train_op, self.loss], feed_dict=feed)</div><div class="line">        <span class="keyword">return</span> loss</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run_epoch</span><span class="params">(self, sess, parser, train_examples, dev_set)</span>:</span></div><div class="line">        n_minibatches = <span class="number">1</span> + len(train_examples) / self.config.batch_size</div><div class="line">        prog = tf.keras.utils.Progbar(target=n_minibatches)</div><div class="line">        <span class="keyword">for</span> i, (train_x, train_y) <span class="keyword">in</span> enumerate(minibatches(train_examples, self.config.batch_size)):</div><div class="line">            loss = self.train_on_batch(sess, train_x, train_y)</div><div class="line">            prog.update(i + <span class="number">1</span>, [(<span class="string">"train loss"</span>, loss)])</div><div class="line"></div><div class="line">        <span class="keyword">print</span> <span class="string">"Evaluating on dev set"</span>,</div><div class="line">        dev_UAS, _ = parser.parse(dev_set)</div><div class="line">        <span class="keyword">print</span> <span class="string">"- dev UAS: &#123;:.2f&#125;"</span>.format(dev_UAS * <span class="number">100.0</span>)</div><div class="line">        <span class="keyword">return</span> dev_UAS</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, sess, saver, parser, train_examples, dev_set)</span>:</span></div><div class="line">        best_dev_UAS = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> epoch <span class="keyword">in</span> range(self.config.n_epochs):</div><div class="line">            <span class="keyword">print</span> <span class="string">"Epoch &#123;:&#125; out of &#123;:&#125;"</span>.format(epoch + <span class="number">1</span>, self.config.n_epochs)</div><div class="line">            dev_UAS = self.run_epoch(sess, parser, train_examples, dev_set)</div><div class="line">            <span class="keyword">if</span> dev_UAS &gt; best_dev_UAS:</div><div class="line">                best_dev_UAS = dev_UAS</div><div class="line">                <span class="keyword">if</span> saver:</div><div class="line">                    <span class="keyword">print</span> <span class="string">"New best dev UAS! Saving model in ./data/weights/parser.weights"</span></div><div class="line">                    saver.save(sess, <span class="string">'./data/weights/parser.weights'</span>)</div><div class="line">            <span class="keyword">print</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, config, pretrained_embeddings)</span>:</span></div><div class="line">        self.pretrained_embeddings = pretrained_embeddings</div><div class="line">        self.config = config</div><div class="line">        self.build()</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(debug=True)</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="number">80</span> * <span class="string">"="</span></div><div class="line">    <span class="keyword">print</span> <span class="string">"INITIALIZING"</span></div><div class="line">    <span class="keyword">print</span> <span class="number">80</span> * <span class="string">"="</span></div><div class="line">    config = Config()</div><div class="line">    parser, embeddings, train_examples, dev_set, test_set = load_and_preprocess_data(debug)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(<span class="string">'./data/weights/'</span>):</div><div class="line">        os.makedirs(<span class="string">'./data/weights/'</span>)</div><div class="line"></div><div class="line">    <span class="keyword">with</span> tf.Graph().as_default() <span class="keyword">as</span> graph:</div><div class="line">        <span class="keyword">print</span> <span class="string">"Building model..."</span>,</div><div class="line">        start = time.time()</div><div class="line">        model = ParserModel(config, embeddings)</div><div class="line">        parser.model = model</div><div class="line">        init_op = tf.global_variables_initializer()</div><div class="line">        saver = <span class="keyword">None</span> <span class="keyword">if</span> debug <span class="keyword">else</span> tf.train.Saver()</div><div class="line">        <span class="keyword">print</span> <span class="string">"took &#123;:.2f&#125; seconds\n"</span>.format(time.time() - start)</div><div class="line">    graph.finalize()</div><div class="line"></div><div class="line">    <span class="keyword">with</span> tf.Session(graph=graph) <span class="keyword">as</span> session:</div><div class="line">        parser.session = session</div><div class="line">        session.run(init_op)</div><div class="line"></div><div class="line">        <span class="keyword">print</span> <span class="number">80</span> * <span class="string">"="</span></div><div class="line">        <span class="keyword">print</span> <span class="string">"TRAINING"</span></div><div class="line">        <span class="keyword">print</span> <span class="number">80</span> * <span class="string">"="</span></div><div class="line">        model.fit(session, saver, parser, train_examples, dev_set)</div><div class="line"></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> debug:</div><div class="line">            <span class="keyword">print</span> <span class="number">80</span> * <span class="string">"="</span></div><div class="line">            <span class="keyword">print</span> <span class="string">"TESTING"</span></div><div class="line">            <span class="keyword">print</span> <span class="number">80</span> * <span class="string">"="</span></div><div class="line">            <span class="keyword">print</span> <span class="string">"Restoring the best model weights found on the dev set"</span></div><div class="line">            saver.restore(session, <span class="string">'./data/weights/parser.weights'</span>)</div><div class="line">            <span class="keyword">print</span> <span class="string">"Final evaluation on test set"</span>,</div><div class="line">            UAS, dependencies = parser.parse(test_set)</div><div class="line">            <span class="keyword">print</span> <span class="string">"- test UAS: &#123;:.2f&#125;"</span>.format(UAS * <span class="number">100.0</span>)</div><div class="line">            <span class="keyword">print</span> <span class="string">"Writing predictions"</span></div><div class="line">            <span class="keyword">with</span> open(<span class="string">'q2_test.predicted.pkl'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> f:</div><div class="line">                cPickle.dump(dependencies, f, <span class="number">-1</span>)</div><div class="line">            <span class="keyword">print</span> <span class="string">"Done!"</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    main(<span class="keyword">False</span>)</div></pre></td></tr></table></figure>
+<h3 id="i-加分題">(i) 加分題</h3>
+<h2 id="recurrent-neural-networks-language-modeling">3. Recurrent Neural Networks: Language Modeling</h2>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/05/CS224n-assignment-1/" rel="next" title="CS224n assignment 1">
+                <i class="fa fa-chevron-left"></i> CS224n assignment 1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="QOO" />
+          <p class="site-author-name" itemprop="name">QOO</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cs224n-assignment-2"><span class="nav-number">1.</span> <span class="nav-text">CS224n assignment 2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tensorflow-softmax"><span class="nav-number">1.1.</span> <span class="nav-text">1. Tensorflow Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-使用-tensorflow-實作-softmax"><span class="nav-number">1.1.1.</span> <span class="nav-text">(a) 使用 Tensorflow 實作 Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-solution"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1.(a) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-使用-tensorflow-實作-cross-entropy-loss"><span class="nav-number">1.1.2.</span> <span class="nav-text">(b) 使用 Tensorflow 實作 Cross Entropy Loss</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#b-solution"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1.(b) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-placeholder-variable-與-feed-dictionary"><span class="nav-number">1.1.3.</span> <span class="nav-text">(c) Placeholder Variable 與 Feed Dictionary</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#c-solution"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">1.(c) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-使用-tensorflow-建立網路架構"><span class="nav-number">1.1.4.</span> <span class="nav-text">(d) 使用 Tensorflow 建立網路架構</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#d-solution"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">1.(d) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-使用-tensorflow-加入-optimizer"><span class="nav-number">1.1.5.</span> <span class="nav-text">(e) 使用 Tensorflow 加入 Optimizer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#e-solution"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">1.(e) solution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#neural-transition-based-dependency-parsing"><span class="nav-number">1.2.</span> <span class="nav-text">2. Neural Transition-Based Dependency Parsing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-試試看"><span class="nav-number">1.2.1.</span> <span class="nav-text">(a) 試試看</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-solution-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">2.(a) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-時間複雜度"><span class="nav-number">1.2.2.</span> <span class="nav-text">(b) 時間複雜度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#b-solution-1"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">2.(b) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-實作-dependency-parsing"><span class="nav-number">1.2.3.</span> <span class="nav-text">(c) 實作 Dependency Parsing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#c-solution-1"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">2.(c) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-minibatch-dependency-parsing"><span class="nav-number">1.2.4.</span> <span class="nav-text">(d) Minibatch Dependency Parsing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#d-solution-1"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">2.(d) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-xavier-initialization"><span class="nav-number">1.2.5.</span> <span class="nav-text">(e) Xavier initialization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#e-solution-1"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">2.(e) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#f-dropout"><span class="nav-number">1.2.6.</span> <span class="nav-text">(f) Dropout</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#f-solution"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">2.(f) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#g-adam-optmizer"><span class="nav-number">1.2.7.</span> <span class="nav-text">(g) Adam Optmizer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#h-parser-模型實作"><span class="nav-number">1.2.8.</span> <span class="nav-text">(h) Parser 模型實作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#h-solution"><span class="nav-number">1.2.8.1.</span> <span class="nav-text">2.(h) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#i-加分題"><span class="nav-number">1.2.9.</span> <span class="nav-text">(i) 加分題</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#recurrent-neural-networks-language-modeling"><span class="nav-number">1.3.</span> <span class="nav-text">3. Recurrent Neural Networks: Language Modeling</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QOO</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
