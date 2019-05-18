@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="Mxm9E-j9Gv7WuZQYUJ6BytlCEOcioYX-OQuCqPdBp6I">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Deep Learning,Computer Vision,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="簡介 這次的作業相較於第一次作業又更深入了一些，這次作業要依序實作 Fully Connected Network、Batch Normalization、Dropout、Convolutional Neural Network 等方法，並將裡頭的步驟模組化。">
+<meta name="keywords" content="Deep Learning,Computer Vision">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS231n assignment 2">
+<meta property="og:url" content="https://p61402.github.io/2019/05/04/CS231n-assignment-2/index.html">
+<meta property="og:site_name" content="QOO&#39;s Blog">
+<meta property="og:description" content="簡介 這次的作業相較於第一次作業又更深入了一些，這次作業要依序實作 Fully Connected Network、Batch Normalization、Dropout、Convolutional Neural Network 等方法，並將裡頭的步驟模組化。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://p61402.github.io/images/CS231n_assignment_2/optimizer_comparison.png">
+<meta property="og:image" content="https://p61402.github.io/images/CS231n_assignment_2/batch_normalization.png">
+<meta property="og:image" content="https://p61402.github.io/images/CS231n_assignment_2/BN_backward.png">
+<meta property="og:image" content="https://p61402.github.io/images/CS231n_assignment_2/BN_comp_graph.png">
+<meta property="og:image" content="https://p61402.github.io/images/CS231n_assignment_2/dropout.png">
+<meta property="og:updated_time" content="2019-05-18T16:19:20.771Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS231n assignment 2">
+<meta name="twitter:description" content="簡介 這次的作業相較於第一次作業又更深入了一些，這次作業要依序實作 Fully Connected Network、Batch Normalization、Dropout、Convolutional Neural Network 等方法，並將裡頭的步驟模組化。">
+<meta name="twitter:image" content="https://p61402.github.io/images/CS231n_assignment_2/optimizer_comparison.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://p61402.github.io/2019/05/04/CS231n-assignment-2/">
+
+
+
+
+
+  <title>CS231n assignment 2 | QOO's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">QOO's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2019/05/04/CS231n-assignment-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="QOO">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QOO's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">CS231n assignment 2</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-04T23:44:15+08:00">
+                2019-05-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/course/" itemprop="url" rel="index">
+                    <span itemprop="name">學校課程</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/course/圖像辨識/" itemprop="url" rel="index">
+                    <span itemprop="name">圖像辨識</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="簡介">簡介</h1>
+<p>這次的作業相較於第一次作業又更深入了一些，這次作業要依序實作 Fully Connected Network、Batch Normalization、Dropout、Convolutional Neural Network 等方法，並將裡頭的步驟模組化。</p>
+<a id="more"></a>
+<h1 id="fully-connected-network">Fully Connected Network</h1>
+<h2 id="modular-network">Modular network</h2>
+<p>首先要將 FCN 的 forward pass 以及 backward 模組化，包括 affine layer 與 ReLU activation。 在 forward pass 時使用<code>cache</code>將所需變數儲存，以便 backward pass 的時候使用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">affine_forward</span><span class="params">(x, w, b)</span>:</span></span><br><span class="line">    out = <span class="keyword">None</span></span><br><span class="line">    out = x.reshape(x.shape[<span class="number">0</span>], <span class="number">-1</span>).dot(w) + b</span><br><span class="line">    cache = (x, w, b)</span><br><span class="line">    <span class="keyword">return</span> out, cache</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">affine_backward</span><span class="params">(dout, cache)</span>:</span></span><br><span class="line">    x, w, b = cache</span><br><span class="line">    dx, dw, db = <span class="keyword">None</span>, <span class="keyword">None</span>, <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    dx = dout.dot(w.T).reshape(x.shape)</span><br><span class="line">    dw = x.reshape(x.shape[<span class="number">0</span>], <span class="number">-1</span>).T.dot(dout)</span><br><span class="line">    db = np.sum(dout, axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dx, dw, db</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">relu_forward</span><span class="params">(x)</span>:</span></span><br><span class="line">    out = <span class="keyword">None</span></span><br><span class="line">    out = np.maximum(x, <span class="number">0</span>)</span><br><span class="line">    cache = x</span><br><span class="line">    <span class="keyword">return</span> out, cache</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">relu_backward</span><span class="params">(dout, cache)</span>:</span></span><br><span class="line">    dx, x = <span class="keyword">None</span>, cache</span><br><span class="line">    dx = dout * (x &gt; <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> dx</span><br></pre></td></tr></table></figure>
+<p>利用剛剛完成的模組來建構<code>TwoLayerNet</code>以及可以自訂 size 的<code>FullyConnectedNet</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoLayerNet</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, input_dim=<span class="number">3</span>*<span class="number">32</span>*<span class="number">32</span>, hidden_dim=<span class="number">100</span>, num_classes=<span class="number">10</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 weight_scale=<span class="number">1e-3</span>, reg=<span class="number">0.0</span>)</span>:</span></span><br><span class="line"></span><br><span class="line">        self.params = &#123;&#125;</span><br><span class="line">        self.reg = reg</span><br><span class="line"></span><br><span class="line">        self.params[<span class="string">'W1'</span>] = np.random.normal(<span class="number">0</span>, weight_scale, (input_dim, hidden_dim))</span><br><span class="line">        self.params[<span class="string">'b1'</span>] = np.zeros((hidden_dim, ))</span><br><span class="line">        self.params[<span class="string">'W2'</span>] = np.random.normal(<span class="number">0</span>, weight_scale, (hidden_dim, num_classes))</span><br><span class="line">        self.params[<span class="string">'b2'</span>] = np.zeros((num_classes, ))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">loss</span><span class="params">(self, X, y=None)</span>:</span></span><br><span class="line">        scores = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">        h1, cache_h1 = affine_relu_forward(X, self.params[<span class="string">'W1'</span>], self.params[<span class="string">'b1'</span>])</span><br><span class="line">        scores, cache_scores = affine_forward(h1, self.params[<span class="string">'W2'</span>], self.params[<span class="string">'b2'</span>])</span><br><span class="line"></span><br><span class="line">        <span class="comment"># If y is None then we are in test mode so just return scores</span></span><br><span class="line">        <span class="keyword">if</span> y <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">return</span> scores</span><br><span class="line"></span><br><span class="line">        loss, grads = <span class="number">0</span>, &#123;&#125;</span><br><span class="line"></span><br><span class="line">        loss, dS = softmax_loss(scores, y)</span><br><span class="line">        dh1, grads[<span class="string">'W2'</span>], grads[<span class="string">'b2'</span>] = affine_backward(dS, cache_scores)</span><br><span class="line">        dx, grads[<span class="string">'W1'</span>], grads[<span class="string">'b1'</span>] = affine_relu_backward(dh1, cache_h1)</span><br><span class="line"></span><br><span class="line">        loss += <span class="number">0.5</span> * self.reg * (np.sum(self.params[<span class="string">'W2'</span>] ** <span class="number">2</span>) + np.sum(self.params[<span class="string">'W1'</span>] ** <span class="number">2</span>))</span><br><span class="line">        grads[<span class="string">'W1'</span>] += self.reg * self.params[<span class="string">'W1'</span>]</span><br><span class="line">        grads[<span class="string">'W2'</span>] += self.reg * self.params[<span class="string">'W2'</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> loss, grads</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FullyConnectedNet</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, hidden_dims, input_dim=<span class="number">3</span>*<span class="number">32</span>*<span class="number">32</span>, num_classes=<span class="number">10</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 dropout=<span class="number">1</span>, normalization=None, reg=<span class="number">0.0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 weight_scale=<span class="number">1e-2</span>, dtype=np.float32, seed=None)</span>:</span></span><br><span class="line"></span><br><span class="line">        self.normalization = normalization</span><br><span class="line">        self.use_dropout = dropout != <span class="number">1</span></span><br><span class="line">        self.reg = reg</span><br><span class="line">        self.num_layers = <span class="number">1</span> + len(hidden_dims)</span><br><span class="line">        self.dtype = dtype</span><br><span class="line">        self.params = &#123;&#125;</span><br><span class="line"></span><br><span class="line">        self.params[<span class="string">'W1'</span>] = np.random.normal(<span class="number">0</span>, weight_scale, (input_dim, hidden_dims[<span class="number">0</span>]))</span><br><span class="line">        self.params[<span class="string">'b1'</span>] = np.zeros((hidden_dims[<span class="number">0</span>], ))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, self.num_layers - <span class="number">1</span>):</span><br><span class="line">            self.params[<span class="string">'W'</span>+str(i+<span class="number">1</span>)] = np.random.normal(<span class="number">0</span>, weight_scale, (hidden_dims[i<span class="number">-1</span>], hidden_dims[i]))</span><br><span class="line">            self.params[<span class="string">'b'</span>+str(i+<span class="number">1</span>)] = np.zeros((hidden_dims[i], ))</span><br><span class="line"></span><br><span class="line">        self.params[<span class="string">'W'</span>+str(self.num_layers)] = np.random.normal(<span class="number">0</span>, weight_scale, (hidden_dims[<span class="number">-1</span>], num_classes))</span><br><span class="line">        self.params[<span class="string">'b'</span>+str(self.num_layers)] = np.zeros((num_classes, ))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># When using dropout we need to pass a dropout_param dictionary to each</span></span><br><span class="line">        <span class="comment"># dropout layer so that the layer knows the dropout probability and the mode</span></span><br><span class="line">        <span class="comment"># (train / test). You can pass the same dropout_param to each dropout layer.</span></span><br><span class="line">        self.dropout_param = &#123;&#125;</span><br><span class="line">        <span class="keyword">if</span> self.use_dropout:</span><br><span class="line">            self.dropout_param = &#123;<span class="string">'mode'</span>: <span class="string">'train'</span>, <span class="string">'p'</span>: dropout&#125;</span><br><span class="line">            <span class="keyword">if</span> seed <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">                self.dropout_param[<span class="string">'seed'</span>] = seed</span><br><span class="line"></span><br><span class="line">        <span class="comment"># With batch normalization we need to keep track of running means and</span></span><br><span class="line">        <span class="comment"># variances, so we need to pass a special bn_param object to each batch</span></span><br><span class="line">        <span class="comment"># normalization layer. You should pass self.bn_params[0] to the forward pass</span></span><br><span class="line">        <span class="comment"># of the first batch normalization layer, self.bn_params[1] to the forward</span></span><br><span class="line">        <span class="comment"># pass of the second batch normalization layer, etc.</span></span><br><span class="line">        self.bn_params = []</span><br><span class="line">        <span class="keyword">if</span> self.normalization==<span class="string">'batchnorm'</span>:</span><br><span class="line">            self.bn_params = [&#123;<span class="string">'mode'</span>: <span class="string">'train'</span>&#125; <span class="keyword">for</span> i <span class="keyword">in</span> range(self.num_layers - <span class="number">1</span>)]</span><br><span class="line">        <span class="keyword">if</span> self.normalization==<span class="string">'layernorm'</span>:</span><br><span class="line">            self.bn_params = [&#123;&#125; <span class="keyword">for</span> i <span class="keyword">in</span> range(self.num_layers - <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Cast all parameters to the correct datatype</span></span><br><span class="line">        <span class="keyword">for</span> k, v <span class="keyword">in</span> self.params.items():</span><br><span class="line">            self.params[k] = v.astype(dtype)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">loss</span><span class="params">(self, X, y=None)</span>:</span></span><br><span class="line">        X = X.astype(self.dtype)</span><br><span class="line">        mode = <span class="string">'test'</span> <span class="keyword">if</span> y <span class="keyword">is</span> <span class="keyword">None</span> <span class="keyword">else</span> <span class="string">'train'</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Set train/test mode for batchnorm params and dropout param since they</span></span><br><span class="line">        <span class="comment"># behave differently during training and testing.</span></span><br><span class="line">        <span class="keyword">if</span> self.use_dropout:</span><br><span class="line">            self.dropout_param[<span class="string">'mode'</span>] = mode</span><br><span class="line">        <span class="keyword">if</span> self.normalization==<span class="string">'batchnorm'</span>:</span><br><span class="line">            <span class="keyword">for</span> bn_param <span class="keyword">in</span> self.bn_params:</span><br><span class="line">                bn_param[<span class="string">'mode'</span>] = mode</span><br><span class="line">        scores = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">        h, cache = [<span class="keyword">None</span>] * (self.num_layers + <span class="number">1</span>), [<span class="keyword">None</span>] * (self.num_layers + <span class="number">1</span>)</span><br><span class="line">        h[<span class="number">0</span>] = X</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(self.num_layers - <span class="number">1</span>):</span><br><span class="line">            W, b = self.params[<span class="string">'W'</span>+str(i+<span class="number">1</span>)], self.params[<span class="string">'b'</span>+str(i+<span class="number">1</span>)]</span><br><span class="line">            h[i+<span class="number">1</span>], cache[i+<span class="number">1</span>] = affine_relu_forward(h[i], W, b)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">            W, b = self.params[<span class="string">'W'</span>+str(i+<span class="number">1</span>)], self.params[<span class="string">'b'</span>+str(i+<span class="number">1</span>)]</span><br><span class="line">            h[i+<span class="number">1</span>], cache[i+<span class="number">1</span>] = affine_forward(h[i], W, b)</span><br><span class="line"></span><br><span class="line">        scores = h[<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># If test mode return early</span></span><br><span class="line">        <span class="keyword">if</span> mode == <span class="string">'test'</span>:</span><br><span class="line">            <span class="keyword">return</span> scores</span><br><span class="line"></span><br><span class="line">        loss, grads = <span class="number">0.0</span>, &#123;&#125;</span><br><span class="line"></span><br><span class="line">        loss, dS = softmax_loss(scores, y)</span><br><span class="line">        dh = [<span class="keyword">None</span>] * (self.num_layers + <span class="number">1</span>)</span><br><span class="line">        dh[<span class="number">-1</span>] = dS</span><br><span class="line"></span><br><span class="line">        i = self.num_layers</span><br><span class="line">        dh[i<span class="number">-1</span>], grads[<span class="string">'W'</span>+str(i)], grads[<span class="string">'b'</span>+str(i)] = affine_backward(dh[i], cache[i])</span><br><span class="line">        loss += <span class="number">0.5</span> * self.reg * np.sum(self.params[<span class="string">'W'</span>+str(i)] ** <span class="number">2</span>)</span><br><span class="line">        grads[<span class="string">'W'</span>+str(i)] += <span class="number">0.5</span> * self.reg * (self.params[<span class="string">'W'</span>+str(i)] ** <span class="number">2</span>)</span><br><span class="line">        i -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> i &gt; <span class="number">0</span>:</span><br><span class="line">            dh[i<span class="number">-1</span>], grads[<span class="string">'W'</span>+str(i)], grads[<span class="string">'b'</span>+str(i)] = affine_relu_backward(dh[i], cache[i])</span><br><span class="line">            loss += <span class="number">0.5</span> * self.reg * np.sum(self.params[<span class="string">'W'</span>+str(i)] ** <span class="number">2</span>)</span><br><span class="line">            grads[<span class="string">'W'</span>+str(i)] += self.reg * self.params[<span class="string">'W'</span>+str(i)]</span><br><span class="line">            i -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> loss, grads</span><br></pre></td></tr></table></figure>
+<h2 id="sgd-momentum">SGD + Momentum</h2>
+<p>原始的 Stochastic Gradient Descent：</p>
+<p><span class="math inline">\(x_{t+1}=x_t-\alpha\nabla f(x_t)\)</span></p>
+<p>SGD + Momumtum：</p>
+<p><span class="math inline">\(v_{t+1}=\rho v_t-\alpha\nabla f(x_t) \\ x_{t+1}=x_t+v_{t+1}\)</span></p>
+<p><span class="math inline">\(v\)</span> 代表目前的方向速度，初始值為 0，如果負梯度與目前方向相同，則速度會越來越快，參數的更新幅度就會變大；反之則越來越慢，參數的更新幅度會變小。</p>
+<p>至於 <span class="math inline">\(\rho\)</span> 則是一個 hyperparameter，通常設在 0.9 左右。</p>
+<p>使用 SGD + Momentum 通常比 Vanilla SGD 能夠更快收斂。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sgd_momentum</span><span class="params">(w, dw, config=None)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> config <span class="keyword">is</span> <span class="keyword">None</span>: config = &#123;&#125;</span><br><span class="line">    config.setdefault(<span class="string">'learning_rate'</span>, <span class="number">1e-2</span>)</span><br><span class="line">    config.setdefault(<span class="string">'momentum'</span>, <span class="number">0.9</span>)</span><br><span class="line">    v = config.get(<span class="string">'velocity'</span>, np.zeros_like(w))</span><br><span class="line"></span><br><span class="line">    next_w = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    v = config[<span class="string">'momentum'</span>] * v - config[<span class="string">'learning_rate'</span>] * dw</span><br><span class="line">    next_w = w + v</span><br><span class="line"></span><br><span class="line">    config[<span class="string">'velocity'</span>] = v</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> next_w, config</span><br></pre></td></tr></table></figure>
+<h2 id="rmsprop">RMSProp</h2>
+<p><span class="math inline">\(v_t=\rho v_{t-1}+(1-\rho) \times (\nabla f(x_t))^2\)</span></p>
+<p><span class="math inline">\(\Delta x_t=-\dfrac{\alpha}{\sqrt{v_t+\epsilon}} \times \nabla f(x_t)\)</span></p>
+<p><span class="math inline">\(x_{t+1}=x_t+\Delta x_t\)</span></p>
+<p><span class="math inline">\(\rho\)</span> 為 decay rate，通常設為 0.9、0.99、0.999。</p>
+<p><span class="math inline">\(\epsilon\)</span> 是一個很小的值，為了避免除以 0 的情況產生。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rmsprop</span><span class="params">(w, dw, config=None)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> config <span class="keyword">is</span> <span class="keyword">None</span>: config = &#123;&#125;</span><br><span class="line">    config.setdefault(<span class="string">'learning_rate'</span>, <span class="number">1e-2</span>)</span><br><span class="line">    config.setdefault(<span class="string">'decay_rate'</span>, <span class="number">0.99</span>)</span><br><span class="line">    config.setdefault(<span class="string">'epsilon'</span>, <span class="number">1e-8</span>)</span><br><span class="line">    config.setdefault(<span class="string">'cache'</span>, np.zeros_like(w))</span><br><span class="line"></span><br><span class="line">    next_w = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    config[<span class="string">'cache'</span>] = config[<span class="string">'decay_rate'</span>] * config[<span class="string">'cache'</span>] + (<span class="number">1</span> - config[<span class="string">'decay_rate'</span>]) * (dw ** <span class="number">2</span>)</span><br><span class="line">    next_w = w + -config[<span class="string">'learning_rate'</span>] * dw / np.sqrt(config[<span class="string">'cache'</span>] + config[<span class="string">'epsilon'</span>])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> next_w, config</span><br></pre></td></tr></table></figure>
+<h2 id="adam">Adam</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">adam</span><span class="params">(w, dw, config=None)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> config <span class="keyword">is</span> <span class="keyword">None</span>: config = &#123;&#125;</span><br><span class="line">    config.setdefault(<span class="string">'learning_rate'</span>, <span class="number">1e-3</span>)</span><br><span class="line">    config.setdefault(<span class="string">'beta1'</span>, <span class="number">0.9</span>)</span><br><span class="line">    config.setdefault(<span class="string">'beta2'</span>, <span class="number">0.999</span>)</span><br><span class="line">    config.setdefault(<span class="string">'epsilon'</span>, <span class="number">1e-8</span>)</span><br><span class="line">    config.setdefault(<span class="string">'m'</span>, np.zeros_like(w))</span><br><span class="line">    config.setdefault(<span class="string">'v'</span>, np.zeros_like(w))</span><br><span class="line">    config.setdefault(<span class="string">'t'</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    next_w = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    config[<span class="string">'t'</span>] += <span class="number">1</span></span><br><span class="line">    config[<span class="string">'m'</span>] = config[<span class="string">'beta1'</span>] * config[<span class="string">'m'</span>] + (<span class="number">1</span> - config[<span class="string">'beta1'</span>]) * dw</span><br><span class="line">    mt = config[<span class="string">'m'</span>] / (<span class="number">1</span> - config[<span class="string">'beta1'</span>] ** config[<span class="string">'t'</span>])</span><br><span class="line">    config[<span class="string">'v'</span>] = config[<span class="string">'beta2'</span>] * config[<span class="string">'v'</span>] + (<span class="number">1</span> - config[<span class="string">'beta2'</span>]) * (dw ** <span class="number">2</span>)</span><br><span class="line">    vt = config[<span class="string">'v'</span>] / (<span class="number">1</span> - config[<span class="string">'beta2'</span>] ** config[<span class="string">'t'</span>])</span><br><span class="line">    next_w = w + -config[<span class="string">'learning_rate'</span>] * mt / (np.sqrt(vt) + config[<span class="string">'epsilon'</span>])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> next_w, config</span><br></pre></td></tr></table></figure>
+<p>比較不同 optimizer 的表現：</p>
+<figure>
+<img src="/images/CS231n_assignment_2/optimizer_comparison.png" alt="Optimizer Comparison"><figcaption>Optimizer Comparison</figcaption>
+</figure>
+<h1 id="batch-normalization">Batch Normalization</h1>
+<p>實作過程參考以下論文：</p>
+<p><a href="https://arxiv.org/abs/1502.03167" target="_blank" rel="noopener">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a></p>
+<p>batch normalization 的目的是為了讓每一層的輸出都保持高斯分佈，主要的目的是為了避免 gradient vanishing。做法是將 fordward pass 時用來訓練的批次資料計算 mean 以及 variance，利用 mini-batch 的 mean 及 vairance 來更新整體的 mean 及 variance。</p>
+<h2 id="forward-pass">Forward Pass</h2>
+<p>論文中具體的實作方法如下：</p>
+<figure>
+<img src="/images/CS231n_assignment_2/batch_normalization.png" alt="batch_normalization"><figcaption>batch_normalization</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">batchnorm_forward</span><span class="params">(x, gamma, beta, bn_param)</span>:</span></span><br><span class="line">    mode = bn_param[<span class="string">'mode'</span>]</span><br><span class="line">    eps = bn_param.get(<span class="string">'eps'</span>, <span class="number">1e-5</span>)</span><br><span class="line">    momentum = bn_param.get(<span class="string">'momentum'</span>, <span class="number">0.9</span>)</span><br><span class="line"></span><br><span class="line">    N, D = x.shape</span><br><span class="line">    running_mean = bn_param.get(<span class="string">'running_mean'</span>, np.zeros(D, dtype=x.dtype))</span><br><span class="line">    running_var = bn_param.get(<span class="string">'running_var'</span>, np.zeros(D, dtype=x.dtype))</span><br><span class="line"></span><br><span class="line">    out, cache = <span class="keyword">None</span>, <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">if</span> mode == <span class="string">'train'</span>:</span><br><span class="line">        sample_mean = x.mean(axis=<span class="number">0</span>)</span><br><span class="line">        sample_var = x.var(axis=<span class="number">0</span>)</span><br><span class="line">        sqrtvar = np.sqrt(sample_var + eps)</span><br><span class="line">        xmu = x - sample_mean</span><br><span class="line">        ivar = <span class="number">1.</span>/sqrtvar</span><br><span class="line">        x_hat = xmu * ivar</span><br><span class="line">        out = gamma * x_hat + beta</span><br><span class="line"></span><br><span class="line">        cache = (xmu, sample_var, ivar, sqrtvar, x_hat, gamma, eps)</span><br><span class="line"></span><br><span class="line">        running_mean = momentum * running_mean + (<span class="number">1</span> - momentum) * sample_mean</span><br><span class="line">        running_var = momentum * running_var + (<span class="number">1</span> - momentum) * sample_var</span><br><span class="line">    <span class="keyword">elif</span> mode == <span class="string">'test'</span>:</span><br><span class="line">        x_hat = (x - running_mean) / np.sqrt(running_var + eps)</span><br><span class="line">        out = gamma * x_hat + beta</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">'Invalid forward batchnorm mode "%s"'</span> % mode)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Store the updated running means back into bn_param</span></span><br><span class="line">    bn_param[<span class="string">'running_mean'</span>] = running_mean</span><br><span class="line">    bn_param[<span class="string">'running_var'</span>] = running_var</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> out, cache</span><br></pre></td></tr></table></figure>
+<h2 id="backward-pass">Backward Pass</h2>
+<p>論文中對於計算 BN 的反向傳播也有一些描述：</p>
+<figure>
+<img src="/images/CS231n_assignment_2/BN_backward.png" alt="BN backward"><figcaption>BN backward</figcaption>
+</figure>
+<p>真的是滿複雜的，最好還是自己畫過一次計算圖之後再試著去計算 backward pass，這部分的話<a href="https://kratzert.github.io/2016/02/12/understanding-the-gradient-flow-through-the-batch-normalization-layer.html" target="_blank" rel="noopener">這篇文章</a>寫得滿不錯的，可以參考一下。</p>
+<figure>
+<img src="/images/CS231n_assignment_2/BN_comp_graph.png" alt="自己畫的計算圖"><figcaption>自己畫的計算圖</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">batchnorm_backward</span><span class="params">(dout, cache)</span>:</span></span><br><span class="line">    dx, dgamma, dbeta = <span class="keyword">None</span>, <span class="keyword">None</span>, <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    N, D = dout.shape</span><br><span class="line">    xmu, var, ivar, sqrtvar, x_hat, gamma, eps = cache</span><br><span class="line"></span><br><span class="line">    dbeta = np.sum(dout, axis=<span class="number">0</span>)</span><br><span class="line">    dgamma_x = dout</span><br><span class="line">    dgamma = np.sum(dgamma_x * x_hat, axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    dx_hat = dgamma_x * gamma</span><br><span class="line">    divar = np.sum(dx_hat * xmu, axis=<span class="number">0</span>)</span><br><span class="line">    dx_mu1 = dx_hat * ivar</span><br><span class="line"></span><br><span class="line">    dsqrtvar = -divar / (sqrtvar ** <span class="number">2</span>)</span><br><span class="line">    dvar = <span class="number">0.5</span> * dsqrtvar / np.sqrt(var + eps)</span><br><span class="line">    dsq = dvar * np.ones((N, D)) / N</span><br><span class="line"></span><br><span class="line">    dx_mu2 = <span class="number">2</span> * xmu * dsq</span><br><span class="line"></span><br><span class="line">    dx1 = dx_mu1 + dx_mu2</span><br><span class="line">    dmu = -np.sum(dx_mu1 + dx_mu2, axis=<span class="number">0</span>)</span><br><span class="line">    dx2 = dmu * np.ones((N, D)) / N</span><br><span class="line"></span><br><span class="line">    dx = dx1 + dx2</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dx, dgamma, dbeta</span><br></pre></td></tr></table></figure>
+<p>簡化版：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">batchnorm_backward_alt</span><span class="params">(dout, cache)</span>:</span></span><br><span class="line">    dx, dgamma, dbeta = <span class="keyword">None</span>, <span class="keyword">None</span>, <span class="keyword">None</span></span><br><span class="line">    xmu, var, ivar, sqrtvar, x_hat, gamma, eps = cache</span><br><span class="line">    N, D = dout.shape</span><br><span class="line"></span><br><span class="line">    dbeta = np.sum(dout, axis=<span class="number">0</span>)</span><br><span class="line">    dgamma = np.sum(x_hat * dout, axis=<span class="number">0</span>)</span><br><span class="line">    dx = (gamma * ivar / N) * (N * dout - x_hat * dgamma - dbeta)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dx, dgamma, dbeta</span><br></pre></td></tr></table></figure>
+<h2 id="layer-normalization">Layer Normalization</h2>
+<p>batch normalization 使得類神經網路的訓練更有效率，但是對於複雜的網路結構來說，在 batch size 不夠大的時候效果可能不會太好。因此另一個方法是對 feature 進行 normalize，參考論文：<a href="https://arxiv.org/pdf/1607.06450.pdf" target="_blank" rel="noopener">Layer Normalization</a>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">layernorm_forward</span><span class="params">(x, gamma, beta, ln_param)</span>:</span></span><br><span class="line">    out, cache = <span class="keyword">None</span>, <span class="keyword">None</span></span><br><span class="line">    eps = ln_param.get(<span class="string">'eps'</span>, <span class="number">1e-5</span>)</span><br><span class="line"></span><br><span class="line">    x_T = x.T</span><br><span class="line">    sample_mean = np.mean(x_T, axis=<span class="number">0</span>)</span><br><span class="line">    sample_var = np.var(x_T, axis=<span class="number">0</span>)</span><br><span class="line">    x_norm_T = (x_T - sample_mean) / np.sqrt(sample_var + eps)</span><br><span class="line">    x_norm = x_norm_T.T</span><br><span class="line">    out = x_norm * gamma + beta</span><br><span class="line">    cache = (x, x_norm, gamma, sample_mean, sample_var, eps)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> out, cache</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">layernorm_backward</span><span class="params">(dout, cache)</span>:</span></span><br><span class="line">    dx, dgamma, dbeta = <span class="keyword">None</span>, <span class="keyword">None</span>, <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    x, x_norm, gamma, sample_mean, sample_var, eps = cache</span><br><span class="line">    x_T = x.T</span><br><span class="line">    dout_T = dout.T</span><br><span class="line">    N = x_T.shape[<span class="number">0</span>]</span><br><span class="line">    dbeta = np.sum(dout, axis=<span class="number">0</span>)</span><br><span class="line">    dgamma = np.sum(x_norm * dout, axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    dx_norm = dout_T * gamma[:,np.newaxis]</span><br><span class="line">    dv = ((x_T - sample_mean) * <span class="number">-0.5</span> * (sample_var + eps)**<span class="number">-1.5</span> * dx_norm).sum(axis=<span class="number">0</span>)</span><br><span class="line">    dm = (dx_norm * <span class="number">-1</span> * (sample_var + eps)**<span class="number">-0.5</span>).sum(axis=<span class="number">0</span>) + (dv * (x_T - sample_mean) * <span class="number">-2</span> / N).sum(axis=<span class="number">0</span>)</span><br><span class="line">    dx_T = dx_norm / (sample_var + eps)**<span class="number">0.5</span> + dv * <span class="number">2</span> * (x_T - sample_mean) / N + dm / N</span><br><span class="line">    dx = dx_T.T</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dx, dgamma, dbeta</span><br></pre></td></tr></table></figure>
+<h1 id="dropout">Dropout</h1>
+<p><a href="http://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf" target="_blank" rel="noopener">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</a></p>
+<p>drouput 是一種正規化的方法，在 forward pass 時隨機將某些 neuron 的值丟掉，跟 L1, L2 regularization 一樣，目的都是為了避免 overfitting。</p>
+<figure>
+<img src="/images/CS231n_assignment_2/dropout.png" alt="dropout"><figcaption>dropout</figcaption>
+</figure>
+<p>實作方法是在 training 時根據一個機率 p 來隨機產生一個 mask (值為 True or False)，將 x 乘上 mask 就可以將部分 neuron 的值設為 0， predicting 的時候就直接將 x 乘上 p。</p>
+<p>但與其在 predicting 時乘上 p，其實我們可以在 training 的時候就除以 p，這樣就可以減少 predicting 的計算量，因為我們通常比較在意 predicting 時的效率，這個技巧稱為 <strong>inverted dropout</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dropout_forward</span><span class="params">(x, dropout_param)</span>:</span></span><br><span class="line">    p, mode = dropout_param[<span class="string">'p'</span>], dropout_param[<span class="string">'mode'</span>]</span><br><span class="line">    <span class="keyword">if</span> <span class="string">'seed'</span> <span class="keyword">in</span> dropout_param:</span><br><span class="line">        np.random.seed(dropout_param[<span class="string">'seed'</span>])</span><br><span class="line"></span><br><span class="line">    mask = <span class="keyword">None</span></span><br><span class="line">    out = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> mode == <span class="string">'train'</span>:</span><br><span class="line">        mask = (np.random.rand(*x.shape) &lt; p) / p</span><br><span class="line">        out = x * mask</span><br><span class="line">    <span class="keyword">elif</span> mode == <span class="string">'test'</span>:</span><br><span class="line">        out = x</span><br><span class="line"></span><br><span class="line">    cache = (dropout_param, mask)</span><br><span class="line">    out = out.astype(x.dtype, copy=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> out, cache</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dropout_backward</span><span class="params">(dout, cache)</span>:</span></span><br><span class="line">    dropout_param, mask = cache</span><br><span class="line">    mode = dropout_param[<span class="string">'mode'</span>]</span><br><span class="line"></span><br><span class="line">    dx = <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">if</span> mode == <span class="string">'train'</span>:</span><br><span class="line">        dx = dout * mask</span><br><span class="line">    <span class="keyword">elif</span> mode == <span class="string">'test'</span>:</span><br><span class="line">        dx = dout</span><br><span class="line">    <span class="keyword">return</span> dx</span><br></pre></td></tr></table></figure>
+<h1 id="convolutional-neural-network">Convolutional Neural Network</h1>
+<h2 id="convolution-layer-forward-pass">Convolution Layer Forward Pass</h2>
+<p>實作 CNN 的 forward pass，輸入 <span class="math inline">\(x\)</span> 的大小為 <span class="math inline">\((N,C,H,W)\)</span>，以及 <span class="math inline">\(F\)</span> 個 filter，合起來成為一個 <span class="math inline">\((F,C,HH,WW)\)</span> 的矩陣，經過 convolution 的計算後，輸出一個 <span class="math inline">\((N,F,H^\prime,W^\prime)\)</span> 的矩陣。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">conv_forward_naive</span><span class="params">(x, w, b, conv_param)</span>:</span></span><br><span class="line">    out = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    N, C, H, W = x.shape</span><br><span class="line">    F, C, HH, WW = w.shape</span><br><span class="line">    pad, stride = conv_param[<span class="string">'pad'</span>], conv_param[<span class="string">'stride'</span>]</span><br><span class="line"></span><br><span class="line">    x_pad = np.pad(x, ((<span class="number">0</span>,), (<span class="number">0</span>,), (pad,), (pad,)), <span class="string">'constant'</span>, constant_values=<span class="number">0</span>)</span><br><span class="line">    H_prime = <span class="number">1</span> + (H + <span class="number">2</span> * pad - HH) // stride</span><br><span class="line">    W_prime = <span class="number">1</span> + (W + <span class="number">2</span> * pad - WW) // stride</span><br><span class="line"></span><br><span class="line">    out = np.empty((N, F, H_prime, W_prime))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> f <span class="keyword">in</span> range(F):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(H_prime):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(W_prime):</span><br><span class="line">                out[:, f, i, j] = np.sum(x_pad[:, :, i*stride:i*stride+HH, j*stride:j*stride+WW] * w[f], axis=(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line">    out += b.reshape(F, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    cache = (x, w, b, conv_param)</span><br><span class="line">    <span class="keyword">return</span> out, cache</span><br></pre></td></tr></table></figure>
+<h2 id="convolution-layer-backward-pass">Convolution Layer Backward Pass</h2>
+<p>計算 convolution layer 的 backpropagation 可以參考<a href="https://becominghuman.ai/back-propagation-in-convolutional-neural-networks-intuition-and-code-714ef1c38199" target="_blank" rel="noopener">這篇文章</a>。因為 forward 時的計算也算是 <span class="math inline">\(x\)</span> 乘上 <span class="math inline">\(w\)</span>，因此 backward 時計算 <span class="math inline">\(dx\)</span> 就是用 <span class="math inline">\(dout\)</span> 與 <span class="math inline">\(w\)</span> 做計算；計算 <span class="math inline">\(dw\)</span> 時則是用 <span class="math inline">\(dout\)</span> 與 <span class="math inline">\(x\)</span> 做計算，雖然概念上不難理解，但是要透過<code>numpy</code>實作的話對維度要有一定的掌握才行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">conv_backward_naive</span><span class="params">(dout, cache)</span>:</span></span><br><span class="line">    dx, dw, db = <span class="keyword">None</span>, <span class="keyword">None</span>, <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    x, w, b, conv_param = cache</span><br><span class="line"></span><br><span class="line">    N, C, H, W = x.shape</span><br><span class="line">    F, C, HH, WW = w.shape</span><br><span class="line">    pad, stride = conv_param[<span class="string">'pad'</span>], conv_param[<span class="string">'stride'</span>]</span><br><span class="line"></span><br><span class="line">    x_pad = np.pad(x, ((<span class="number">0</span>,), (<span class="number">0</span>,), (pad,), (pad,)), mode=<span class="string">'constant'</span>, constant_values=<span class="number">0</span>)</span><br><span class="line">    H_prime = <span class="number">1</span> + (H + <span class="number">2</span> * pad - HH) // stride</span><br><span class="line">    W_prime = <span class="number">1</span> + (W + <span class="number">2</span> * pad - WW) // stride</span><br><span class="line"></span><br><span class="line">    dx = np.zeros_like(x)</span><br><span class="line">    dx_pad = np.zeros_like(x_pad)</span><br><span class="line">    dw = np.zeros_like(w)</span><br><span class="line">    db = np.sum(dout, axis=(<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(H_prime):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(W_prime):</span><br><span class="line">            <span class="keyword">for</span> f <span class="keyword">in</span> range(F):</span><br><span class="line">                dw[f] += np.sum(dout[:, f, i, j].reshape(<span class="number">-1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>) * x_pad[:, :, i*stride:i*stride+HH, j*stride:j*stride+WW], axis=<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">for</span> n <span class="keyword">in</span> range(N):</span><br><span class="line">                dx_pad[n, :, i*stride:i*stride+HH, j*stride:j*stride+WW] += np.sum(w * dout[n, :, i, j].reshape(<span class="number">-1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>), axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    dx = dx_pad[:, :, pad:-pad, pad:-pad]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dx, dw, db</span><br></pre></td></tr></table></figure>
+<h2 id="max-pooling-forward-pass">Max Pooling Forward Pass</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_pool_forward_naive</span><span class="params">(x, pool_param)</span>:</span></span><br><span class="line">    out = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    N, C, H, W = x.shape</span><br><span class="line">    pool_height, pool_width, stride = pool_param[<span class="string">'pool_height'</span>], pool_param[<span class="string">'pool_width'</span>], pool_param[<span class="string">'stride'</span>]</span><br><span class="line"></span><br><span class="line">    H_prime = <span class="number">1</span> + (H - pool_height) // stride</span><br><span class="line">    W_prime = <span class="number">1</span> + (W - pool_width) // stride</span><br><span class="line">    out = np.empty((N, C, H_prime, W_prime))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(H_prime):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(W_prime):</span><br><span class="line">                out[:, :, i, j] = np.max(x[:, :, i*stride:i*stride+pool_height, j*stride:j*stride+pool_width], axis=(<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line">    cache = (x, pool_param)</span><br><span class="line">    <span class="keyword">return</span> out, cache</span><br></pre></td></tr></table></figure>
+<h2 id="max-pooling-backward-pass">Max Pooling Backward Pass</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_pool_backward_naive</span><span class="params">(dout, cache)</span>:</span></span><br><span class="line">    dx = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    x, pool_param = cache</span><br><span class="line">    N, C, H, W = x.shape</span><br><span class="line">    pool_height, pool_width, stride = pool_param[<span class="string">'pool_height'</span>], pool_param[<span class="string">'pool_width'</span>], pool_param[<span class="string">'stride'</span>]</span><br><span class="line"></span><br><span class="line">    H_prime = <span class="number">1</span> + (H - pool_height) // stride</span><br><span class="line">    W_prime = <span class="number">1</span> + (W - pool_width) // stride</span><br><span class="line">    dx = np.zeros_like(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(H_prime):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(W_prime):</span><br><span class="line">            arg = np.max(x[:, :, i*stride:i*stride+pool_height, j*stride:j*stride+pool_width], axis=(<span class="number">2</span>,<span class="number">3</span>), keepdims=<span class="keyword">True</span>) == \</span><br><span class="line">                x[:, :, i*stride:i*stride+pool_height, j*stride:j*stride+pool_width]</span><br><span class="line">            dx[:, :, i*stride:i*stride+pool_height, j*stride:j*stride+pool_width] += arg * dout[:, :, i, j][:,:,np.newaxis,np.newaxis]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dx</span><br></pre></td></tr></table></figure>
+<p>最後還有實作 Spatial Batch Normalization 以及 Group Normalization，但這部分不是很熟所以略過。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+            <a href="/tags/Computer-Vision/" rel="tag"># Computer Vision</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/20/CS231n-assignment-1/" rel="next" title="CS231n assignment 1">
+                <i class="fa fa-chevron-left"></i> CS231n assignment 1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="QOO">
+          <p class="site-author-name" itemprop="name">QOO</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#簡介"><span class="nav-number">1.</span> <span class="nav-text">簡介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fully-connected-network"><span class="nav-number">2.</span> <span class="nav-text">Fully Connected Network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#modular-network"><span class="nav-number">2.1.</span> <span class="nav-text">Modular network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sgd-momentum"><span class="nav-number">2.2.</span> <span class="nav-text">SGD + Momentum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rmsprop"><span class="nav-number">2.3.</span> <span class="nav-text">RMSProp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#adam"><span class="nav-number">2.4.</span> <span class="nav-text">Adam</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#batch-normalization"><span class="nav-number">3.</span> <span class="nav-text">Batch Normalization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#forward-pass"><span class="nav-number">3.1.</span> <span class="nav-text">Forward Pass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#backward-pass"><span class="nav-number">3.2.</span> <span class="nav-text">Backward Pass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#layer-normalization"><span class="nav-number">3.3.</span> <span class="nav-text">Layer Normalization</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dropout"><span class="nav-number">4.</span> <span class="nav-text">Dropout</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#convolutional-neural-network"><span class="nav-number">5.</span> <span class="nav-text">Convolutional Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#convolution-layer-forward-pass"><span class="nav-number">5.1.</span> <span class="nav-text">Convolution Layer Forward Pass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#convolution-layer-backward-pass"><span class="nav-number">5.2.</span> <span class="nav-text">Convolution Layer Backward Pass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#max-pooling-forward-pass"><span class="nav-number">5.3.</span> <span class="nav-text">Max Pooling Forward Pass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#max-pooling-backward-pass"><span class="nav-number">5.4.</span> <span class="nav-text">Max Pooling Backward Pass</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QOO</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
