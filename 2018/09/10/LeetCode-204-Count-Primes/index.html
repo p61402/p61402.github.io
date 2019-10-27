@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="問題 經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。">
+<meta name="description" content="¶問題 經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。">
 <meta name="keywords" content="LeetCode,C,Prime">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode#204 Count Primes">
 <meta property="og:url" content="https://p61402.github.io/2018/09/10/LeetCode-204-Count-Primes/index.html">
 <meta property="og:site_name" content="QOO&#39;s Blog">
-<meta property="og:description" content="問題 經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。">
+<meta property="og:description" content="¶問題 經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-05-18T16:18:49.951Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode#204 Count Primes">
-<meta name="twitter:description" content="問題 經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。">
+<meta name="twitter:description" content="¶問題 經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。">
 
 
 
@@ -410,18 +410,19 @@
       
 
       
-        <h2 id="問題">問題</h2>
-<p>經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。 <a id="more"></a></p>
-<h2 id="輸入與輸出">輸入與輸出</h2>
+        <h2 id="問題"><a class="header-anchor" href="#問題">¶</a>問題</h2>
+<p>經典問題，給一個非負整數 n ，問小於 n 的質數有幾個。</p>
+<a id="more"></a>
+<h2 id="輸入與輸出"><a class="header-anchor" href="#輸入與輸出">¶</a>輸入與輸出</h2>
 <pre><code>Input: 10
 Output: 4
-Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.</code></pre>
-<h2 id="方法">方法</h2>
+Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.
+</code></pre>
+<h2 id="方法"><a class="header-anchor" href="#方法">¶</a>方法</h2>
 <p>建質數表。</p>
 <p>方法一： 逐一檢查 1 ~ n - 1 的整數中有多少個質數，但效率不好，因此採用第二種方法。</p>
-<p>方法二： <a href="https://zh.wikipedia.org/wiki/埃拉托斯特尼筛法" target="_blank" rel="noopener">埃拉托斯特尼篩法</a>，從 2 開始將已知質數的倍數標記成合數，可以減少很多不必要的計算。</p>
+<p>方法二： <a href="https://zh.wikipedia.org/wiki/%E5%9F%83%E6%8B%89%E6%89%98%E6%96%AF%E7%89%B9%E5%B0%BC%E7%AD%9B%E6%B3%95" target="_blank" rel="noopener">埃拉托斯特尼篩法</a>，從 2 開始將已知質數的倍數標記成合數，可以減少很多不必要的計算。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">countPrimes</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j, prime_count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">bool</span>* primes = <span class="built_in">malloc</span>(n * <span class="keyword">sizeof</span>(<span class="keyword">bool</span>));</span><br><span class="line">    <span class="built_in">memset</span>(primes, <span class="literal">true</span>, n * <span class="keyword">sizeof</span>(<span class="keyword">bool</span>)); </span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">2</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (primes[i])</span><br><span class="line">        &#123;</span><br><span class="line">            prime_count++;</span><br><span class="line">            <span class="keyword">for</span> (j = <span class="number">2</span> * i; j &lt; n; j += i)</span><br><span class="line">                primes[j] = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> prime_count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
       
     </div>
     
@@ -599,7 +600,7 @@ Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.</code>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題"><span class="nav-number">1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸入與輸出"><span class="nav-number">2.</span> <span class="nav-text">輸入與輸出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">3.</span> <span class="nav-text">方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題"><span class="nav-number">1.</span> <span class="nav-text">¶問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸入與輸出"><span class="nav-number">2.</span> <span class="nav-text">¶輸入與輸出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">3.</span> <span class="nav-text">¶方法</span></a></li></ol></div>
             
 
           </div>

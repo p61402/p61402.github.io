@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="問題 給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。">
+<meta name="description" content="¶問題 給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。">
 <meta name="keywords" content="LeetCode,Hash,Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode#1 Two Sums">
 <meta property="og:url" content="https://p61402.github.io/2017/08/26/LeetCode-1-Two-Sums/index.html">
 <meta property="og:site_name" content="QOO&#39;s Blog">
-<meta property="og:description" content="問題 給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。">
+<meta property="og:description" content="¶問題 給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-10-22T16:02:07.627Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode#1 Two Sums">
-<meta name="twitter:description" content="問題 給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。">
+<meta name="twitter:description" content="¶問題 給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。">
 
 
 
@@ -410,15 +410,17 @@
       
 
       
-        <h2 id="問題">問題</h2>
+        <h2 id="問題"><a class="header-anchor" href="#問題">¶</a>問題</h2>
 <p>給定一個整數的陣列<code>nums</code>，其中有兩個數的和會等於目標<code>target</code>，回傳他們的位置，且同個位置不能重複選取。</p>
 <a id="more"></a>
-<h2 id="輸入">輸入</h2>
+<h2 id="輸入"><a class="header-anchor" href="#輸入">¶</a>輸入</h2>
 <pre><code>nums = [2, 7, 11, 15]
-target = 9</code></pre>
-<h2 id="輸出">輸出</h2>
-<pre><code>[0, 1]</code></pre>
-<h2 id="方法">方法</h2>
+target = 9
+</code></pre>
+<h2 id="輸出"><a class="header-anchor" href="#輸出">¶</a>輸出</h2>
+<pre><code>[0, 1]
+</code></pre>
+<h2 id="方法"><a class="header-anchor" href="#方法">¶</a>方法</h2>
 <ul>
 <li>Brute Force</li>
 <li>Hash Table</li>
@@ -429,7 +431,6 @@ target = 9</code></pre>
 這時想到<code>python</code>中相當好用的<code>dictionary</code>，第二種方法就是利用雜湊表將讀到的 index 及 value 紀錄下來，即可在讀入一個新的數之後查看這個數的 complement 是否在 table 當中，這樣就可以完美找到一組解啦。<br>
 因為使用了<code>dictionary</code>，所以查表的時間只要O(1)，最後時間複雜度降到了O(n)，當然也就順利通過了！</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        dic = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i, n <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            <span class="keyword">if</span> target - n <span class="keyword">in</span> dic:</span><br><span class="line">                <span class="keyword">return</span> [dic[target - n], i]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dic[n] = i</span><br></pre></td></tr></table></figure>
-
       
     </div>
     
@@ -603,7 +604,7 @@ target = 9</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題"><span class="nav-number">1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸入"><span class="nav-number">2.</span> <span class="nav-text">輸入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸出"><span class="nav-number">3.</span> <span class="nav-text">輸出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">4.</span> <span class="nav-text">方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題"><span class="nav-number">1.</span> <span class="nav-text">¶問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸入"><span class="nav-number">2.</span> <span class="nav-text">¶輸入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸出"><span class="nav-number">3.</span> <span class="nav-text">¶輸出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">4.</span> <span class="nav-text">¶方法</span></a></li></ol></div>
             
 
           </div>

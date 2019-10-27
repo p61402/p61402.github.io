@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="再度挑戰 這次的題目稍稍比上次簡單一點，前兩題解完大概還剩 20 分鐘，看看第三題好像也不難，但可惜還是沒寫完，最終成績 1170 / 2668，嗯...好像沒進步 Orz 。">
+<meta name="description" content="¶再度挑戰 這次的題目稍稍比上次簡單一點，前兩題解完大概還剩 20 分鐘，看看第三題好像也不難，但可惜還是沒寫完，最終成績 1170 / 2668，嗯…好像沒進步 Orz 。">
 <meta name="keywords" content="LeetCode,Python,LeetCode Weekly Contest">
 <meta property="og:type" content="article">
 <meta property="og:title" content="挑戰LeetCode Weekly Contest 48">
 <meta property="og:url" content="https://p61402.github.io/2017/09/04/挑戰LeetCode-Weekly-Contest-48/index.html">
 <meta property="og:site_name" content="QOO&#39;s Blog">
-<meta property="og:description" content="再度挑戰 這次的題目稍稍比上次簡單一點，前兩題解完大概還剩 20 分鐘，看看第三題好像也不難，但可惜還是沒寫完，最終成績 1170 / 2668，嗯...好像沒進步 Orz 。">
+<meta property="og:description" content="¶再度挑戰 這次的題目稍稍比上次簡單一點，前兩題解完大概還剩 20 分鐘，看看第三題好像也不難，但可惜還是沒寫完，最終成績 1170 / 2668，嗯…好像沒進步 Orz 。">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-09-08T21:11:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="挑戰LeetCode Weekly Contest 48">
-<meta name="twitter:description" content="再度挑戰 這次的題目稍稍比上次簡單一點，前兩題解完大概還剩 20 分鐘，看看第三題好像也不難，但可惜還是沒寫完，最終成績 1170 / 2668，嗯...好像沒進步 Orz 。">
+<meta name="twitter:description" content="¶再度挑戰 這次的題目稍稍比上次簡單一點，前兩題解完大概還剩 20 分鐘，看看第三題好像也不難，但可惜還是沒寫完，最終成績 1170 / 2668，嗯…好像沒進步 Orz 。">
 
 
 
@@ -410,47 +410,33 @@
       
 
       
-        <h2 id="再度挑戰">再度挑戰</h2>
-<p>這次的題目稍稍比上次簡單一點，前兩題解完大概還剩 20 分鐘，看看第三題好像也不難，但可惜還是沒寫完，最終成績 1170 / 2668，嗯...好像沒進步 Orz 。 <a id="more"></a></p>
+        <h2 id="再度挑戰"><a class="header-anchor" href="#再度挑戰">¶</a>再度挑戰</h2>
+<p>這次的題目稍稍比上次簡單一點，前兩題解完大概還剩 20 分鐘，看看第三題好像也不難，但可惜還是沒寫完，最終成績 1170 / 2668，嗯…好像沒進步 Orz 。</p>
+<a id="more"></a>
 <hr>
-<h2 id="第1題-671.-second-minimum-node-in-a-binary-tree">第1題 671. Second Minimum Node In a Binary Tree</h2>
-<h3 id="問題">問題</h3>
+<h2 id="第1題-671-second-minimum-node-in-a-binary-tree"><a class="header-anchor" href="#第1題-671-second-minimum-node-in-a-binary-tree">¶</a>第1題 671. Second Minimum Node In a Binary Tree</h2>
+<h3 id="問題"><a class="header-anchor" href="#問題">¶</a>問題</h3>
 <p>給一棵二元樹，每一個<code>node</code>的子節點不是 0 個就是 2 個，輸出所有節點當中第二小的值，若不存在則輸出<code>-1</code>。</p>
-<h3 id="輸入">輸入</h3>
+<h3 id="輸入"><a class="header-anchor" href="#輸入">¶</a>輸入</h3>
 <pre><code>tree 的 root
 範例：
     2
    / \
   2   5
      / \
-    5   7</code></pre>
-<h3 id="輸出">輸出</h3>
-<pre><code>5</code></pre>
-<h3 id="方法">方法</h3>
+    5   7
+</code></pre>
+<h3 id="輸出"><a class="header-anchor" href="#輸出">¶</a>輸出</h3>
+<pre><code>5
+</code></pre>
+<h3 id="方法"><a class="header-anchor" href="#方法">¶</a>方法</h3>
 <p>遍歷所有的節點，不斷刷新最小值(下界)與第二小的值(上界)，夾擠出真正第二小的數值。</p>
-{% codeblock lang:python %}
-class Solution(object):
-    def findSecondMinimumValue(self, root):
-        if not root or not root.left:
-            return -1
-        self.smallest = root.val
-        self.second = max(root.left.val, root.right.val)
-        self.find(root)
-        if self.smallest == self.second:
-            return -1
-        return self.second
-
-    def find(self, root):
-        if root.left and root.right:
-            if root.left.val < self.smallest:
-                self.smallest = root.left.val
-            if root.right.val < self.smallest:
-                self.smallest = root.right.val
-            if root.left.val > self.smallest and root.left.val <= self.second: self.second="root.left.val" if root.right.val> self.smallest and root.right.val <= self.second: self.second="root.right.val" self.find(root.left) self.find(root.right) {% endcodeblock %} <hr>
-<h2 id="第2題-669.-trim-a-binary-search-tree">第2題 669. Trim a Binary Search Tree</h2>
-<h3 id="問題-1">問題</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findSecondMinimumValue</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root <span class="keyword">or</span> <span class="keyword">not</span> root.left:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        self.smallest = root.val</span><br><span class="line">        self.second = max(root.left.val, root.right.val)</span><br><span class="line">        self.find(root)</span><br><span class="line">        <span class="keyword">if</span> self.smallest == self.second:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        <span class="keyword">return</span> self.second</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> root.left <span class="keyword">and</span> root.right:</span><br><span class="line">            <span class="keyword">if</span> root.left.val &lt; self.smallest:</span><br><span class="line">                self.smallest = root.left.val</span><br><span class="line">            <span class="keyword">if</span> root.right.val &lt; self.smallest:</span><br><span class="line">                self.smallest = root.right.val</span><br><span class="line">            <span class="keyword">if</span> root.left.val &gt; self.smallest <span class="keyword">and</span> root.left.val &lt;= self.second:</span><br><span class="line">                self.second = root.left.val</span><br><span class="line">            <span class="keyword">if</span> root.right.val &gt; self.smallest <span class="keyword">and</span> root.right.val &lt;= self.second:</span><br><span class="line">                self.second = root.right.val</span><br><span class="line">            self.find(root.left)</span><br><span class="line">            self.find(root.right)</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="第2題-669-trim-a-binary-search-tree"><a class="header-anchor" href="#第2題-669-trim-a-binary-search-tree">¶</a>第2題 669. Trim a Binary Search Tree</h2>
+<h3 id="問題-v2"><a class="header-anchor" href="#問題-v2">¶</a>問題</h3>
 <p>給一個 <code>binary search tree</code>，以及正整數 L 與 R (L &lt;= R)，修剪這棵樹使得所有節點的值介於 [L, R] 。</p>
-<h3 id="輸入-1">輸入</h3>
+<h3 id="輸入-v2"><a class="header-anchor" href="#輸入-v2">¶</a>輸入</h3>
 <pre><code>tree 的 root 以及 L 與 R 的值
 範例：
     3
@@ -462,63 +448,57 @@ class Solution(object):
   1
   
   L = 1
-  R = 2</code></pre>
-<h3 id="輸出-1">輸出</h3>
+  R = 2
+</code></pre>
+<h3 id="輸出-v2"><a class="header-anchor" href="#輸出-v2">¶</a>輸出</h3>
 <pre><code>新的 tree 的 root
      3
     / 
    2
   /
- 1</code></pre>
-<h3 id="方法-1">方法</h3>
+ 1
+</code></pre>
+<h3 id="方法-v2"><a class="header-anchor" href="#方法-v2">¶</a>方法</h3>
 <p>利用二元搜尋樹的特性，左子樹的值一定小於等於 root 的值，右子樹的值一定大於等於 root 的值。因此遍歷每一個節點，若 root 的值小於 L ，捨棄左子樹；若 root 的值大於 R ，捨棄右子樹。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">trimBST</span><span class="params">(self, root, L, R)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">        <span class="keyword">if</span> L &gt; root.val:</span><br><span class="line">            <span class="keyword">return</span> self.trimBST(root.right, L, R)</span><br><span class="line">        <span class="keyword">elif</span> R &lt; root.val:</span><br><span class="line">            <span class="keyword">return</span> self.trimBST(root.left, L, R)</span><br><span class="line">        root.left = self.trimBST(root.left, L, R)</span><br><span class="line">        root.right = self.trimBST(root.right, L, R)</span><br><span class="line">        <span class="keyword">return</span> root</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="第3題-670.-maximum-swap">第3題 670. Maximum Swap</h2>
-<h3 id="問題-2">問題</h3>
+<h2 id="第3題-670-maximum-swap"><a class="header-anchor" href="#第3題-670-maximum-swap">¶</a>第3題 670. Maximum Swap</h2>
+<h3 id="問題-v3"><a class="header-anchor" href="#問題-v3">¶</a>問題</h3>
 <p>給一個非負整數，問交換任兩個<code>digit</code>的位置所能得到的最大值為何？<br>
 給的值範圍介於 [0, 10<sup>8</sup>] 之間。</p>
-<h3 id="輸入-2">輸入</h3>
-<pre><code>2736</code></pre>
-<h3 id="輸出-2">輸出</h3>
-<pre><code>7236</code></pre>
-<h3 id="方法-2">方法</h3>
+<h3 id="輸入-v3"><a class="header-anchor" href="#輸入-v3">¶</a>輸入</h3>
+<pre><code>2736
+</code></pre>
+<h3 id="輸出-v3"><a class="header-anchor" href="#輸出-v3">¶</a>輸出</h3>
+<pre><code>7236
+</code></pre>
+<h3 id="方法-v3"><a class="header-anchor" href="#方法-v3">¶</a>方法</h3>
 <p>範圍介於 [0, 10<sup>8</sup>] ，代表最多有 8 個<code>digit</code>，任選兩個的可能性只有 28 種，直接用暴力法窮舉所有的可能性。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maximumSwap</span><span class="params">(self, num)</span>:</span></span><br><span class="line">        maximum = num</span><br><span class="line">        n = list(str(num))</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(n) - <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(n)):</span><br><span class="line">                new_num = int(<span class="string">""</span>.join(n[<span class="number">0</span>:i] + list(n[j]) + n[i+<span class="number">1</span>:j] + list(n[i]) + n[j+<span class="number">1</span>:]))</span><br><span class="line">                <span class="keyword">if</span> new_num &gt; maximum:</span><br><span class="line">                    maximum = new_num</span><br><span class="line">        <span class="keyword">return</span> maximum</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="第4題-672.-bulb-switcher-ii">第4題 672. Bulb Switcher II</h2>
-<h3 id="問題-3">問題</h3>
-<p>給兩個正整數<code>n</code>與<code>m</code>，分別代表燈泡的數量以及操作開關的次數，n 個燈泡依序標記為 1, 2, 3,..., n ，一開始所有的燈泡都是打開的。<br>
-有以下四種操作開關的方法：<br>
-1. 按下所有開關 2. 按下編號為偶數的開關 3. 按下編號為奇數的開關 4. 按下編號為(3k+1)的開關, k = 0, 1, 2, ...</p>
+<h2 id="第4題-672-bulb-switcher-ii"><a class="header-anchor" href="#第4題-672-bulb-switcher-ii">¶</a>第4題 672. Bulb Switcher II</h2>
+<h3 id="問題-v4"><a class="header-anchor" href="#問題-v4">¶</a>問題</h3>
+<p>給兩個正整數<code>n</code>與<code>m</code>，分別代表燈泡的數量以及操作開關的次數，n 個燈泡依序標記為 1, 2, 3,…, n ，一開始所有的燈泡都是打開的。<br>
+有以下四種操作開關的方法：</p>
+<ol>
+<li>按下所有開關</li>
+<li>按下編號為偶數的開關</li>
+<li>按下編號為奇數的開關</li>
+<li>按下編號為(3k+1)的開關, k = 0, 1, 2, …</li>
+</ol>
 <p>問 n 個燈泡在操作 m 次之後，這些開關的狀態有哪些的可能性。</p>
-<h3 id="輸入-3">輸入</h3>
-<pre><code>n = 3, m = 1.</code></pre>
-<h3 id="輸出-3">輸出</h3>
-<pre><code>4</code></pre>
-<h3 id="方法-3">方法</h3>
+<h3 id="輸入-v4"><a class="header-anchor" href="#輸入-v4">¶</a>輸入</h3>
+<pre><code>n = 3, m = 1.
+</code></pre>
+<h3 id="輸出-v4"><a class="header-anchor" href="#輸出-v4">¶</a>輸出</h3>
+<pre><code>4
+</code></pre>
+<h3 id="方法-v4"><a class="header-anchor" href="#方法-v4">¶</a>方法</h3>
 <p>3 個燈泡在操作 1 次後可能的狀態為：</p>
-<pre><code>[off, on, off], [on, off, on], [off, off, off], [off, on, on].</code></pre>
+<pre><code>[off, on, off], [on, off, on], [off, off, off], [off, on, on].
+</code></pre>
 <p>一開始想說用遞迴來解，枚舉所有的可能，但是居然 TLE ，太可惡了！</p>
-{% codeblock lang:python %}
-class Solution(object):
-    def flipLights(self, n, m):
-        self.lights = [True for i in range(n)]
-        self.times = m
-        self.status = []
-        self.flipping(self.lights, 0)
-        return len(self.status)
-
-    def flipping(self, light, time):
-        if time == self.times:
-            if light not in self.status:
-                self.status.append(light)
-            return
-        self.flipping([not v for v in light], time + 1)
-        self.flipping([not v if (i + 1) % 2 == 0 else v for i, v in enumerate(light)], time + 1)
-        self.flipping([not v if (i + 1) % 2 == 1 else v for i, v in enumerate(light)], time + 1)
-        self.flipping([not v if (i + 1) % 3 == 1 else v for i, v in enumerate(light)], time + 1)
-{% endcodeblock %}
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">flipLights</span><span class="params">(self, n, m)</span>:</span></span><br><span class="line">        self.lights = [<span class="keyword">True</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(n)]</span><br><span class="line">        self.times = m</span><br><span class="line">        self.status = []</span><br><span class="line">        self.flipping(self.lights, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> len(self.status)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">flipping</span><span class="params">(self, light, time)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> time == self.times:</span><br><span class="line">            <span class="keyword">if</span> light <span class="keyword">not</span> <span class="keyword">in</span> self.status:</span><br><span class="line">                self.status.append(light)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.flipping([<span class="keyword">not</span> v <span class="keyword">for</span> v <span class="keyword">in</span> light], time + <span class="number">1</span>)</span><br><span class="line">        self.flipping([<span class="keyword">not</span> v <span class="keyword">if</span> (i + <span class="number">1</span>) % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">else</span> v <span class="keyword">for</span> i, v <span class="keyword">in</span> enumerate(light)], time + <span class="number">1</span>)</span><br><span class="line">        self.flipping([<span class="keyword">not</span> v <span class="keyword">if</span> (i + <span class="number">1</span>) % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">else</span> v <span class="keyword">for</span> i, v <span class="keyword">in</span> enumerate(light)], time + <span class="number">1</span>)</span><br><span class="line">        self.flipping([<span class="keyword">not</span> v <span class="keyword">if</span> (i + <span class="number">1</span>) % <span class="number">3</span> == <span class="number">1</span> <span class="keyword">else</span> v <span class="keyword">for</span> i, v <span class="keyword">in</span> enumerate(light)], time + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 <p>果然 O(2<sup>n</sup>) 還是行不通嗎，但是請仔細觀察可能的狀態，就會發現最多的可能只有八種。</p>
 <pre><code>n = 1, m = 0
 [on]
@@ -531,7 +511,7 @@ n = 2, m = 1
 [off, off], [on, off], [off, on]
 n = 2, m &gt;= 2
 [on, on], [off, off], [on, off], [off, on]
-------------------------------------------- 
+-------------------------------------------	
 n = 3, m = 0
 [on, on, on]
 n = 3, m = 1
@@ -540,11 +520,11 @@ n = 3, m = 2
 [on, on, on], [off, on, off], [on, off, on], [on, off, off], [off, off, off], [off, off, on], [on, on, off]
 n = 3, m &gt;= 3
 [on, on, on], [off, on, off], [on, off, on], [on, off, off], [off, off, off], [off, off, on], [on, on, off], [off, on, on]
---------------------------------------------------------------------------------------------------------------------------- 
-n &gt;= 4 的情況都跟 n = 3 相同</code></pre>
+---------------------------------------------------------------------------------------------------------------------------	
+n &gt;= 4 的情況都跟 n = 3 相同
+</code></pre>
 <p>因此根據<code>n</code>與<code>m</code>的值可以歸納出以下的結果：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">flipLights</span><span class="params">(self, n, m)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">0</span> <span class="keyword">or</span> m == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">3</span> <span class="keyword">if</span> m == <span class="number">1</span> <span class="keyword">else</span> <span class="number">4</span></span><br><span class="line">        <span class="keyword">if</span> m == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">4</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">7</span> <span class="keyword">if</span> m == <span class="number">2</span> <span class="keyword">else</span> <span class="number">8</span></span><br></pre></td></tr></table></figure>
-</=></=>
       
     </div>
     
@@ -722,7 +702,7 @@ n &gt;= 4 的情況都跟 n = 3 相同</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#再度挑戰"><span class="nav-number">1.</span> <span class="nav-text">再度挑戰</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第1題-671.-second-minimum-node-in-a-binary-tree"><span class="nav-number">2.</span> <span class="nav-text">第1題 671. Second Minimum Node In a Binary Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#問題"><span class="nav-number">2.1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸入"><span class="nav-number">2.2.</span> <span class="nav-text">輸入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸出"><span class="nav-number">2.3.</span> <span class="nav-text">輸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">2.4.</span> <span class="nav-text">方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2題-669.-trim-a-binary-search-tree"><span class="nav-number">3.</span> <span class="nav-text">第2題 669. Trim a Binary Search Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#問題-1"><span class="nav-number">3.1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸入-1"><span class="nav-number">3.2.</span> <span class="nav-text">輸入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸出-1"><span class="nav-number">3.3.</span> <span class="nav-text">輸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-1"><span class="nav-number">3.4.</span> <span class="nav-text">方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3題-670.-maximum-swap"><span class="nav-number">4.</span> <span class="nav-text">第3題 670. Maximum Swap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#問題-2"><span class="nav-number">4.1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸入-2"><span class="nav-number">4.2.</span> <span class="nav-text">輸入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸出-2"><span class="nav-number">4.3.</span> <span class="nav-text">輸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-2"><span class="nav-number">4.4.</span> <span class="nav-text">方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第4題-672.-bulb-switcher-ii"><span class="nav-number">5.</span> <span class="nav-text">第4題 672. Bulb Switcher II</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#問題-3"><span class="nav-number">5.1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸入-3"><span class="nav-number">5.2.</span> <span class="nav-text">輸入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸出-3"><span class="nav-number">5.3.</span> <span class="nav-text">輸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-3"><span class="nav-number">5.4.</span> <span class="nav-text">方法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#再度挑戰"><span class="nav-number">1.</span> <span class="nav-text">¶再度挑戰</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第1題-671-second-minimum-node-in-a-binary-tree"><span class="nav-number">2.</span> <span class="nav-text">¶第1題 671. Second Minimum Node In a Binary Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#問題"><span class="nav-number">2.1.</span> <span class="nav-text">¶問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸入"><span class="nav-number">2.2.</span> <span class="nav-text">¶輸入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸出"><span class="nav-number">2.3.</span> <span class="nav-text">¶輸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">2.4.</span> <span class="nav-text">¶方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2題-669-trim-a-binary-search-tree"><span class="nav-number">3.</span> <span class="nav-text">¶第2題 669. Trim a Binary Search Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#問題-v2"><span class="nav-number">3.1.</span> <span class="nav-text">¶問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸入-v2"><span class="nav-number">3.2.</span> <span class="nav-text">¶輸入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸出-v2"><span class="nav-number">3.3.</span> <span class="nav-text">¶輸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-v2"><span class="nav-number">3.4.</span> <span class="nav-text">¶方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3題-670-maximum-swap"><span class="nav-number">4.</span> <span class="nav-text">¶第3題 670. Maximum Swap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#問題-v3"><span class="nav-number">4.1.</span> <span class="nav-text">¶問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸入-v3"><span class="nav-number">4.2.</span> <span class="nav-text">¶輸入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸出-v3"><span class="nav-number">4.3.</span> <span class="nav-text">¶輸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-v3"><span class="nav-number">4.4.</span> <span class="nav-text">¶方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第4題-672-bulb-switcher-ii"><span class="nav-number">5.</span> <span class="nav-text">¶第4題 672. Bulb Switcher II</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#問題-v4"><span class="nav-number">5.1.</span> <span class="nav-text">¶問題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸入-v4"><span class="nav-number">5.2.</span> <span class="nav-text">¶輸入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#輸出-v4"><span class="nav-number">5.3.</span> <span class="nav-text">¶輸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法-v4"><span class="nav-number">5.4.</span> <span class="nav-text">¶方法</span></a></li></ol></li></ol></div>
             
 
           </div>

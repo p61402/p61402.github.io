@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="問題 有一個職業盜賊想要在某條街上行竊，這條街上有著一整排的房屋，每棟房屋內都有特定數量的金錢，他希望能夠偷到越多錢越好。但是想在這條街行竊有個限制，每兩棟相鄰的房屋之間都有連結保全系統，若他行竊兩棟相鄰的房屋，保全系統就會自動聯繫警察。 給定一個非負整數的list，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？">
+<meta name="description" content="¶問題 有一個職業盜賊想要在某條街上行竊，這條街上有著一整排的房屋，每棟房屋內都有特定數量的金錢，他希望能夠偷到越多錢越好。但是想在這條街行竊有個限制，每兩棟相鄰的房屋之間都有連結保全系統，若他行竊兩棟相鄰的房屋，保全系統就會自動聯繫警察。 給定一個非負整數的list，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？">
 <meta name="keywords" content="LeetCode,C">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode#198 House Robber">
 <meta property="og:url" content="https://p61402.github.io/2018/09/10/LeetCode-198-House-Robber/index.html">
 <meta property="og:site_name" content="QOO&#39;s Blog">
-<meta property="og:description" content="問題 有一個職業盜賊想要在某條街上行竊，這條街上有著一整排的房屋，每棟房屋內都有特定數量的金錢，他希望能夠偷到越多錢越好。但是想在這條街行竊有個限制，每兩棟相鄰的房屋之間都有連結保全系統，若他行竊兩棟相鄰的房屋，保全系統就會自動聯繫警察。 給定一個非負整數的list，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？">
+<meta property="og:description" content="¶問題 有一個職業盜賊想要在某條街上行竊，這條街上有著一整排的房屋，每棟房屋內都有特定數量的金錢，他希望能夠偷到越多錢越好。但是想在這條街行竊有個限制，每兩棟相鄰的房屋之間都有連結保全系統，若他行竊兩棟相鄰的房屋，保全系統就會自動聯繫警察。 給定一個非負整數的list，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2019-05-18T15:48:00.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode#198 House Robber">
-<meta name="twitter:description" content="問題 有一個職業盜賊想要在某條街上行竊，這條街上有著一整排的房屋，每棟房屋內都有特定數量的金錢，他希望能夠偷到越多錢越好。但是想在這條街行竊有個限制，每兩棟相鄰的房屋之間都有連結保全系統，若他行竊兩棟相鄰的房屋，保全系統就會自動聯繫警察。 給定一個非負整數的list，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？">
+<meta name="twitter:description" content="¶問題 有一個職業盜賊想要在某條街上行竊，這條街上有著一整排的房屋，每棟房屋內都有特定數量的金錢，他希望能夠偷到越多錢越好。但是想在這條街行竊有個限制，每兩棟相鄰的房屋之間都有連結保全系統，若他行竊兩棟相鄰的房屋，保全系統就會自動聯繫警察。 給定一個非負整數的list，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？">
 
 
 
@@ -410,10 +410,11 @@
       
 
       
-        <h2 id="問題">問題</h2>
+        <h2 id="問題"><a class="header-anchor" href="#問題">¶</a>問題</h2>
 <p>有一個職業盜賊想要在某條街上行竊，這條街上有著一整排的房屋，每棟房屋內都有特定數量的金錢，他希望能夠偷到越多錢越好。但是想在這條街行竊有個限制，每兩棟相鄰的房屋之間都有連結保全系統，若他行竊兩棟相鄰的房屋，保全系統就會自動聯繫警察。</p>
-<p>給定一個非負整數的<code>list</code>，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？ <a id="more"></a></p>
-<h2 id="輸入與輸出">輸入與輸出</h2>
+<p>給定一個非負整數的<code>list</code>，表示每間房屋內的金錢數量，請問在不驚動保全系統的前提下，竊賊能夠偷到最多的金錢數量是多少？</p>
+<a id="more"></a>
+<h2 id="輸入與輸出"><a class="header-anchor" href="#輸入與輸出">¶</a>輸入與輸出</h2>
 <pre><code>Input: [1,2,3,1]
 Output: 4
 Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
@@ -422,9 +423,11 @@ Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
 Input: [2,7,9,3,1]
 Output: 12
 Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).
-             Total amount you can rob = 2 + 9 + 1 = 12.</code></pre>
-<h2 id="方法">方法</h2>
-<p>使用動態規劃，假設 a<sub>n</sub> 為行竊第 n 棟房屋能夠獲得的金錢數量，可得 a<sub>n</sub> = max(a<sub>n-2</sub>, a<sub>n-3</sub>)。 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a &gt; b)</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (numsSize == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">if</span> (numsSize &gt;= <span class="number">3</span>)</span><br><span class="line">        nums[<span class="number">2</span>] += nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">3</span>; i &lt; numsSize; i++)</span><br><span class="line">        nums[i] += max(nums[i - <span class="number">2</span>], nums[i - <span class="number">3</span>]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (numsSize == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (numsSize == <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> max(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> max(nums[i - <span class="number">1</span>], nums[i - <span class="number">2</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+             Total amount you can rob = 2 + 9 + 1 = 12.
+</code></pre>
+<h2 id="方法"><a class="header-anchor" href="#方法">¶</a>方法</h2>
+<p>使用動態規劃，假設 a<sub>n</sub> 為行竊第 n 棟房屋能夠獲得的金錢數量，可得 a<sub>n</sub> = max(a<sub>n-2</sub>, a<sub>n-3</sub>)。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a &gt; b)</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (numsSize == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">if</span> (numsSize &gt;= <span class="number">3</span>)</span><br><span class="line">        nums[<span class="number">2</span>] += nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">3</span>; i &lt; numsSize; i++)</span><br><span class="line">        nums[i] += max(nums[i - <span class="number">2</span>], nums[i - <span class="number">3</span>]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (numsSize == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (numsSize == <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> max(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> max(nums[i - <span class="number">1</span>], nums[i - <span class="number">2</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -601,7 +604,7 @@ Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (m
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題"><span class="nav-number">1.</span> <span class="nav-text">問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸入與輸出"><span class="nav-number">2.</span> <span class="nav-text">輸入與輸出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">3.</span> <span class="nav-text">方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題"><span class="nav-number">1.</span> <span class="nav-text">¶問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#輸入與輸出"><span class="nav-number">2.</span> <span class="nav-text">¶輸入與輸出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">3.</span> <span class="nav-text">¶方法</span></a></li></ol></div>
             
 
           </div>

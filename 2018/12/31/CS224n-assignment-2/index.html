@@ -413,286 +413,227 @@
       
 
       
-        <h1 id="cs224n-assignment-2">CS224n assignment 2</h1>
+        <h1>CS224n assignment 2</h1>
 <p>這次的作業主要目的是讓我們實作 Dependency Parsing 以及熟悉 Tensorflow 的運作原理。</p>
 <a id="more"></a>
-<h2 id="tensorflow-softmax">1. Tensorflow Softmax</h2>
-<p>In this question, we will implement a linear classifier with loss function <span class="math display">\[ J(\mathbf{W}) = CE(\mathbf{y},softmax(\mathbf{xW} + \mathbf{b})) \]</span> Where <span class="math inline">\(\mathbf{x}\)</span> is a vector of features, <span class="math inline">\(\mathbf{W}\)</span> is the model’s weight matrix, and <span class="math inline">\(\mathbf{b}\)</span> is a bias term. We will use TensorFlow’s automatic differentiation capability to fit this model to provided data.</p>
-<h3 id="a-使用-tensorflow-實作-softmax">(a) 使用 Tensorflow 實作 Softmax</h3>
-<p>Implement the softmax function using TensorFlow in <code>q1_softmax.py</code>. Remember that <span class="math display">\[ softmax(x)_i = \dfrac{e^{x_i}}{\sum_j{e^{x_j}}} \]</span> Note that you may <strong>not</strong> use <code>tf.nn.softmax</code> or related built-in functions. You can run basic (nonexhaustive tests) by running <code>python q1_softmax.py</code>.</p>
-<h4 id="a-solution">1.(a) solution</h4>
+<h2 id="1-tensorflow-softmax"><a class="header-anchor" href="#1-tensorflow-softmax">¶</a>1. Tensorflow Softmax</h2>
+<p>In this question, we will implement a linear classifier with loss function<br>
+$$ J(\mathbf{W}) = CE(\mathbf{y},softmax(\mathbf{xW} + \mathbf{b})) $$<br>
+Where $\mathbf{x}$ is a vector of features, $\mathbf{W}$ is the model’s weight matrix, and $\mathbf{b}$ is a bias term. We will use TensorFlow’s automatic differentiation capability to fit this model to provided data.</p>
+<h3 id="a-使用-tensorflow-實作-softmax"><a class="header-anchor" href="#a-使用-tensorflow-實作-softmax">¶</a>(a) 使用 Tensorflow 實作 Softmax</h3>
+<p>Implement the softmax function using TensorFlow in <code>q1_softmax.py</code>. Remember that<br>
+$$ softmax(x)_i = \dfrac{e<sup>{x_i}}{\sum_j{e</sup>{x_j}}} $$<br>
+Note that you may <strong>not</strong> use <code>tf.nn.softmax</code> or related built-in functions. You can run basic (nonexhaustive tests) by running <code>python q1_softmax.py</code>.</p>
+<h4 id="1-a-solution"><a class="header-anchor" href="#1-a-solution">¶</a>1.(a) solution</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(x)</span>:</span></span><br><span class="line">    out = tf.exp(x) / tf.reduce_sum(tf.exp(x), axis=<span class="number">1</span>, keepdims=<span class="keyword">True</span>)</span><br><span class="line">    <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
-<h3 id="b-使用-tensorflow-實作-cross-entropy-loss">(b) 使用 Tensorflow 實作 Cross Entropy Loss</h3>
-<p>Implement the cross-entropy loss using TensorFlow in <code>q1_softmax.py</code>. Remember that <span class="math display">\[ CE(\mathbf{y},\mathbf{\hat{y}})=-\sum\limits_{i=1}^{N_c} y_i log(\hat{y_i})\]</span> where <span class="math inline">\(\mathbf{y} \in \mathbb{R}^{N_c}\)</span> is a one-hot label vector and <span class="math inline">\(Nc\)</span> is the number of classes. This loss is summed over all examples in a minibatch. Note that you may <strong>not</strong> use TensorFlow’s built-in cross-entropy functions for this question. You can run basic (non-exhaustive tests) by running <code>python q1_softmax.py</code>.</p>
-<h4 id="b-solution">1.(b) solution</h4>
+<h3 id="b-使用-tensorflow-實作-cross-entropy-loss"><a class="header-anchor" href="#b-使用-tensorflow-實作-cross-entropy-loss">¶</a>(b) 使用 Tensorflow 實作 Cross Entropy Loss</h3>
+<p>Implement the cross-entropy loss using TensorFlow in <code>q1_softmax.py</code>. Remember that<br>
+$$ CE(\mathbf{y},\mathbf{\hat{y}})=-\sum\limits_{i=1}^{N_c} y_i log(\hat{y_i})$$<br>
+where $\mathbf{y} \in \mathbb{R}^{N_c}$ is a one-hot label vector and $Nc$ is the number of classes. This loss is summed over all<br>
+examples in a minibatch. Note that you may <strong>not</strong> use TensorFlow’s built-in cross-entropy functions for this question. You can run basic (non-exhaustive tests) by running <code>python q1_softmax.py</code>.</p>
+<h4 id="1-b-solution"><a class="header-anchor" href="#1-b-solution">¶</a>1.(b) solution</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cross_entropy_loss</span><span class="params">(y, yhat)</span>:</span></span><br><span class="line">    out = -tf.reduce_sum(tf.multiply(tf.to_float(y), tf.log(yhat)))</span><br><span class="line">    <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
-<h3 id="c-placeholder-variable-與-feed-dictionary">(c) Placeholder Variable 與 Feed Dictionary</h3>
-<p>Carefully study the Model class in <code>model.py</code>. Briefly explain the purpose of placeholder variables and feed dictionaries in TensorFlow computations. Fill in the implementations for <code>add_placeholders</code> and <code>create_feed_dict</code> in <code>q1_classifier.py</code>.</p>
-<h4 id="c-solution">1.(c) solution</h4>
-<p><strong>Hint:</strong> Note that configuration variables are stored in the Config class. You will need to use these configuration variables in the code.</p>
+<h3 id="placeholder-variable-與-feed-dictionary"><a class="header-anchor" href="#placeholder-variable-與-feed-dictionary">¶</a>© Placeholder Variable 與 Feed Dictionary</h3>
+<p>Carefully study the Model class in <code>model.py</code>. Briefly explain the purpose of placeholder variables and feed dictionaries in TensorFlow computations. Fill in the implementations<br>
+for <code>add_placeholders</code> and <code>create_feed_dict</code> in <code>q1_classifier.py</code>.</p>
+<h4 id="1-solution"><a class="header-anchor" href="#1-solution">¶</a>1.© solution</h4>
+<p><strong>Hint:</strong> Note that configuration variables are stored in the Config class. You will need to use these<br>
+configuration variables in the code.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_placeholders</span><span class="params">(self)</span>:</span></span><br><span class="line">    self.input_placeholder = tf.placeholder(dtype=tf.float32, shape=(self.config.batch_size, self.config.n_features))</span><br><span class="line">    self.labels_placeholder = tf.placeholder(dtype=tf.float32, shape=(self.config.batch_size, self.config.n_classes))</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_feed_dict</span><span class="params">(self, inputs_batch, labels_batch=None)</span>:</span></span><br><span class="line">    feed_dict = &#123;self.input_placeholder: inputs_batch,</span><br><span class="line">                    self.labels_placeholder: labels_batch&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> feed_dict</span><br></pre></td></tr></table></figure>
-<h3 id="d-使用-tensorflow-建立網路架構">(d) 使用 Tensorflow 建立網路架構</h3>
+<h3 id="d-使用-tensorflow-建立網路架構"><a class="header-anchor" href="#d-使用-tensorflow-建立網路架構">¶</a>(d) 使用 Tensorflow 建立網路架構</h3>
 <p>Implement the transformation for a softmax classifier in the function <code>add_prediction_op</code> in <code>q1_classifier.py</code>. Add cross-entropy loss in the function <code>add_loss_op</code> in the same file. Use the implementations from the earlier parts of the problem (already imported for you), <strong>not</strong> TensorFlow built-ins.</p>
-<h4 id="d-solution">1.(d) solution</h4>
+<h4 id="1-d-solution"><a class="header-anchor" href="#1-d-solution">¶</a>1.(d) solution</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_prediction_op</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'transformation'</span>):</span><br><span class="line">        b = tf.Variable(tf.zeros(shape=[self.config.n_classes]))</span><br><span class="line">        W = tf.Variable(tf.zeros(shape=[self.config.n_features, self.config.n_classes]))</span><br><span class="line">        z = tf.matmul(self.input_placeholder, W) + b</span><br><span class="line">    pred = softmax(z)</span><br><span class="line">    <span class="keyword">return</span> pred</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_loss_op</span><span class="params">(self, pred)</span>:</span></span><br><span class="line">    loss = cross_entropy_loss(self.labels_placeholder, pred)</span><br><span class="line">    <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
-<h3 id="e-使用-tensorflow-加入-optimizer">(e) 使用 Tensorflow 加入 Optimizer</h3>
+<h3 id="e-使用-tensorflow-加入-optimizer"><a class="header-anchor" href="#e-使用-tensorflow-加入-optimizer">¶</a>(e) 使用 Tensorflow 加入 Optimizer</h3>
 <p>Fill in the implementation for <code>add_training_op</code> in <code>q1_classifier.py</code>. Explain in a few sentences what happens when the model’s <code>train_op</code> is called (what gets computed during forward propagation, what gets computed during backpropagation, and what will have changed after the op has been run?). Verify that your model is able to fit to synthetic data by running <code>python q1_classifier.py</code> and making sure that the tests pass.</p>
 <p><strong>Hint:</strong> Make sure to use the learning rate specified in <code>Config</code>.</p>
-<h4 id="e-solution">1.(e) solution</h4>
+<h4 id="1-e-solution"><a class="header-anchor" href="#1-e-solution">¶</a>1.(e) solution</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_training_op</span><span class="params">(self, loss)</span>:</span></span><br><span class="line">    train_op = tf.train.GradientDescentOptimizer(learning_rate=self.config.lr).minimize(loss)</span><br><span class="line">    <span class="keyword">return</span> train_op</span><br></pre></td></tr></table></figure>
-<h2 id="neural-transition-based-dependency-parsing">2. Neural Transition-Based Dependency Parsing</h2>
-<p>In this section, you’ll be implementing a neural-network based dependency parser. A dependency parser analyzes the grammatical structure of a sentence, establishing relationships between “head” words and words which modify those heads. Your implementation will be a transition-based parser, which incrementally builds up a parse one step at a time. At every step it maintains a partial parse, which is represented as follows:</p>
+<h2 id="2-neural-transition-based-dependency-parsing"><a class="header-anchor" href="#2-neural-transition-based-dependency-parsing">¶</a>2. Neural Transition-Based Dependency Parsing</h2>
+<p>In this section, you’ll be implementing a neural-network based dependency parser. A dependency parser<br>
+analyzes the grammatical structure of a sentence, establishing relationships between “head” words and words<br>
+which modify those heads. Your implementation will be a transition-based parser, which incrementally builds<br>
+up a parse one step at a time. At every step it maintains a partial parse, which is represented as follows:</p>
 <ul>
 <li>A stack of words that are currently being processed.</li>
 <li>A buffer of words yet to be processed.</li>
 <li>A list of dependencies predicted by the parser.</li>
 </ul>
-<p>Initially, the stack only contains ROOT, the dependencies lists is empty, and the buffer contains all words of the sentence in order. At each step, the parse applies a transition to the partial parse until its buffer is empty and the stack is size 1. The following transitions can be applied:</p>
+<p>Initially, the stack only contains ROOT, the dependencies lists is empty, and the buffer contains all words<br>
+of the sentence in order. At each step, the parse applies a transition to the partial parse until its buffer is<br>
+empty and the stack is size 1. The following transitions can be applied:</p>
 <ul>
 <li>SHIFT: removes the first word from the buffer and pushes it onto the stack.</li>
-<li>LEFT-ARC: marks the second (second most recently added) item on the stack as a dependent of the first item and removes the second item from the stack.</li>
-<li>RIGHT-ARC: marks the first (most recently added) item on the stack as a dependent of the second item and removes the first item from the stack.</li>
+<li>LEFT-ARC: marks the second (second most recently added) item on the stack as a dependent of the<br>
+first item and removes the second item from the stack.</li>
+<li>RIGHT-ARC: marks the first (most recently added) item on the stack as a dependent of the second<br>
+item and removes the first item from the stack.</li>
 </ul>
-<p>Your parser will decide among transitions at each state using a neural network classifier. First, you will implement the partial parse representation and transition functions.</p>
-<h3 id="a-試試看">(a) 試試看</h3>
-<p>Go through the sequence of transitions needed for parsing the sentence “I parsed this sentence correctly”. The dependency tree for the sentence is shown below. At each step, give the configuration of the stack and buffer, as well as what transition was applied this step and what new dependency was added (if any). The first three steps are provided below as an example.</p>
-<p><img src="/images/dependency_parsing.png"></p>
-<h4 id="a-solution-1">2.(a) solution</h4>
+<p>Your parser will decide among transitions at each state using a neural network classifier. First, you will<br>
+implement the partial parse representation and transition functions.</p>
+<h3 id="a-試試看"><a class="header-anchor" href="#a-試試看">¶</a>(a) 試試看</h3>
+<p>Go through the sequence of transitions needed for parsing the sentence “I parsed<br>
+this sentence correctly”. The dependency tree for the sentence is shown below. At each step, give the<br>
+configuration of the stack and buffer, as well as what transition was applied this step and what new<br>
+dependency was added (if any). The first three steps are provided below as an example.</p>
+<p><img src="/images/dependency_parsing.png" alt></p>
+<h4 id="2-a-solution"><a class="header-anchor" href="#2-a-solution">¶</a>2.(a) solution</h4>
 <table>
-<tr>
-<th>
-stack
-</th>
-<th>
-buffer
-</th>
-<th>
-new dependency
-</th>
-<th>
-transition
-</th>
-</tr>
-<tr>
-<th>
-[ROOT]
-</th>
-<td>
-[I, parsed, this, setence, correctly]
-</td>
-<td>
-</td>
-<td>
-Initial Configuration
-</td>
-</tr>
-<tr>
-<th>
-[ROOT, I]
-</th>
-<td>
-[parsed, this, setence, correctly]
-</td>
-<td>
-</td>
-<td>
-SHIFT
-</td>
-</tr>
-<tr>
-<th>
-[ROOT, I, parsed]
-</th>
-<td>
-[this, setence, correctly]
-</td>
-<td>
-</td>
-<td>
-SHIFT
-</td>
-</tr>
-<tr>
-<th>
-[ROOT, parsed]
-</th>
-<td>
-[this, setence, correctly]
-</td>
-<td>
-parsed -&gt; I
-</td>
-<td>
-LEFT-ARC
-</td>
-</tr>
-<tr>
-<th>
-[ROOT, parsed, this]
-</th>
-<td>
-[setence, correctly]
-</td>
-<td>
-</td>
-<td>
-SHIFT
-</td>
-</tr>
-<tr>
-<th>
-[ROOT, parsed, this]
-</th>
-<td>
-[setence, correctly]
-</td>
-<td>
-</td>
-<td>
-SHIFT
-</td>
-</tr>
-<tr>
-<th>
-[ROOT, parsed, this, sentence]
-</th>
-<td>
-[correctly]
-</td>
-<td>
-</td>
-<td>
-SHIFT
-</td>
-</tr>
-<tr>
-<th>
-[ROOT, parsed, setence]
-</th>
-<td>
-[correctly]
-</td>
-<td>
-sentence -&gt; this
-</td>
-<td>
-LEFT-ARC
-</td>
-</tr>
-<tr>
-<th>
-[ROOT, parsed]
-</th>
-<td>
-[correctly]
-</td>
-<td>
-parse -&gt; sentence
-</td>
-<td>
-RIGHT-ARC
-</td>
-</tr>
-<tr>
-<th>
-[ROOT, parsed, correctly]
-</th>
-<td>
-[]
-</td>
-<td>
-</td>
-<td>
-SHFIT
-</td>
-</tr>
-<tr>
-<th>
-[ROOT, parsed]
-</th>
-<td>
-[]
-</td>
-<td>
-parse -&gt; correctly
-</td>
-<td>
-RIGHT-ARC
-</td>
-</tr>
-<tr>
-<th>
-[ROOT]
-</th>
-<td>
-[]
-</td>
-<td>
-ROOT -&gt; parsed
-</td>
-<td>
-RIGHT-ARC
-</td>
-</tr>
+  <tr>
+    <th>stack</th>
+    <th>buffer</th>
+    <th>new dependency</th>
+    <th>transition</th>
+  </tr>
+  <tr>
+    <th>[ROOT]</th>
+    <td>[I, parsed, this, setence, correctly]</td>
+    <td></td>
+    <td>Initial Configuration</td>
+  </tr>
+  <tr>
+    <th>[ROOT, I]</th>
+    <td>[parsed, this, setence, correctly]</td>
+    <td></td>
+    <td>SHIFT</td>
+  </tr>
+  <tr>
+    <th>[ROOT, I, parsed]</th>
+    <td>[this, setence, correctly]</td>
+    <td></td>
+    <td>SHIFT</td>
+  </tr>
+  <tr>
+    <th>[ROOT, parsed]</th>
+    <td>[this, setence, correctly]</td>
+    <td>parsed -> I</td>
+    <td>LEFT-ARC</td>
+  </tr>
+  <tr>
+    <th>[ROOT, parsed, this]</th>
+    <td>[setence, correctly]</td>
+    <td></td>
+    <td>SHIFT</td>
+  </tr>
+  <tr>
+    <th>[ROOT, parsed, this]</th>
+    <td>[setence, correctly]</td>
+    <td></td>
+    <td>SHIFT</td>
+  </tr>
+  <tr>
+    <th>[ROOT, parsed, this, sentence]</th>
+    <td>[correctly]</td>
+    <td></td>
+    <td>SHIFT</td>
+  </tr>
+  <tr>
+    <th>[ROOT, parsed, setence]</th>
+    <td>[correctly]</td>
+    <td>sentence -> this</td>
+    <td>LEFT-ARC</td>
+  </tr>
+  <tr>
+    <th>[ROOT, parsed]</th>
+    <td>[correctly]</td>
+    <td>parse -> sentence</td>
+    <td>RIGHT-ARC</td>
+  </tr>
+  <tr>
+    <th>[ROOT, parsed, correctly]</th>
+    <td>[]</td>
+    <td></td>
+    <td>SHFIT</td>
+  </tr>
+  <tr>
+    <th>[ROOT, parsed]</th>
+    <td>[]</td>
+    <td>parse -> correctly</td>
+    <td>RIGHT-ARC</td>
+  </tr>
+  <tr>
+    <th>[ROOT]</th>
+    <td>[]</td>
+    <td>ROOT -> parsed</td>
+    <td>RIGHT-ARC</td>
+  </tr>
 </table>
-<h3 id="b-時間複雜度">(b) 時間複雜度</h3>
+<h3 id="b-時間複雜度"><a class="header-anchor" href="#b-時間複雜度">¶</a>(b) 時間複雜度</h3>
 <p>A sentence containing n words will be parsed in how many steps (in terms of n)? Briefly explain why.</p>
-<h4 id="b-solution-1">2.(b) solution</h4>
+<h4 id="2-b-solution"><a class="header-anchor" href="#2-b-solution">¶</a>2.(b) solution</h4>
 <p>每個詞都會進行一次 SHIFT 及 LEFT/RIGHT-ARC，因此共 2n 次。</p>
-<h3 id="c-實作-dependency-parsing">(c) 實作 Dependency Parsing</h3>
+<h3 id="實作-dependency-parsing"><a class="header-anchor" href="#實作-dependency-parsing">¶</a>© 實作 Dependency Parsing</h3>
 <p>Implement the <code>__init__</code> and <code>parse_step</code> functions in the <code>PartialParse</code> class in <code>q2_parser_transitions.py</code>. This implements the transition mechanics your parser will use. You can run basic (not-exhaustive) tests by running python <code>q2_parser_transitions.py</code>.</p>
-<h4 id="c-solution-1">2.(c) solution</h4>
+<h4 id="2-solution"><a class="header-anchor" href="#2-solution">¶</a>2.© solution</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, sentence)</span>:</span></span><br><span class="line">    self.sentence = sentence</span><br><span class="line">    self.stack = [<span class="string">'ROOT'</span>]</span><br><span class="line">    self.buffer = sentence[:]</span><br><span class="line">    self.dependencies = []</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_step</span><span class="params">(self, transition)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> transition == <span class="string">"S"</span>:</span><br><span class="line">        self.stack.append(self.buffer[<span class="number">0</span>])</span><br><span class="line">        self.buffer.pop(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">elif</span> transition == <span class="string">"LA"</span>:</span><br><span class="line">        self.dependencies.append((self.stack[<span class="number">-1</span>], self.stack[<span class="number">-2</span>]))</span><br><span class="line">        self.stack.pop(<span class="number">-2</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        self.dependencies.append((self.stack[<span class="number">-2</span>], self.stack[<span class="number">-1</span>]))</span><br><span class="line">        self.stack.pop(<span class="number">-1</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="d-minibatch-dependency-parsing">(d) Minibatch Dependency Parsing</h3>
-<p>Our network will predict which transition should be applied next to a partial parse. We could use it to parse a single sentence by applying predicted transitions until the parse is complete. However, neural networks run much more efficiently when making predictions about batches of data at a time (i.e., predicting the next transition for a many different partial parses simultaneously). We can parse sentences in minibatches with the following algorithm.</p>
-<p><img src="/../images/minibatch_dependency_parsing.png"></p>
+<h3 id="d-minibatch-dependency-parsing"><a class="header-anchor" href="#d-minibatch-dependency-parsing">¶</a>(d) Minibatch Dependency Parsing</h3>
+<p>Our network will predict which transition should be applied next to a partial parse.<br>
+We could use it to parse a single sentence by applying predicted transitions until the parse is complete.<br>
+However, neural networks run much more efficiently when making predictions about batches of data at<br>
+a time (i.e., predicting the next transition for a many different partial parses simultaneously). We can<br>
+parse sentences in minibatches with the following algorithm.</p>
+<p><img src="/../images/minibatch_dependency_parsing.png" alt></p>
 <p>Implement this algorithm in the <code>minibatch_parse</code> function in <code>q2_ parser_transitions.py</code>. You can run basic (not-exhaustive) tests by running <code>python q2_parser_transitions.py</code>.</p>
-<p>Note: You will need <code>minibatch_parse</code> to be correctly implemented to evaluate the model you will build in part (h). However, you do not need it to train the model, so you should be able to complete most of part (h) even if minibatch parse is not implemented yet.</p>
-<h4 id="d-solution-1">2.(d) solution</h4>
+<p>Note: You will need <code>minibatch_parse</code> to be correctly implemented to evaluate the model you will build<br>
+in part (h). However, you do not need it to train the model, so you should be able to complete most of<br>
+part (h) even if minibatch parse is not implemented yet.</p>
+<h4 id="2-d-solution"><a class="header-anchor" href="#2-d-solution">¶</a>2.(d) solution</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">minibatch_parse</span><span class="params">(sentences, model, batch_size)</span>:</span></span><br><span class="line">    partial_parse = [PartialParse(sentence) <span class="keyword">for</span> sentence <span class="keyword">in</span> sentences]</span><br><span class="line">    dependencies = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> len(partial_parse) &gt; <span class="number">0</span>:</span><br><span class="line">        mini_batch = partial_parse[:batch_size]</span><br><span class="line">        <span class="keyword">while</span> len(mini_batch) &gt; <span class="number">0</span>:</span><br><span class="line">            transitions = model.predict(mini_batch)</span><br><span class="line">            <span class="keyword">for</span> i, action <span class="keyword">in</span> enumerate(transitions):</span><br><span class="line">                mini_batch[i].parse_step(action)</span><br><span class="line">            mini_batch = [parse <span class="keyword">for</span> parse <span class="keyword">in</span> mini_batch <span class="keyword">if</span> len(parse.stack) &gt; <span class="number">1</span> <span class="keyword">or</span> len(parse.buffer) &gt; <span class="number">0</span>]</span><br><span class="line">        dependencies.extend(p.dependencies <span class="keyword">for</span> p <span class="keyword">in</span> partial_parse[:batch_size])</span><br><span class="line">        partial_parse = partial_parse[batch_size:]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dependencies</span><br></pre></td></tr></table></figure>
-<h3 id="e-xavier-initialization">(e) Xavier initialization</h3>
+<h3 id="e-xavier-initialization"><a class="header-anchor" href="#e-xavier-initialization">¶</a>(e) Xavier initialization</h3>
 <p>In order to avoid neurons becoming too correlated and ending up in poor local minimina, it is often helpful to randomly initialize parameters. One of the most frequent initializations used is called Xavier initialization.</p>
-<p>Given a matrix <span class="math inline">\(A\)</span> of dimension <span class="math inline">\(m × n\)</span>, Xavier initialization selects values <span class="math inline">\(A_{ij}\)</span> uniformly from <span class="math inline">\([-\epsilon,\epsilon]\)</span>, where</p>
-<p><span class="math display">\[\epsilon=\dfrac{\sqrt{6}}{\sqrt{m+n}}\]</span></p>
-<p>Implement the initialization in xavier weight init in <code>q2 _initialization.py</code>. You can run basic (nonexhaustive tests) by running python <code>q2_initialization.py</code>. This function will be used to initialize <span class="math inline">\(W\)</span> and <span class="math inline">\(U\)</span>.</p>
-<h4 id="e-solution-1">2.(e) solution</h4>
+<p>Given a matrix $A$ of dimension $m × n$, Xavier initialization selects values $A_{ij}$ uniformly from $[-\epsilon,\epsilon]$,<br>
+where</p>
+<p>$$\epsilon=\dfrac{\sqrt{6}}{\sqrt{m+n}}$$</p>
+<p>Implement the initialization in xavier weight init in <code>q2 _initialization.py</code>. You can run basic (nonexhaustive tests) by running python <code>q2_initialization.py</code>. This function will be<br>
+used to initialize $W$ and $U$.</p>
+<h4 id="2-e-solution"><a class="header-anchor" href="#2-e-solution">¶</a>2.(e) solution</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xavier_weight_init</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_xavier_initializer</span><span class="params">(shape, **kwargs)</span>:</span></span><br><span class="line">        epsilon = tf.sqrt(<span class="number">6</span> / tf.cast(np.sum(shape), tf.float32))</span><br><span class="line">        out = tf.random_uniform(shape=shape, minval=-epsilon, maxval=epsilon)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line">    <span class="comment"># Returns defined initializer function.</span></span><br><span class="line">    <span class="keyword">return</span> _xavier_initializer</span><br></pre></td></tr></table></figure>
-<h3 id="f-dropout">(f) Dropout</h3>
-<p>We will regularize our network by applying Dropout. During training this randomly sets units in the hidden layer <span class="math inline">\(h\)</span> to zero with probability <span class="math inline">\(p_{drop}\)</span> and then multiplies <span class="math inline">\(h\)</span> by a constant <span class="math inline">\(\gamma\)</span> (dropping different units each minibatch). We can write this as</p>
-<p><span class="math display">\[h_{drop}=\gamma d \circ h\]</span></p>
-<p>where <span class="math inline">\(d ∈ \{0, 1\}^{D_h}\)</span> (<span class="math inline">\(D_h\)</span> is the size of <span class="math inline">\(h\)</span>) is a mask vector where each entry is 0 with probability <span class="math inline">\(p_{drop}\)</span> and 1 with probability (1 − <span class="math inline">\(p_{drop}\)</span>). <span class="math inline">\(\gamma\)</span> is chosen such that the value of hdrop in expectation equals <span class="math inline">\(h\)</span>:</p>
-<p><span class="math display">\[E_{p_{drop}}[h_{drop}]_i=h_i\]</span></p>
-<p>for all <span class="math inline">\(0 &lt; i &lt; D_h\)</span>. What must <span class="math inline">\(\gamma\)</span> equal in terms of <span class="math inline">\(p_{drop}\)</span>? Briefly justify your answer.</p>
-<h4 id="f-solution">2.(f) solution</h4>
-<p><span class="math inline">\(E_p{h_p}_i=E_p[\gamma d_i h_i] = p \times 0 + (1-p) \times \gamma h_i = (1-p)\gamma h_i = h_i\)</span></p>
-<p><span class="math inline">\(\Rightarrow r = \dfrac{1}{1-p}\)</span></p>
-<h3 id="g-adam-optmizer">(g) Adam Optmizer</h3>
+<h3 id="f-dropout"><a class="header-anchor" href="#f-dropout">¶</a>(f) Dropout</h3>
+<p>We will regularize our network by applying Dropout. During training this randomly sets units in the hidden layer $h$ to zero with probability $p_{drop}$ and then multiplies $h$ by a constant $\gamma$ (dropping different units each minibatch). We can write this as</p>
+<p>$$h_{drop}=\gamma d \circ h$$</p>
+<p>where $d ∈ {0, 1}^{D_h}$ ($D_h$ is the size of $h$) is a mask vector where each entry is 0 with probability $p_{drop}$ and 1 with probability (1 − $p_{drop}$). $\gamma$ is chosen such that the value of hdrop in expectation equals $h$:</p>
+<p>$$E_{p_{drop}}[h_{drop}]_i=h_i$$</p>
+<p>for all $0 &lt; i &lt; D_h$. What must $\gamma$ equal in terms of $p_{drop}$? Briefly justify your answer.</p>
+<h4 id="2-f-solution"><a class="header-anchor" href="#2-f-solution">¶</a>2.(f) solution</h4>
+<p>$E_p{h_p}_i=E_p[\gamma d_i h_i] = p \times 0 + (1-p) \times \gamma h_i = (1-p)\gamma h_i = h_i$</p>
+<p>$\Rightarrow r = \dfrac{1}{1-p}$</p>
+<h3 id="g-adam-optmizer"><a class="header-anchor" href="#g-adam-optmizer">¶</a>(g) Adam Optmizer</h3>
 <p>We will train our model using the Adam optimizer. Recall that standard SGD uses the update rule</p>
-<p><span class="math display">\[\theta \leftarrow \theta - \alpha \nabla_\theta J_{minibatch}(\theta)\]</span></p>
-<p>where <span class="math inline">\(\theta\)</span> is a vector containing all of the model parameters, <span class="math inline">\(J\)</span> is the loss function, <span class="math inline">\(\nabla_\theta J_{minibatch}(\theta)\)</span> is the gradient of the loss function with respect to the parameters on a minibatch of data, and <span class="math inline">\(\alpha\)</span> is the learning rate. Adam uses a more sophisticated update rule with two additional steps.</p>
+<p>$$\theta \leftarrow \theta - \alpha \nabla_\theta J_{minibatch}(\theta)$$</p>
+<p>where $\theta$ is a vector containing all of the model parameters, $J$ is the loss function, $\nabla_\theta J_{minibatch}(\theta)$ is the gradient of the loss function with respect to the parameters on a minibatch of data, and $\alpha$ is the learning rate. Adam uses a more sophisticated update rule with two additional steps.</p>
 <p>First, Adam uses a trick called momentum by keeping track of m, a rolling average of the gradients:</p>
-<p><span class="math display">\[m \leftarrow \beta_1 m + (1-\beta_1) \nabla_\theta J_{minibatch}(\theta)\]</span></p>
-<p><span class="math display">\[\theta \leftarrow \theta - \alpha m\]</span></p>
-<p>where <span class="math inline">\(\beta_1\)</span> is a hyperparameter between 0 and 1 (often set to 0.9). Briefly explain (you don’t need to prove mathematically, just give an intuition) how using <span class="math inline">\(m\)</span> stops the updates from varying as much. Why might this help with learning?</p>
+<p>$$m \leftarrow \beta_1 m + (1-\beta_1) \nabla_\theta J_{minibatch}(\theta)$$</p>
+<p>$$\theta \leftarrow \theta - \alpha m$$</p>
+<p>where $\beta_1$ is a hyperparameter between 0 and 1 (often set to 0.9). Briefly explain (you don’t need to prove mathematically, just give an intuition) how using $m$ stops the updates from varying as much. Why might this help with learning?</p>
 <p>Adam also uses adaptive learning rates by keeping track of v, a rolling average of the magnitudes of the gradients:</p>
-<p><span class="math display">\[m \leftarrow \beta_1 m + (1-\beta_1) \nabla_\theta J_{minibatch}(\theta)\]</span></p>
-<p><span class="math display">\[m \leftarrow \beta_2 v + (1-\beta_2) \nabla_\theta J_{minibatch}(\theta) \circ \nabla_\theta J_{minibatch}(\theta)\]</span></p>
-<p><span class="math display">\[\theta \leftarrow \theta - \alpha \circ m / \sqrt{v}\]</span></p>
-<p>where <span class="math inline">\(\circ\)</span> and <span class="math inline">\(/\)</span> denote elementwise multiplication and division (so <span class="math inline">\(z \circ z\)</span> is elementwise squaring) and <span class="math inline">\(\beta_2\)</span> is a hyperparameter between 0 and 1 (often set to 0.99). Since Adam divides the update by <span class="math inline">\(\sqrt{v}\)</span>, which of the model parameters will get larger updates? Why might this help with learning?</p>
-<h3 id="h-parser-模型實作">(h) Parser 模型實作</h3>
+<p>$$m \leftarrow \beta_1 m + (1-\beta_1) \nabla_\theta J_{minibatch}(\theta)$$</p>
+<p>$$m \leftarrow \beta_2 v + (1-\beta_2) \nabla_\theta J_{minibatch}(\theta) \circ \nabla_\theta J_{minibatch}(\theta)$$</p>
+<p>$$\theta \leftarrow \theta - \alpha \circ m / \sqrt{v}$$</p>
+<p>where $\circ$ and $/$ denote elementwise multiplication and division (so $z \circ z$ is elementwise squaring) and $\beta_2$ is a hyperparameter between 0 and 1 (often set to 0.99). Since Adam divides the update by $\sqrt{v}$, which of the model parameters will get larger updates? Why might this help with learning?</p>
+<h3 id="h-parser-模型實作"><a class="header-anchor" href="#h-parser-模型實作">¶</a>(h) Parser 模型實作</h3>
 <p>In <code>q2_parser_model.py</code> implement the neural network classifier governing the dependency parser by filling in the appropriate sections. We will train and evaluate our model on the Penn Treebank (annotated with Universal Dependencies).Run <code>python q2_parser_model.py</code> to train your model and compute predictions on the test data (make sure to turn off debug settings when doing final evaluation).</p>
 <p>Hints:</p>
 <ul>
-<li><p>When debugging, pass the keyword argument <code>debug=True</code> to the main method (it is set to <code>true</code> by default). This will cause the code to run over a small subset of the data, so the training the model won’t take as long.</p></li>
-<li><p>This code should run within 1 hour on a CPU.</p></li>
-<li><p>When running with <code>debug=True</code>, you should be able to get a loss smaller than 0.2 and a UAS larger than 65 on the dev set (although in rare cases your results may be lower, there is some randomness when training). When running with <code>debug=False</code>, you should be able to get a loss smaller than 0.08 on the train set and an Unlabeled Attachment Score larger than 87 on the dev set. For comparison, the model in the original neural dependency parsing paper gets 92.5 UAS. If you want, you can tweak the hyperparameters for your model (hidden layer size, hyperparameters for Adam, number of epochs, etc.) to improve the performance (but you are not required to do so).</p></li>
+<li>
+<p>When debugging, pass the keyword argument <code>debug=True</code> to the main method (it is set to <code>true</code> by default). This will cause the code to run over a small subset of the data, so the training<br>
+the model won’t take as long.</p>
+</li>
+<li>
+<p>This code should run within 1 hour on a CPU.</p>
+</li>
+<li>
+<p>When running with <code>debug=True</code>, you should be able to get a loss smaller than 0.2 and a UAS larger than 65 on the dev set (although in rare cases your results may be lower, there is some<br>
+randomness when training). When running with <code>debug=False</code>, you should be able to get a loss smaller than 0.08 on the train set and an Unlabeled Attachment Score larger than 87 on the dev<br>
+set. For comparison, the model in the original neural dependency parsing paper gets 92.5 UAS. If you want, you can tweak the hyperparameters for your model (hidden layer size, hyperparameters<br>
+for Adam, number of epochs, etc.) to improve the performance (but you are not required to do so).</p>
+</li>
 </ul>
-<h4 id="h-solution">2.(h) solution</h4>
+<h4 id="2-h-solution"><a class="header-anchor" href="#2-h-solution">¶</a>2.(h) solution</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cPickle</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> model <span class="keyword">import</span> Model</span><br><span class="line"><span class="keyword">from</span> q2_initialization <span class="keyword">import</span> xavier_weight_init</span><br><span class="line"><span class="keyword">from</span> utils.parser_utils <span class="keyword">import</span> minibatches, load_and_preprocess_data</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Config</span><span class="params">(object)</span>:</span></span><br><span class="line">    n_features = <span class="number">36</span></span><br><span class="line">    n_classes = <span class="number">3</span></span><br><span class="line">    dropout = <span class="number">0.5</span>  <span class="comment"># (p_drop in the handout)</span></span><br><span class="line">    embed_size = <span class="number">50</span></span><br><span class="line">    hidden_size = <span class="number">200</span></span><br><span class="line">    batch_size = <span class="number">1024</span></span><br><span class="line">    n_epochs = <span class="number">10</span></span><br><span class="line">    lr = <span class="number">0.0005</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ParserModel</span><span class="params">(Model)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_placeholders</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.input_placeholder = tf.placeholder(dtype=tf.int32, shape=(<span class="keyword">None</span>, self.config.n_features))</span><br><span class="line">        self.labels_placeholder = tf.placeholder(dtype=tf.float32, shape=(<span class="keyword">None</span>, self.config.n_classes))</span><br><span class="line">        self.dropout_placeholder = tf.placeholder(dtype=tf.float32)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_feed_dict</span><span class="params">(self, inputs_batch, labels_batch=None, dropout=<span class="number">0</span>)</span>:</span></span><br><span class="line">        feed_dict = &#123;self.input_placeholder: inputs_batch,</span><br><span class="line">                     self.dropout_placeholder: dropout&#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> labels_batch <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            feed_dict[self.labels_placeholder] = labels_batch</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> feed_dict</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_embedding</span><span class="params">(self)</span>:</span></span><br><span class="line">        embedding = tf.Variable(self.pretrained_embeddings)</span><br><span class="line">        embeddings = tf.reshape(tf.nn.embedding_lookup(embedding, self.input_placeholder), [<span class="number">-1</span>, self.config.n_features * self.config.embed_size])</span><br><span class="line">        <span class="keyword">return</span> embeddings</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_prediction_op</span><span class="params">(self)</span>:</span></span><br><span class="line">        x = self.add_embedding()</span><br><span class="line">        xavier_initializer = xavier_weight_init()</span><br><span class="line">        W = tf.Variable(xavier_initializer((self.config.n_features * self.config.embed_size, self.config.hidden_size)))</span><br><span class="line">        b1 = tf.Variable(tf.zeros(self.config.hidden_size))</span><br><span class="line">        U = tf.Variable(xavier_initializer((self.config.hidden_size, self.config.n_classes)))</span><br><span class="line">        b2 = tf.Variable(tf.zeros(self.config.n_classes))</span><br><span class="line">        h = tf.nn.relu(tf.matmul(x, W) + b1)</span><br><span class="line">        h_drop = tf.nn.dropout(h, <span class="number">1</span> - self.dropout_placeholder)</span><br><span class="line">        pred = tf.matmul(h_drop, U) + b2</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> pred</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_loss_op</span><span class="params">(self, pred)</span>:</span></span><br><span class="line">        loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=pred, labels=self.labels_placeholder))</span><br><span class="line">        <span class="keyword">return</span> loss</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_training_op</span><span class="params">(self, loss)</span>:</span></span><br><span class="line">        train_op = tf.train.AdamOptimizer(learning_rate=self.config.lr).minimize(loss)</span><br><span class="line">        <span class="keyword">return</span> train_op</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train_on_batch</span><span class="params">(self, sess, inputs_batch, labels_batch)</span>:</span></span><br><span class="line">        feed = self.create_feed_dict(inputs_batch, labels_batch=labels_batch,</span><br><span class="line">                                     dropout=self.config.dropout)</span><br><span class="line">        _, loss = sess.run([self.train_op, self.loss], feed_dict=feed)</span><br><span class="line">        <span class="keyword">return</span> loss</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run_epoch</span><span class="params">(self, sess, parser, train_examples, dev_set)</span>:</span></span><br><span class="line">        n_minibatches = <span class="number">1</span> + len(train_examples) / self.config.batch_size</span><br><span class="line">        prog = tf.keras.utils.Progbar(target=n_minibatches)</span><br><span class="line">        <span class="keyword">for</span> i, (train_x, train_y) <span class="keyword">in</span> enumerate(minibatches(train_examples, self.config.batch_size)):</span><br><span class="line">            loss = self.train_on_batch(sess, train_x, train_y)</span><br><span class="line">            prog.update(i + <span class="number">1</span>, [(<span class="string">"train loss"</span>, loss)])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Evaluating on dev set"</span>,</span><br><span class="line">        dev_UAS, _ = parser.parse(dev_set)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"- dev UAS: &#123;:.2f&#125;"</span>.format(dev_UAS * <span class="number">100.0</span>)</span><br><span class="line">        <span class="keyword">return</span> dev_UAS</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, sess, saver, parser, train_examples, dev_set)</span>:</span></span><br><span class="line">        best_dev_UAS = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> epoch <span class="keyword">in</span> range(self.config.n_epochs):</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"Epoch &#123;:&#125; out of &#123;:&#125;"</span>.format(epoch + <span class="number">1</span>, self.config.n_epochs)</span><br><span class="line">            dev_UAS = self.run_epoch(sess, parser, train_examples, dev_set)</span><br><span class="line">            <span class="keyword">if</span> dev_UAS &gt; best_dev_UAS:</span><br><span class="line">                best_dev_UAS = dev_UAS</span><br><span class="line">                <span class="keyword">if</span> saver:</span><br><span class="line">                    <span class="keyword">print</span> <span class="string">"New best dev UAS! Saving model in ./data/weights/parser.weights"</span></span><br><span class="line">                    saver.save(sess, <span class="string">'./data/weights/parser.weights'</span>)</span><br><span class="line">            <span class="keyword">print</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, config, pretrained_embeddings)</span>:</span></span><br><span class="line">        self.pretrained_embeddings = pretrained_embeddings</span><br><span class="line">        self.config = config</span><br><span class="line">        self.build()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(debug=True)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="number">80</span> * <span class="string">"="</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"INITIALIZING"</span></span><br><span class="line">    <span class="keyword">print</span> <span class="number">80</span> * <span class="string">"="</span></span><br><span class="line">    config = Config()</span><br><span class="line">    parser, embeddings, train_examples, dev_set, test_set = load_and_preprocess_data(debug)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(<span class="string">'./data/weights/'</span>):</span><br><span class="line">        os.makedirs(<span class="string">'./data/weights/'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> tf.Graph().as_default() <span class="keyword">as</span> graph:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Building model..."</span>,</span><br><span class="line">        start = time.time()</span><br><span class="line">        model = ParserModel(config, embeddings)</span><br><span class="line">        parser.model = model</span><br><span class="line">        init_op = tf.global_variables_initializer()</span><br><span class="line">        saver = <span class="keyword">None</span> <span class="keyword">if</span> debug <span class="keyword">else</span> tf.train.Saver()</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"took &#123;:.2f&#125; seconds\n"</span>.format(time.time() - start)</span><br><span class="line">    graph.finalize()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> tf.Session(graph=graph) <span class="keyword">as</span> session:</span><br><span class="line">        parser.session = session</span><br><span class="line">        session.run(init_op)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">print</span> <span class="number">80</span> * <span class="string">"="</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"TRAINING"</span></span><br><span class="line">        <span class="keyword">print</span> <span class="number">80</span> * <span class="string">"="</span></span><br><span class="line">        model.fit(session, saver, parser, train_examples, dev_set)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> debug:</span><br><span class="line">            <span class="keyword">print</span> <span class="number">80</span> * <span class="string">"="</span></span><br><span class="line">            <span class="keyword">print</span> <span class="string">"TESTING"</span></span><br><span class="line">            <span class="keyword">print</span> <span class="number">80</span> * <span class="string">"="</span></span><br><span class="line">            <span class="keyword">print</span> <span class="string">"Restoring the best model weights found on the dev set"</span></span><br><span class="line">            saver.restore(session, <span class="string">'./data/weights/parser.weights'</span>)</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"Final evaluation on test set"</span>,</span><br><span class="line">            UAS, dependencies = parser.parse(test_set)</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"- test UAS: &#123;:.2f&#125;"</span>.format(UAS * <span class="number">100.0</span>)</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"Writing predictions"</span></span><br><span class="line">            <span class="keyword">with</span> open(<span class="string">'q2_test.predicted.pkl'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> f:</span><br><span class="line">                cPickle.dump(dependencies, f, <span class="number">-1</span>)</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"Done!"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main(<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="i-加分題">(i) 加分題</h3>
-<h2 id="recurrent-neural-networks-language-modeling">3. Recurrent Neural Networks: Language Modeling</h2>
+<h3 id="i-加分題"><a class="header-anchor" href="#i-加分題">¶</a>(i) 加分題</h3>
+<h2 id="3-recurrent-neural-networks-language-modeling"><a class="header-anchor" href="#3-recurrent-neural-networks-language-modeling">¶</a>3. Recurrent Neural Networks: Language Modeling</h2>
 
       
     </div>
@@ -869,7 +810,7 @@ RIGHT-ARC
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cs224n-assignment-2"><span class="nav-number">1.</span> <span class="nav-text">CS224n assignment 2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tensorflow-softmax"><span class="nav-number">1.1.</span> <span class="nav-text">1. Tensorflow Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-使用-tensorflow-實作-softmax"><span class="nav-number">1.1.1.</span> <span class="nav-text">(a) 使用 Tensorflow 實作 Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-solution"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1.(a) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-使用-tensorflow-實作-cross-entropy-loss"><span class="nav-number">1.1.2.</span> <span class="nav-text">(b) 使用 Tensorflow 實作 Cross Entropy Loss</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#b-solution"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1.(b) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-placeholder-variable-與-feed-dictionary"><span class="nav-number">1.1.3.</span> <span class="nav-text">(c) Placeholder Variable 與 Feed Dictionary</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#c-solution"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">1.(c) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-使用-tensorflow-建立網路架構"><span class="nav-number">1.1.4.</span> <span class="nav-text">(d) 使用 Tensorflow 建立網路架構</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#d-solution"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">1.(d) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-使用-tensorflow-加入-optimizer"><span class="nav-number">1.1.5.</span> <span class="nav-text">(e) 使用 Tensorflow 加入 Optimizer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#e-solution"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">1.(e) solution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#neural-transition-based-dependency-parsing"><span class="nav-number">1.2.</span> <span class="nav-text">2. Neural Transition-Based Dependency Parsing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-試試看"><span class="nav-number">1.2.1.</span> <span class="nav-text">(a) 試試看</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-solution-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">2.(a) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-時間複雜度"><span class="nav-number">1.2.2.</span> <span class="nav-text">(b) 時間複雜度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#b-solution-1"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">2.(b) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-實作-dependency-parsing"><span class="nav-number">1.2.3.</span> <span class="nav-text">(c) 實作 Dependency Parsing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#c-solution-1"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">2.(c) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-minibatch-dependency-parsing"><span class="nav-number">1.2.4.</span> <span class="nav-text">(d) Minibatch Dependency Parsing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#d-solution-1"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">2.(d) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-xavier-initialization"><span class="nav-number">1.2.5.</span> <span class="nav-text">(e) Xavier initialization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#e-solution-1"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">2.(e) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#f-dropout"><span class="nav-number">1.2.6.</span> <span class="nav-text">(f) Dropout</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#f-solution"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">2.(f) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#g-adam-optmizer"><span class="nav-number">1.2.7.</span> <span class="nav-text">(g) Adam Optmizer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#h-parser-模型實作"><span class="nav-number">1.2.8.</span> <span class="nav-text">(h) Parser 模型實作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#h-solution"><span class="nav-number">1.2.8.1.</span> <span class="nav-text">2.(h) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#i-加分題"><span class="nav-number">1.2.9.</span> <span class="nav-text">(i) 加分題</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#recurrent-neural-networks-language-modeling"><span class="nav-number">1.3.</span> <span class="nav-text">3. Recurrent Neural Networks: Language Modeling</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">CS224n assignment 2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-tensorflow-softmax"><span class="nav-number">1.1.</span> <span class="nav-text">¶1. Tensorflow Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-使用-tensorflow-實作-softmax"><span class="nav-number">1.1.1.</span> <span class="nav-text">¶(a) 使用 Tensorflow 實作 Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-a-solution"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">¶1.(a) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-使用-tensorflow-實作-cross-entropy-loss"><span class="nav-number">1.1.2.</span> <span class="nav-text">¶(b) 使用 Tensorflow 實作 Cross Entropy Loss</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-b-solution"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">¶1.(b) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#placeholder-variable-與-feed-dictionary"><span class="nav-number">1.1.3.</span> <span class="nav-text">¶© Placeholder Variable 與 Feed Dictionary</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-solution"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">¶1.© solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-使用-tensorflow-建立網路架構"><span class="nav-number">1.1.4.</span> <span class="nav-text">¶(d) 使用 Tensorflow 建立網路架構</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-d-solution"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">¶1.(d) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-使用-tensorflow-加入-optimizer"><span class="nav-number">1.1.5.</span> <span class="nav-text">¶(e) 使用 Tensorflow 加入 Optimizer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-e-solution"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">¶1.(e) solution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-neural-transition-based-dependency-parsing"><span class="nav-number">1.2.</span> <span class="nav-text">¶2. Neural Transition-Based Dependency Parsing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-試試看"><span class="nav-number">1.2.1.</span> <span class="nav-text">¶(a) 試試看</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-a-solution"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">¶2.(a) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-時間複雜度"><span class="nav-number">1.2.2.</span> <span class="nav-text">¶(b) 時間複雜度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-b-solution"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">¶2.(b) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#實作-dependency-parsing"><span class="nav-number">1.2.3.</span> <span class="nav-text">¶© 實作 Dependency Parsing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-solution"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">¶2.© solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-minibatch-dependency-parsing"><span class="nav-number">1.2.4.</span> <span class="nav-text">¶(d) Minibatch Dependency Parsing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-d-solution"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">¶2.(d) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-xavier-initialization"><span class="nav-number">1.2.5.</span> <span class="nav-text">¶(e) Xavier initialization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-e-solution"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">¶2.(e) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#f-dropout"><span class="nav-number">1.2.6.</span> <span class="nav-text">¶(f) Dropout</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-f-solution"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">¶2.(f) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#g-adam-optmizer"><span class="nav-number">1.2.7.</span> <span class="nav-text">¶(g) Adam Optmizer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#h-parser-模型實作"><span class="nav-number">1.2.8.</span> <span class="nav-text">¶(h) Parser 模型實作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-h-solution"><span class="nav-number">1.2.8.1.</span> <span class="nav-text">¶2.(h) solution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#i-加分題"><span class="nav-number">1.2.9.</span> <span class="nav-text">¶(i) 加分題</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-recurrent-neural-networks-language-modeling"><span class="nav-number">1.3.</span> <span class="nav-text">¶3. Recurrent Neural Networks: Language Modeling</span></a></li></ol></li></ol></div>
             
 
           </div>
