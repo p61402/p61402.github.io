@@ -1,440 +1,218 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="en">
+<!-- Head tag -->
 <head><meta name="generator" content="Hexo 3.8.0">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
-<meta name="google-site-verification" content="Mxm9E-j9Gv7WuZQYUJ6BytlCEOcioYX-OQuCqPdBp6I">
 
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="Mxm9E-j9Gv7WuZQYUJ6BytlCEOcioYX-OQuCqPdBp6I">
 
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-  
-  
-  
-  
-
-  
+    <!--Description-->
     
+        <meta name="description" content="樹 Tree
+生活中常見各式各樣的數狀圖，像是族譜、賽程表等等，至於在計算機科學中，tree則是一種抽象資料型別(Abstract Data Type)，是一種具有階層式 (Hierarchical) 的數狀資料集合。">
     
-  
 
-  
-
-  
-
-  
-
-  
-
-  
+    <!--Author-->
     
+        <meta name="author" content="Qoo">
     
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="二元樹(Binary Tree)">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Qoo&#39;s Blog">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>二元樹(Binary Tree) - Qoo&#39;s Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    
 
 
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
-
-
-  <meta name="keywords" content="Python,Data Structure,Tree,Binary Tree,">
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
-
-
-
-
-
-
-<meta name="description" content="¶樹 Tree 生活中常見各式各樣的數狀圖，像是族譜、賽程表等等，至於在計算機科學中，tree則是一種抽象資料型別(Abstract Data Type)，是一種具有階層式 (Hierarchical) 的數狀資料集合。">
-<meta name="keywords" content="Python,Data Structure,Tree,Binary Tree">
-<meta property="og:type" content="article">
-<meta property="og:title" content="二元樹(Binary Tree)">
-<meta property="og:url" content="https://p61402.github.io/2017/09/08/二元樹-Binary-Tree/index.html">
-<meta property="og:site_name" content="QOO&#39;s Blog">
-<meta property="og:description" content="¶樹 Tree 生活中常見各式各樣的數狀圖，像是族譜、賽程表等等，至於在計算機科學中，tree則是一種抽象資料型別(Abstract Data Type)，是一種具有階層式 (Hierarchical) 的數狀資料集合。">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="https://p61402.github.io/images/creatures.png">
-<meta property="og:image" content="https://p61402.github.io/images/tree.png">
-<meta property="og:image" content="https://p61402.github.io/images/list_bt.png">
-<meta property="og:image" content="https://p61402.github.io/images/list_bt_ex.png">
-<meta property="og:image" content="https://p61402.github.io/images/lcrs.png">
-<meta property="og:image" content="https://p61402.github.io/images/lcrs_ex.png">
-<meta property="og:image" content="https://p61402.github.io/images/lcrc_ex.png">
-<meta property="og:image" content="https://p61402.github.io/images/array_representation.png">
-<meta property="og:image" content="https://p61402.github.io/images/skew_binary_tree.png">
-<meta property="og:image" content="https://p61402.github.io/images/linked_representation.png">
-<meta property="og:updated_time" content="2018-09-08T21:11:32.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="二元樹(Binary Tree)">
-<meta name="twitter:description" content="¶樹 Tree 生活中常見各式各樣的數狀圖，像是族譜、賽程表等等，至於在計算機科學中，tree則是一種抽象資料型別(Abstract Data Type)，是一種具有階層式 (Hierarchical) 的數狀資料集合。">
-<meta name="twitter:image" content="https://p61402.github.io/images/creatures.png">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://p61402.github.io/2017/09/08/二元樹-Binary-Tree/">
-
-
-
-
-
-  <title>二元樹(Binary Tree) | QOO's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- favicon -->
+    
+    <link rel="icon" href="/img/favicon.ico"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+	
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
-  
-  
-    
-  
+<body>
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Qoo's Blog</a>
+        </div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">QOO's Blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/p61402">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
-      
-        <h1 class="site-subtitle" itemprop="description"></h1>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            Tags
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            Search
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
-  
+    <!-- /.container -->
 </nav>
 
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://p61402.github.io/2017/09/08/二元樹-Binary-Tree/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="QOO">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QOO's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">二元樹(Binary Tree)</h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-08T13:26:40+08:00">
-                2017-09-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/course/" itemprop="url" rel="index">
-                    <span itemprop="name">學校課程</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/course/資料結構/" itemprop="url" rel="index">
-                    <span itemprop="name">資料結構</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-eye"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
-          
-
-          
-
-          
-
+<header class="intro-header" style="background-image: url('/img/banner.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>二元樹(Binary Tree)</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-09-08
+                        
+                    </span>
+                </div>
+            </div>
         </div>
-      </header>
-    
+    </div>
+</header>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-      
-      
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
 
-      
-        <h2 id="樹-tree"><a class="header-anchor" href="#樹-tree">¶</a>樹 Tree</h2>
+
+<a href="/tags/Python/">#Python</a> <a href="/tags/Data-Structure/">#Data Structure</a> <a href="/tags/Tree/">#Tree</a> <a href="/tags/Binary-Tree/">#Binary Tree</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/course/">學校課程</a>/ <a href="/categories/course/資料結構/">資料結構</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="樹-tree">樹 Tree</h2>
 <p>生活中常見各式各樣的數狀圖，像是族譜、賽程表等等，至於在計算機科學中，<code>tree</code>則是一種<a href="https://en.wikipedia.org/wiki/Abstract_data_type" target="_blank" rel="noopener">抽象資料型別(Abstract Data Type)</a>，是一種具有階層式 (Hierarchical) 的數狀資料集合。</p>
-<p><img src="/images/creatures.png" alt title="物種分類"></p>
+<p><img src="/images/creatures.png" title="物種分類"></p>
 <a id="more"></a>
-<h3 id="定義"><a class="header-anchor" href="#定義">¶</a>定義</h3>
-<p>樹 (tree) 是一個由一個或多個節點 (node) 所組成的集合，滿足以下兩點：</p>
-<ol>
-<li>有一個特別的節點叫作「根」(root)</li>
-<li>其餘的節點 (node) 可被分割為 n &gt;= 0 個互斥 (disjoint) 的集合 T<sub>1</sub>, …, T<sub>n</sub> , 每個集合都是一棵樹，並且稱作根的「子樹」 (subtree)</li>
-</ol>
-<h3 id="名詞介紹"><a class="header-anchor" href="#名詞介紹">¶</a>名詞介紹</h3>
-<p><img src="/images/tree.png" alt title="Tree"></p>
-<ol>
-<li><code>degree</code> : 一個 node 子節點的個數，e.g. degree(A) = 3, degree© = 1, degree(F) = 0</li>
+<h3 id="定義">定義</h3>
+<p>樹 (tree) 是一個由一個或多個節點 (node) 所組成的集合，滿足以下兩點： 1. 有一個特別的節點叫作「根」(root) 2. 其餘的節點 (node) 可被分割為 n &gt;= 0 個互斥 (disjoint) 的集合 T<sub>1</sub>, ..., T<sub>n</sub> , 每個集合都是一棵樹，並且稱作根的「子樹」 (subtree)</p>
+<h3 id="名詞介紹">名詞介紹</h3>
+<p><img src="/images/tree.png" title="Tree"></p>
+<ol type="1">
+<li><code>degree</code> : 一個 node 子節點的個數，e.g. degree(A) = 3, degree(C) = 1, degree(F) = 0</li>
 <li><code>leaf (terminal)</code> : degree = 0 的 node，e.g. leaf = {K, L, F, G, M, I, J}</li>
 <li><code>parent &amp; children</code> : A 是 B 的 parent, B 是 A 的 children</li>
 <li><code>siblings</code> : 具有相同 parent 的 nodes, e.g. B, C, D 是 siblings</li>
@@ -443,821 +221,140 @@
 <li><code>level</code> : root 的 level 為 0 或 1，children 的 level 為 root 的 level + 1，以此類推</li>
 <li><code>height (depth)</code> : 所有 node 中 level 的最大值代表這棵數的 height (depth)</li>
 </ol>
-<h3 id="表示方法"><a class="header-anchor" href="#表示方法">¶</a>表示方法</h3>
-<ol>
-<li>
-<p>List Representation<br>
-<img src="/images/list_bt.png" alt title="List Representation"><br>
-<img src="/images/list_bt_ex.png" alt title="List Representation Example"></p>
-</li>
-<li>
-<p>Left Child-Right Sibling Representation<br>
-<img src="/images/lcrs.png" alt title="Left Child-Right Sibling Representation"><br>
-<img src="/images/lcrs_ex.png" alt title="Left Child-Right Sibling Representation Example"></p>
-</li>
-<li>
-<p>Representation as Degree-Two Tree (Left Child-Right Child)<br>
-<img src="/images/lcrc_ex.png" alt title="Left Child-Right Child Example"></p>
-</li>
+<h3 id="表示方法">表示方法</h3>
+<ol type="1">
+<li><p>List Representation <img src="/images/list_bt.png" title="List Representation"> <img src="/images/list_bt_ex.png" title="List Representation Example"></p></li>
+<li><p>Left Child-Right Sibling Representation <img src="/images/lcrs.png" title="Left Child-Right Sibling Representation"> <img src="/images/lcrs_ex.png" title="Left Child-Right Sibling Representation Example"></p></li>
+<li><p>Representation as Degree-Two Tree (Left Child-Right Child) <img src="/images/lcrc_ex.png" title="Left Child-Right Child Example"></p></li>
 </ol>
 <hr>
-<h2 id="二元樹-binary-tree"><a class="header-anchor" href="#二元樹-binary-tree">¶</a>二元樹 Binary Tree</h2>
+<h2 id="二元樹-binary-tree">二元樹 Binary Tree</h2>
 <p>以上介紹的<code>tree</code>並沒有限制<code>subtree</code>的數量，但我們一般較常用的還是接下來要介紹的二元樹 (Binary Tree) 。</p>
-<p>二元樹有以下幾點特性：</p>
-<ol>
-<li>每個 node 的 degree 不超過 2</li>
-<li>binary tree 可以不存在任何的節點 (empty)</li>
-<li>需要區分左子樹與右子樹，也就是左右子樹互換位置的話就會形成另一個新的樹</li>
+<p>二元樹有以下幾點特性： 1. 每個 node 的 degree 不超過 2 2. binary tree 可以不存在任何的節點 (empty) 3. 需要區分左子樹與右子樹，也就是左右子樹互換位置的話就會形成另一個新的樹</p>
+<h3 id="二元樹的表示方法">二元樹的表示方法</h3>
+<ol type="1">
+<li>Array Representation <img src="/images/array_representation.png" title="Array Representation"></li>
 </ol>
-<h3 id="二元樹的表示方法"><a class="header-anchor" href="#二元樹的表示方法">¶</a>二元樹的表示方法</h3>
-<ol>
-<li>Array Representation<br>
-<img src="/images/array_representation.png" alt title="Array Representation"></li>
-</ol>
-<p>使用<code>array</code>來表示<code>binary tree</code>通常會具有以下的特性：</p>
-<ul>
-<li>parent index = ⌊ current index / 2 ⌋</li>
-<li>leftChild index = current index * 2</li>
-<li>rightChild index = current index * 2 + 1<br>
-但是使用<code>array</code>表示，常常會造成空間上的浪費，如：</li>
-</ul>
-<p><img src="/images/skew_binary_tree.png" alt title="Skew Binary Tree"></p>
+<p>使用<code>array</code>來表示<code>binary tree</code>通常會具有以下的特性： * parent index = ⌊ current index / 2 ⌋ * leftChild index = current index * 2 * rightChild index = current index * 2 + 1 但是使用<code>array</code>表示，常常會造成空間上的浪費，如：</p>
+<p><img src="/images/skew_binary_tree.png" title="Skew Binary Tree"></p>
 <p>能夠最有效利用<code>array</code>空間的樹是<code>complete binary tree</code>，像是<code>heap</code>就非常適合用<code>array</code>進行實作。</p>
-<ol start="2">
-<li>Linked Representation<br>
-<img src="/images/linked_representation.png" alt title="Linked Representation"></li>
+<ol start="2" type="1">
+<li>Linked Representation <img src="/images/linked_representation.png" title="Linked Representation"></li>
 </ol>
 <p>另一種表示方法是使用<code>linked list</code>實作，雖然每個<code>node</code>都需要額外的空間來儲存<code>link</code>，但是對於空間上的利用卻能夠進行比較有效的管控。</p>
-<h3 id="實作"><a class="header-anchor" href="#實作">¶</a>實作</h3>
-<p>以下使用<code>python</code>以<a href="../../../09/02/%E9%80%A3%E7%B5%90%E4%B8%B2%E5%88%97-Linked-List"><code>Linked List</code></a>實作<code>Binary Tree</code>。</p>
-<p>首先定義樹的節點：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, data=None, left=None, right=None)</span>:</span></span><br><span class="line">        self.data = data</span><br><span class="line">        self.left = left</span><br><span class="line">        self.right = right</span><br></pre></td></tr></table></figure>
+<h3 id="實作">實作</h3>
+<p>以下使用<code>python</code>以<a href="../../../09/02/連結串列-Linked-List"><code>Linked List</code></a>實作<code>Binary Tree</code>。</p>
+<p>首先定義樹的節點： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, data=None, left=None, right=None)</span>:</span></span><br><span class="line">        self.data = data</span><br><span class="line">        self.left = left</span><br><span class="line">        self.right = right</span><br></pre></td></tr></table></figure></p>
 <p>接著是二元樹的類別以及基本方法：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinaryTree</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root=None)</span>:</span></span><br><span class="line">        self.root = root</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> node <span class="keyword">is</span> <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">left_child</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.isEmpty(node):</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">return</span> node.left</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">right_child</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.isEmpty(node):</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">return</span> node.right</span><br></pre></td></tr></table></figure>
-<h3 id="二元樹的遍歷-traversal"><a class="header-anchor" href="#二元樹的遍歷-traversal">¶</a>二元樹的遍歷 Traversal</h3>
-<p>若遍歷一棵樹具有以下三個步驟，</p>
-<ul>
-<li>L: moving left</li>
-<li>V: visiting the node</li>
-<li>R: moving right</li>
-</ul>
+<h3 id="二元樹的遍歷-traversal">二元樹的遍歷 Traversal</h3>
+<p>若遍歷一棵樹具有以下三個步驟，<br>
+* L: moving left * V: visiting the node * R: moving right</p>
 <p>則遍歷的方法就有，L,V,R 三種步驟的排列數 = 3! = 6 種: LVR, LRV, VLR, VRL, RLV, RVL 。</p>
-<p>取其中三種當作遍歷的方法：</p>
-<ul>
-<li>preorder:   VLR</li>
-<li>inorder:       LVR</li>
-<li>postorder: LRV</li>
-</ul>
+<p>取其中三種當作遍歷的方法： * preorder:   VLR * inorder:       LVR * postorder: LRV</p>
 <p>記的方法很簡單，看 V 的位置就對了，若 V 的位置在前面就是<code>preorder</code>，在中間就是<code>inorder</code>，在後面就是<code>postorder</code>。</p>
-<ol>
-<li>Inorder Traversal</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inorder</span><span class="params">(self, node)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> node:</span><br><span class="line">        self.inorder(node.left)</span><br><span class="line">        print(node.data, end=<span class="string">" "</span>)</span><br><span class="line">        self.inorder(node.right)</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>Preorder Traversal</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">preorder</span><span class="params">(self, node)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> node:</span><br><span class="line">        print(node.data, end=<span class="string">" "</span>)</span><br><span class="line">        self.preorder(node.left)</span><br><span class="line">        self.preorder(node.right)</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>Postorder Traversal</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">postorder</span><span class="params">(self, node)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> node:</span><br><span class="line">        self.postorder(node.left)</span><br><span class="line">        self.postorder(node.right)</span><br><span class="line">        print(node.data, end=<span class="string">" "</span>)</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>Level-Order Traversal<br>
-第四種遍歷的方法，依照<code>node</code>的<code>level</code>的順序依序拜訪各結點。</li>
+<ol type="1">
+<li><p>Inorder Traversal<br>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inorder</span><span class="params">(self, node)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> node:</span><br><span class="line">        self.inorder(node.left)</span><br><span class="line">        print(node.data, end=<span class="string">" "</span>)</span><br><span class="line">        self.inorder(node.right)</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Preorder Traversal<br>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">preorder</span><span class="params">(self, node)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> node:</span><br><span class="line">        print(node.data, end=<span class="string">" "</span>)</span><br><span class="line">        self.preorder(node.left)</span><br><span class="line">        self.preorder(node.right)</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Postorder Traversal<br>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">postorder</span><span class="params">(self, node)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> node:</span><br><span class="line">        self.postorder(node.left)</span><br><span class="line">        self.postorder(node.right)</span><br><span class="line">        print(node.data, end=<span class="string">" "</span>)</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Level-Order Traversal<br>
+第四種遍歷的方法，依照<code>node</code>的<code>level</code>的順序依序拜訪各結點。</p></li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">levelorder</span><span class="params">(self, node)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line">    queue = deque()</span><br><span class="line">    queue.append(node)</span><br><span class="line">    <span class="keyword">while</span> queue:</span><br><span class="line">        node = queue.popleft()</span><br><span class="line">        print(node.data, end=<span class="string">" "</span>)</span><br><span class="line">        <span class="keyword">if</span> node.left:</span><br><span class="line">            queue.append(node.left)</span><br><span class="line">        <span class="keyword">if</span> node.right:</span><br><span class="line">            queue.append(node.right)</span><br></pre></td></tr></table></figure>
-<h3 id="其他操作"><a class="header-anchor" href="#其他操作">¶</a>其他操作</h3>
-<ol>
-<li>複製</li>
+<h3 id="其他操作">其他操作</h3>
+<ol type="1">
+<li><p>複製 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Return a Pointer to a same data from original node</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">copy</span><span class="params">(self, node)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> node:</span><br><span class="line">        <span class="keyword">return</span> TreeNode(node.data, self.copy(node.left), self.copy(node.right))</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">None</span></span><br></pre></td></tr></table></figure></p></li>
+<li><p>相等 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">equal</span><span class="params">(first, second)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">not</span> first <span class="keyword">and</span> <span class="keyword">not</span> second) <span class="keyword">or</span> (first <span class="keyword">and</span> second <span class="keyword">and</span> (first.data == second.data) \</span><br><span class="line"><span class="keyword">and</span> BinaryTree.equal(first.left, second.left) <span class="keyword">and</span> BinaryTree.equal(first.right, second.right))</span><br></pre></td></tr></table></figure></p></li>
 </ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Return a Pointer to a same data from original node</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">copy</span><span class="params">(self, node)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> node:</span><br><span class="line">        <span class="keyword">return</span> TreeNode(node.data, self.copy(node.left), self.copy(node.right))</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">None</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>相等</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">equal</span><span class="params">(first, second)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">not</span> first <span class="keyword">and</span> <span class="keyword">not</span> second) <span class="keyword">or</span> (first <span class="keyword">and</span> second <span class="keyword">and</span> (first.data == second.data) \</span><br><span class="line"><span class="keyword">and</span> BinaryTree.equal(first.left, second.left) <span class="keyword">and</span> BinaryTree.equal(first.right, second.right))</span><br></pre></td></tr></table></figure>
-<p>(未完成，待補上…)</p>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Python/" rel="tag"># Python</a>
-          
-            <a href="/tags/Data-Structure/" rel="tag"># Data Structure</a>
-          
-            <a href="/tags/Tree/" rel="tag"># Tree</a>
-          
-            <a href="/tags/Binary-Tree/" rel="tag"># Binary Tree</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/09/06/堆疊-Stack-與佇列-Queue/" rel="next" title="堆疊(Stack)與佇列(Queue)">
-                <i class="fa fa-chevron-left"></i> 堆疊(Stack)與佇列(Queue)
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/10/挑戰LeetCode-Weekly-Contest-49/" rel="prev" title="挑戰LeetCode Weekly Contest 49">
-                挑戰LeetCode Weekly Contest 49 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
+<p>(未完成，待補上...)</p>
 
 
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-  <div class="comments" id="comments">
-    
-  </div>
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="QOO">
-          <p class="site-author-name" itemprop="name">QOO</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-           
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives/">
-                <span class="site-state-item-count">23</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
+                
             </div>
-          
 
-          
+            <!-- Comments -->
             
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">8</span>
-                <span class="site-state-item-name">categories</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">24</span>
-                <span class="site-state-item-name">tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
         </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#樹-tree"><span class="nav-number">1.</span> <span class="nav-text">¶樹 Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定義"><span class="nav-number">1.1.</span> <span class="nav-text">¶定義</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#名詞介紹"><span class="nav-number">1.2.</span> <span class="nav-text">¶名詞介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表示方法"><span class="nav-number">1.3.</span> <span class="nav-text">¶表示方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二元樹-binary-tree"><span class="nav-number">2.</span> <span class="nav-text">¶二元樹 Binary Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二元樹的表示方法"><span class="nav-number">2.1.</span> <span class="nav-text">¶二元樹的表示方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#實作"><span class="nav-number">2.2.</span> <span class="nav-text">¶實作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二元樹的遍歷-traversal"><span class="nav-number">2.3.</span> <span class="nav-text">¶二元樹的遍歷 Traversal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他操作"><span class="nav-number">2.4.</span> <span class="nav-text">¶其他操作</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
     </div>
-  </aside>
+</article>
 
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">QOO</span>
-</div>
-
-
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
-
-
-        
-<div class="busuanzi-count">
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
-    </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
-    </span>
-  
-</div>
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
+    <!-- Footer -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
 
+<hr>
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
 
+                    
 
+                    
 
+                    
 
+                    
 
+                    
+                    <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-user"> 訪客數: </i><span id="busuanzi_value_site_uv"></span>
+                    </span>
+                    <span id="busuanzi_container_page_pv">
+                    <i class="fa fa-eye"> 閱讀次數: </i><span id="busuanzi_value_page_pv"></span>
+                    </span>
+                </ul>
+                <p class="copyright text-muted">&copy; 2019 Qoo<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
 
 
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 
-  
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 
+<!-- Disqus Comments -->
 
 
 
-
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
         tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
         }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
 </script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-  
-
-
-  
-
-  
-
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
+
 </html>
