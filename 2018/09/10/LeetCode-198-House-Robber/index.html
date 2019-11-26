@@ -2,12 +2,12 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
 
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-site-verification" content="Mxm9E-j9Gv7WuZQYUJ6BytlCEOcioYX-OQuCqPdBp6I">
+    <meta name="google-site-verification" content="Mxm9E-j9Gv7WuZQYUJ6BytlCEOcioYX-OQuCqPdBp6I" />
 
     <!--Description-->
     
@@ -23,24 +23,24 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="LeetCode#198 House Robber">
+        <meta property="og:title" content="LeetCode#198 House Robber"/>
     
 
     <!--Open Graph Description-->
     
 
     <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="Qoo&#39;s Blog">
+    <meta property="og:site_name" content="Qoo&#39;s Blog"/>
 
     <!--Type page-->
     
-        <meta property="og:type" content="article">
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
     
 
-        <meta name="twitter:card" content="summary">
+        <meta name="twitter:card" content="summary" />
     
 
     <!-- Title -->
@@ -48,7 +48,7 @@
     <title>LeetCode#198 House Robber - Qoo&#39;s Blog</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/style.css">
@@ -66,7 +66,7 @@
     <![endif]-->
 
     <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
 
     <!-- Google Analytics -->
     
@@ -74,7 +74,7 @@
 
     <!-- favicon -->
     
-    <link rel="icon" href="/img/favicon.ico"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <link rel="icon" href="/img/favicon.ico"/><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 	
 </head>
@@ -134,7 +134,7 @@
                     </li>
                 
                     <li>
-                        <a href="https://github.com/p61402">
+                        <a href="https://github.com/p61402" target="_blank" rel="noopener">
                             
                                 <i class="fa fa-github fa-stack-2x"></i>
                             
@@ -218,7 +218,7 @@ Output: 12
 Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).
              Total amount you can rob = 2 + 9 + 1 = 12.</code></pre>
 <h2 id="方法">方法</h2>
-<p>使用動態規劃，假設 a<sub>n</sub> 為行竊第 n 棟房屋能夠獲得的金錢數量，可得 a<sub>n</sub> = max(a<sub>n-2</sub>, a<sub>n-3</sub>)。 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a &gt; b)</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (numsSize == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">if</span> (numsSize &gt;= <span class="number">3</span>)</span><br><span class="line">        nums[<span class="number">2</span>] += nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">3</span>; i &lt; numsSize; i++)</span><br><span class="line">        nums[i] += max(nums[i - <span class="number">2</span>], nums[i - <span class="number">3</span>]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (numsSize == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (numsSize == <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> max(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> max(nums[i - <span class="number">1</span>], nums[i - <span class="number">2</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用動態規劃，假設 a<sub>n</sub> 為行竊第 n 棟房屋能夠獲得的金錢數量，可得 a<sub>n</sub> = max(a<sub>n-2</sub>, a<sub>n-3</sub>)。 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a &gt; b)</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (numsSize == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">if</span> (numsSize &gt;= <span class="number">3</span>)</span><br><span class="line">        nums[<span class="number">2</span>] += nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">3</span>; i &lt; numsSize; i++)</span><br><span class="line">        nums[i] += <span class="built_in">max</span>(nums[i - <span class="number">2</span>], nums[i - <span class="number">3</span>]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (numsSize == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (numsSize == <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(nums[i - <span class="number">1</span>], nums[i - <span class="number">2</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
 
                 
@@ -240,7 +240,7 @@ Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (m
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
 
-<hr>
+<hr />
 <!-- Footer -->
 <footer>
     <div class="container">

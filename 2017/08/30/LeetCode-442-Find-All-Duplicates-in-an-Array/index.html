@@ -2,12 +2,12 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
 
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-site-verification" content="Mxm9E-j9Gv7WuZQYUJ6BytlCEOcioYX-OQuCqPdBp6I">
+    <meta name="google-site-verification" content="Mxm9E-j9Gv7WuZQYUJ6BytlCEOcioYX-OQuCqPdBp6I" />
 
     <!--Description-->
     
@@ -22,24 +22,24 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="LeetCode#442 Find All Duplicates in an Array">
+        <meta property="og:title" content="LeetCode#442 Find All Duplicates in an Array"/>
     
 
     <!--Open Graph Description-->
     
 
     <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="Qoo&#39;s Blog">
+    <meta property="og:site_name" content="Qoo&#39;s Blog"/>
 
     <!--Type page-->
     
-        <meta property="og:type" content="article">
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
     
 
-        <meta name="twitter:card" content="summary">
+        <meta name="twitter:card" content="summary" />
     
 
     <!-- Title -->
@@ -47,7 +47,7 @@
     <title>LeetCode#442 Find All Duplicates in an Array - Qoo&#39;s Blog</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/style.css">
@@ -65,7 +65,7 @@
     <![endif]-->
 
     <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
 
     <!-- Google Analytics -->
     
@@ -73,7 +73,7 @@
 
     <!-- favicon -->
     
-    <link rel="icon" href="/img/favicon.ico"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <link rel="icon" href="/img/favicon.ico"/><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 	
 </head>
@@ -133,7 +133,7 @@
                     </li>
                 
                     <li>
-                        <a href="https://github.com/p61402">
+                        <a href="https://github.com/p61402" target="_blank" rel="noopener">
                             
                                 <i class="fa fa-github fa-stack-2x"></i>
                             
@@ -211,7 +211,7 @@
 <h2 id="輸出">輸出</h2>
 <pre><code>[2, 3]</code></pre>
 <h2 id="方法">方法</h2>
-<p>負號標記法<br>
+<p>負號標記法<br />
 將陣列<code>nums</code>的值遍歷一次，將每個出現過的值當作<code>index</code>，將對應到的<code>num[index]</code>的值乘上<code>-1</code>，若對應到的值已經為負數的話，代表已經出現過 1 次，目前是第 2 次，這樣就能找出所有出現過 2 次的元素了。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findDuplicates</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        ans = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> nums[abs(i) - <span class="number">1</span>] &lt; <span class="number">0</span>:</span><br><span class="line">                ans.append(abs(i))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                nums[abs(i) - <span class="number">1</span>] *= <span class="number">-1</span></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
 <p>#448 Find All Numbers Disappeared in an Array，也可以用同樣的方法來解。</p>
@@ -236,7 +236,7 @@
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
 
-<hr>
+<hr />
 <!-- Footer -->
 <footer>
     <div class="container">
