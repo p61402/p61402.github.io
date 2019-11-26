@@ -11,7 +11,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="¶問題
+        <meta name="description" content="問題
 給一串元素相異的數列，求由此數列之元素所組成的所有子集合。">
     
 
@@ -203,13 +203,12 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h2 id="問題"><a class="header-anchor" href="#問題">¶</a>問題</h2>
+                <h2 id="問題">問題</h2>
 <p>給一串元素相異的數列，求由此數列之元素所組成的所有子集合。</p>
 <a id="more"></a>
-<h2 id="輸入"><a class="header-anchor" href="#輸入">¶</a>輸入</h2>
-<pre><code>[1,2,3]
-</code></pre>
-<h2 id="輸出"><a class="header-anchor" href="#輸出">¶</a>輸出</h2>
+<h2 id="輸入">輸入</h2>
+<pre><code>[1,2,3]</code></pre>
+<h2 id="輸出">輸出</h2>
 <pre><code>[
   [3],
   [1],
@@ -219,10 +218,9 @@
   [2,3],
   [1,2],
   []
-]
-</code></pre>
-<h2 id="方法"><a class="header-anchor" href="#方法">¶</a>方法</h2>
-<p>每個元素可以出現或是不出現，每一種組合方法都是一個子集合，所以時間複雜度是O(2<sup>n</sup>) 。<br>
+]</code></pre>
+<h2 id="方法">方法</h2>
+<p>每個元素可以出現或是不出現，每一種組合方法都是一個子集合，所以時間複雜度是O(2<sup>n</sup>) 。<br />
 利用<code>Backtracking</code>遞迴枚舉所有可能。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subsets</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        self.length = len(nums)</span><br><span class="line">        self.ans = []</span><br><span class="line">        self.backtrack(nums, [])</span><br><span class="line">        <span class="keyword">return</span>(self.ans)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">backtrack</span><span class="params">(self, nums, n)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> len(n) == self.length:</span><br><span class="line">            a = [nums[i] <span class="keyword">for</span> i, v <span class="keyword">in</span> enumerate(n) <span class="keyword">if</span> v]</span><br><span class="line">            self.ans.append(a)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.backtrack(nums, n + [<span class="literal">True</span>])</span><br><span class="line">            self.backtrack(nums, n + [<span class="literal">False</span>])</span><br></pre></td></tr></table></figure>
 <p>其他解法以及類似問題請看<a href="https://discuss.leetcode.com/topic/46159/a-general-approach-to-backtracking-questions-in-java-subsets-permutations-combination-sum-palindrome-partitioning" target="_blank" rel="noopener">這裡</a>。</p>

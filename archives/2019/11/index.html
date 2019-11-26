@@ -11,9 +11,6 @@
 
     <!--Description-->
     
-        <meta name="description" content="問題
-給定一個整數的陣列nums，其中有兩個數的和會等於目標target，回傳他們的位置，且同個位置不能重複選取。">
-    
 
     <!--Author-->
     
@@ -22,7 +19,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="LeetCode#1 Two Sums"/>
+        <meta property="og:title" content="Qoo&#39;s Blog"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +30,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="website" />
     
 
     <!--Page Cover-->
@@ -44,7 +41,7 @@
 
     <!-- Title -->
     
-    <title>LeetCode#1 Two Sums - Qoo&#39;s Blog</title>
+    <title>Archives: 2019/11 - Qoo&#39;s Blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -148,96 +145,49 @@
 </nav>
 
     <!-- Main Content -->
-    <!-- Page Header -->
-<!-- Set your background image for this header in your post front-matter: cover -->
+    
 
+<!-- Page Header -->
+<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('/img/banner.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>LeetCode#1 Two Sums</h1>
-                    
-                    <span class="meta">
-                        <!-- Date and Author -->
-                        
-                        
-                            2017-08-26
-                        
-                    </span>
+                <div class="site-heading">
+                    <h1>2019/11</h1>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-            <!-- Tags and categories -->
-           
-                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
-                    
-                        
-
-
-<a href="/tags/LeetCode/">#LeetCode</a> <a href="/tags/Hash/">#Hash</a> <a href="/tags/Python/">#Python</a>
-
-
-                    
-                </div>
-                <div class="col-lg-4 col-md-5 post-categories">
-                    
-                        
-
-<a href="/categories/code/">程式解題</a>/ <a href="/categories/code/LeetCode/">LeetCode</a>
-
-                    
-                </div>
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             
-
-            <!-- Gallery -->
+                <div class="post-preview">
+    <a href="/2019/11/27/Leetcode-解題整理/">
+        <h1 class="post-title archive">
+            Leetcode 解題整理 Python
+        </h1>
+    </a>
+    <p class="post-meta archive">
+        <!-- Date and Author -->
+        
+        2019-11-27
+    </p>
+</div>
             
-
-            <!-- Post Main Content -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h2 id="問題">問題</h2>
-<p>給定一個整數的陣列<code>nums</code>，其中有兩個數的和會等於目標<code>target</code>，回傳他們的位置，且同個位置不能重複選取。</p>
-<a id="more"></a>
-<h2 id="輸入">輸入</h2>
-<pre><code>nums = [2, 7, 11, 15]
-target = 9</code></pre>
-<h2 id="輸出">輸出</h2>
-<pre><code>[0, 1]</code></pre>
-<h2 id="方法">方法</h2>
-<ul>
-<li>Brute Force</li>
-<li>Hash Table</li>
+            <div class="archive-before-pagination"></div>
+            <ul class="pager">
+    
+    
 </ul>
-<p>第一種方法就是直接使用暴力法，把陣列裡面的元素都加加看，但是時間複雜度會到O(n<sup>2</sup>)。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">                <span class="keyword">if</span> nums[i] + nums[j] == target:</span><br><span class="line">                    <span class="keyword">return</span> [i, j]</span><br></pre></td></tr></table></figure>
-<p>居然吃了一發TLE，沒想到第一題就玩真的，只好另尋他法了。<br />
-這時想到<code>python</code>中相當好用的<code>dictionary</code>，第二種方法就是利用雜湊表將讀到的 index 及 value 紀錄下來，即可在讀入一個新的數之後查看這個數的 complement 是否在 table 當中，這樣就可以完美找到一組解啦。<br />
-因為使用了<code>dictionary</code>，所以查表的時間只要O(1)，最後時間複雜度降到了O(n)，當然也就順利通過了！</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        dic = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i, n <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            <span class="keyword">if</span> target - n <span class="keyword">in</span> dic:</span><br><span class="line">                <span class="keyword">return</span> [dic[target - n], i]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dic[n] = i</span><br></pre></td></tr></table></figure>
-
-
-                
-            </div>
-
-            <!-- Comments -->
-            
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    
-
-
-                </div>
-            
         </div>
     </div>
-</article>
+</div>
+
 
     <!-- Footer -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">

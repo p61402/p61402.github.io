@@ -11,7 +11,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="¶問題
+        <meta name="description" content="問題
 給兩個整數x與y，計算兩者的 Hamming Distance 。">
     
 
@@ -203,24 +203,14 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h2 id="問題"><a class="header-anchor" href="#問題">¶</a>問題</h2>
-<p>給兩個整數<code>x</code>與<code>y</code>，計算兩者的 Hamming Distance 。</p>
-<a id="more"></a>
-<h2 id="輸入"><a class="header-anchor" href="#輸入">¶</a>輸入</h2>
-<pre><code>x = 1, y = 4
-</code></pre>
-<h2 id="輸出"><a class="header-anchor" href="#輸出">¶</a>輸出</h2>
-<pre><code>2
-</code></pre>
-<h2 id="方法"><a class="header-anchor" href="#方法">¶</a>方法</h2>
-<p>所謂的 Hamming Distance 就是兩個<code>string</code>中有幾個相異的位元個數，舉個例子：</p>
+                <h2 id="問題">問題</h2>
+<p>給兩個整數<code>x</code>與<code>y</code>，計算兩者的 Hamming Distance 。 <a id="more"></a> ## 輸入 ## x = 1, y = 4 ## 輸出 ## 2 ## 方法 ## 所謂的 Hamming Distance 就是兩個<code>string</code>中有幾個相異的位元個數，舉個例子：</p>
 <pre><code>1 = (0 0 0 1)
 4 = (0 1 0 0)
-       ↑   ↑
-</code></pre>
-<p>1 跟 4 有兩個相異的位元個數，因此 1 跟 4 的 Hamming Distance 為 2 。<br>
-我們可以很直覺的想到可以用 exclusive or 簡單的計算出來，也就是兩個 bit 相同時輸出 0 ，兩個 bit 相異時輸出 1 ，最後再計算總共有幾位數為 1 即可。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hammingDistance</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bin(x^y).count(<span class="string">"1"</span>)</span><br></pre></td></tr></table></figure>
+       ↑   ↑</code></pre>
+<p>1 跟 4 有兩個相異的位元個數，因此 1 跟 4 的 Hamming Distance 為 2 。<br />
+我們可以很直覺的想到可以用 exclusive or 簡單的計算出來，也就是兩個 bit 相同時輸出 0 ，兩個 bit 相異時輸出 1 ，最後再計算總共有幾位數為 1 即可。<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hammingDistance</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bin(x^y).count(<span class="string">"1"</span>)</span><br></pre></td></tr></table></figure></p>
 
 
                 
