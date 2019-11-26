@@ -2,37 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://p61402.github.io/2018/12/05/CS224n-assignment-1/</loc>
+    <loc>https://p61402.github.io/2019/05/29/CS231n-assignment-3/</loc>
     
-    <lastmod>2019-11-26T16:38:43.029Z</lastmod>
+    <lastmod>2019-11-26T16:46:04.640Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://p61402.github.io/2019/05/04/CS231n-assignment-2/</loc>
+    
+    <lastmod>2019-11-26T16:45:59.511Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://p61402.github.io/2019/04/20/CS231n-assignment-1/</loc>
     
-    <lastmod>2019-11-26T16:38:38.327Z</lastmod>
+    <lastmod>2019-11-26T16:45:55.955Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://p61402.github.io/2018/12/31/CS224n-assignment-2/</loc>
     
-    <lastmod>2019-11-26T16:38:33.582Z</lastmod>
+    <lastmod>2019-11-26T16:45:52.931Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://p61402.github.io/2019/05/29/CS231n-assignment-3/</loc>
+    <loc>https://p61402.github.io/2018/12/05/CS224n-assignment-1/</loc>
     
-    <lastmod>2019-11-26T16:37:18.156Z</lastmod>
+    <lastmod>2019-11-26T16:45:49.032Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://p61402.github.io/2019/06/12/%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E7%B6%93%E5%85%B8%E6%BC%94%E7%AE%97%E6%B3%95%E5%AF%A6%E4%BD%9C-Linear-Regression/</loc>
     
-    <lastmod>2019-11-26T16:36:17.096Z</lastmod>
+    <lastmod>2019-11-26T16:45:20.144Z</lastmod>
     
   </url>
   
@@ -40,13 +47,6 @@
     <loc>https://p61402.github.io/2019/05/27/2019%E6%9A%91%E6%9C%9F%E5%AF%A6%E7%BF%92%E9%9D%A2%E8%A9%A6%E5%BF%83%E5%BE%97/</loc>
     
     <lastmod>2019-06-08T13:33:48.400Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://p61402.github.io/2019/05/04/CS231n-assignment-2/</loc>
-    
-    <lastmod>2019-05-19T17:03:09.585Z</lastmod>
     
   </url>
   
